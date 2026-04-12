@@ -14,7 +14,8 @@ render_target_update_mode = 4
 
 [node name="Level1" parent="SubViewport" unique_id=721887044 instance=ExtResource("1_uwrxv")]
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1739333988]
+[node name="TextureViewPort" type="TextureRect" parent="." unique_id=1739333988]
+texture_filter = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = SubResource("ViewportTexture_8cj0n")

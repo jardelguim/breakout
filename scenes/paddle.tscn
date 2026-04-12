@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b4yqt20fg36v4"]
+
+[ext_resource type="Texture2D" uid="uid://bnhy7rdmkk3ob" path="res://assets/paddle.png" id="1_3xiby"]
+
+[node name="Paddle" type="Area2D" unique_id=517680683]
+
+[node name="PaddleSprite" type="Sprite2D" parent="." unique_id=728051864]
+texture = ExtResource("1_3xiby")
