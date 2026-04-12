@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://disc1xer5wdd3"]
+
+[ext_resource type="PackedScene" uid="uid://6ifm3eoe0fpc" path="res://scenes/level_1.tscn" id="1_uwrxv"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8cj0n"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Game" type="Node2D" unique_id=433745597]
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=968465022]
+handle_input_locally = false
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+
+[node name="Level1" parent="SubViewport" unique_id=721887044 instance=ExtResource("1_uwrxv")]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1739333988]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("ViewportTexture_8cj0n")
+stretch_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=757721974]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

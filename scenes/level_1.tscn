@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://6ifm3eoe0fpc"]
+
+[node name="Level1" type="Node2D" unique_id=721887044]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=354290095]
+offset_right = 320.0
+offset_bottom = 180.0
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1733837171]
+polygon = PackedVector2Array(50.34839, 46.50652, 141.46838, 47.746532, 134.46838, 131.74652, 45.508423, 122.73652)
+uv = PackedVector2Array(-469, -19, -390, -36, -397, 48)
