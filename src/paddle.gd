@@ -6,7 +6,7 @@ func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)
 
 func _physics_process(delta: float) -> void:
-	var direction := InputManager.get_paddle_direction()
+	var direction = InputManager.get_paddle_direction()
 	position.x += direction * SPEED * get_physics_process_delta_time()
 	_clamp_position()
 
