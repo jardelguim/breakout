@@ -4,19 +4,30 @@ extends Area2D
 
 func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)
+	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 
-func _physics_process(delta: float) -> void:
-	var direction := InputManager.get_paddle_direction()
-	position.x += direction * SPEED * get_physics_process_delta_time()
-	_clamp_position()
+func _on_action_pressed(action: String, delta: float) -> void:
+	match action:
+		"move_right":
+			_move_right(delta)
+		"move_left":
+			_move_left(delta)
 
-func _on_action_pressed(action: String) -> void:
+func _on_action_just_pressed(action: String, delta: float) -> void:
 	match action:
 		"launch":
-			_launch_ball()
+			_launch_ball(delta)
 
-func _launch_ball() -> void:
-	pass
+func _launch_ball(delta) -> void:
+	print("Bola lançada")
+
+func _move_right(delta) -> void:
+	position.x += 1 * SPEED * delta
+	_clamp_position()
+
+func _move_left(delta) -> void:
+	position.x += -1 * SPEED * delta
+	_clamp_position()
 
 func _clamp_position() -> void:
 	var half_width: float = $CollisionShape2D.shape.size.x / 2.0
