@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://6uillxp6xxjx"]
+
+[ext_resource type="Script" uid="uid://dmrej3tma67m0" path="res://src/grid.gd" id="1_t5fjg"]
+[ext_resource type="PackedScene" uid="uid://be6m7brci0ic2" path="res://scenes/brick.tscn" id="2_w88cy"]
+[ext_resource type="Texture2D" uid="uid://cht0lv5s87uo1" path="res://assets/level_frame.png" id="3_2s7k2"]
+
+[node name="Grid" type="Node2D" unique_id=1177997231]
+script = ExtResource("1_t5fjg")
+brick = ExtResource("2_w88cy")
+
+[node name="Frame" type="TextureRect" parent="." unique_id=2035566299]
+offset_right = 320.0
+offset_bottom = 180.0
+texture = ExtResource("3_2s7k2")
