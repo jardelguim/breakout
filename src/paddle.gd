@@ -18,7 +18,7 @@ func _on_action_just_pressed(action: String, delta: float) -> void:
 		"launch":
 			_launch_ball(delta)
 
-func _launch_ball(delta) -> void:
+func _launch_ball(_delta) -> void:
 	print("Bola lançada")
 
 func _move_right(delta) -> void:

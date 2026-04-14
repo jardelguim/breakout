@@ -19,6 +19,7 @@ func start_grid() -> void:
 	'''Função para gerar um novo grid de bricks'''
 	for x in range(columns):
 		for y in range(rows):
+			# Add random open spaces
 			var randomNumber = randi_range(0 , 2)
 			if randomNumber > 0:
 				var new_brick = brick.instantiate()
@@ -26,6 +27,3 @@ func start_grid() -> void:
 				var y_pos = y_offset + y * (brick_height + padding)
 				new_brick.position = Vector2(x_pos , y_pos)
 				brick_container.add_child(new_brick)
-	
-func _add_brick(brick_height , brick_width) -> void:
-	pass

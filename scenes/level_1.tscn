@@ -5,9 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://b4yqt20fg36v4" path="res://scenes/paddle.tscn" id="2_bswci"]
 [ext_resource type="PackedScene" uid="uid://6uillxp6xxjx" path="res://scenes/grid.tscn" id="4_5xbjy"]
 
-[sub_resource type="TileSet" id="TileSet_5xbjy"]
-tile_size = Vector2i(12, 12)
-
 [node name="Level1" type="Node2D" unique_id=721887044]
 script = ExtResource("1_rus8k")
 
@@ -18,9 +15,6 @@ texture = ExtResource("1_014kd")
 
 [node name="Paddle" parent="." unique_id=517680683 instance=ExtResource("2_bswci")]
 position = Vector2(153, 165)
-
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1841496659]
-tile_set = SubResource("TileSet_5xbjy")
 
 [node name="Grid" parent="." unique_id=1177997231 instance=ExtResource("4_5xbjy")]
 
