@@ -12,3 +12,5 @@ brick = ExtResource("2_w88cy")
 offset_right = 320.0
 offset_bottom = 180.0
 texture = ExtResource("3_2s7k2")
+
+[node name="BrickContainer" type="Marker2D" parent="." unique_id=850376959]

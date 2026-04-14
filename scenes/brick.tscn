@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://jb6fe7q0cj25" path="res://assets/brick.png" id="1_5l4w1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0w5h4"]
-size = Vector2(20, 10)
+size = Vector2(12, 12)
 
 [node name="Brick" type="RigidBody2D" unique_id=1408615861]
 gravity_scale = 0.0
