@@ -4,7 +4,6 @@ extends Area2D
 
 func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)
-	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 
 func _on_action_pressed(action: String, delta: float) -> void:
 	match action:
@@ -12,14 +11,6 @@ func _on_action_pressed(action: String, delta: float) -> void:
 			_move_right(delta)
 		"move_left":
 			_move_left(delta)
-
-func _on_action_just_pressed(action: String, delta: float) -> void:
-	match action:
-		"launch":
-			_launch_ball(delta)
-
-func _launch_ball(_delta) -> void:
-	print("Bola lançada")
 
 func _move_right(delta) -> void:
 	position.x += 1 * SPEED * delta
