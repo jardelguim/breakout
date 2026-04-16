@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var columns : int = 20
+@export var columns : int = 21
 @export var rows : int = 3
 @export var brick : PackedScene
 var brick_height = 10
