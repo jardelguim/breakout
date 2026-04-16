@@ -9,7 +9,15 @@ var x_offset = 17
 var y_offset = 15
 var padding = 5
 
+var colors : Array = [
+	Color.BLUE ,
+	Color.CHARTREUSE ,
+	Color.WEB_PURPLE ,
+]
+
 @onready var brick_container: Marker2D = $BrickContainer
+@onready var paddle: CharacterBody2D = %Paddle
+
 
 func _ready() -> void:
 	pass
@@ -18,12 +26,15 @@ func _ready() -> void:
 func start_grid() -> void:
 	'''Função para gerar um novo grid de bricks'''
 	for x in range(columns):
+		var colum_color = colors.pick_random()
 		for y in range(rows):
 			# Add random open spaces
-			var randomNumber = randi_range(0 , 2)
+			var randomNumber = randi_range(1 , 1)
 			if randomNumber > 0:
 				var new_brick = brick.instantiate()
+				new_brick.modulate = colum_color
 				var x_pos = x_offset + x * (brick_width + padding)
 				var y_pos = y_offset + y * (brick_height + padding)
 				new_brick.position = Vector2(x_pos , y_pos)
 				brick_container.add_child(new_brick)
+				

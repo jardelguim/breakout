@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cht0lv5s87uo1" path="res://assets/level_frame.png" id="1_014kd"]
 [ext_resource type="Script" uid="uid://c3vfbqcfnnmh8" path="res://src/level_1.gd" id="1_rus8k"]
 [ext_resource type="PackedScene" uid="uid://b4yqt20fg36v4" path="res://scenes/paddle.tscn" id="2_bswci"]
+[ext_resource type="PackedScene" uid="uid://qmmajfahodnw" path="res://scenes/frame.tscn" id="2_fcfvj"]
 [ext_resource type="PackedScene" uid="uid://6uillxp6xxjx" path="res://scenes/grid.tscn" id="4_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://bwthlo64pi2gx" path="res://scenes/ball.tscn" id="5_4nkto"]
 
@@ -10,11 +11,16 @@
 script = ExtResource("1_rus8k")
 
 [node name="Frame" type="TextureRect" parent="." unique_id=354290095]
+visible = false
 offset_right = 320.0
 offset_bottom = 180.0
 texture = ExtResource("1_014kd")
 
+[node name="Frame2" parent="." unique_id=783576445 instance=ExtResource("2_fcfvj")]
+position = Vector2(159, 88)
+
 [node name="Paddle" parent="." unique_id=517680683 instance=ExtResource("2_bswci")]
+unique_name_in_owner = true
 position = Vector2(153, 165)
 
 [node name="Grid" parent="." unique_id=1177997231 instance=ExtResource("4_5xbjy")]
