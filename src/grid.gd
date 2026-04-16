@@ -1,13 +1,14 @@
 extends Node2D
 
-@export var columns : int = 21
+const max_columns = 21
+@export var columns : int = 12
 @export var rows : int = 3
 @export var brick : PackedScene
-var brick_height = 10
-var brick_width = 10
-var x_offset = 17
-var y_offset = 15
-var padding = 5
+var brick_height = 15
+var brick_width = 15
+var x_offset = 0
+var y_offset = 20
+var padding = 0
 
 var colors : Array = [
 	Color.BLUE ,
@@ -25,16 +26,20 @@ func _ready() -> void:
 
 func start_grid() -> void:
 	'''Função para gerar um novo grid de bricks'''
-	for x in range(columns):
-		var colum_color = colors.pick_random()
-		for y in range(rows):
-			# Add random open spaces
-			var randomNumber = randi_range(1 , 1)
-			if randomNumber > 0:
-				var new_brick = brick.instantiate()
-				new_brick.modulate = colum_color
-				var x_pos = x_offset + x * (brick_width + padding)
-				var y_pos = y_offset + y * (brick_height + padding)
-				new_brick.position = Vector2(x_pos , y_pos)
-				brick_container.add_child(new_brick)
-				
+	var bricks = Array()
+	
+	for line in range(rows):
+		var line_array = []
+		
+		for col in range(columns):
+			var new_brick = brick.instantiate()
+			var pos = Vector2(
+				col * brick_width,
+				y_offset + line * brick_height
+			)
+			new_brick.position = pos
+			print(new_brick.position)
+			line_array.append(new_brick)
+			brick_container.add_child(new_brick)
+	
+		bricks.append(line_array)

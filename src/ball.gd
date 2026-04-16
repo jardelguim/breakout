@@ -6,7 +6,7 @@ var is_active = true
 
 func _ready() -> void:
 	velocity = Vector2(speed * 1 , speed)
-	
+
 func _physics_process(delta: float) -> void:
 	# If active, moves the ball based on the velocity
 	if is_active:
