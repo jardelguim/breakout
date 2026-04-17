@@ -2,6 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://bnhy7rdmkk3ob" path="res://assets/paddle.png" id="1_3xiby"]
 [ext_resource type="Script" uid="uid://djkekj0cqxk17" path="res://src/paddle.gd" id="1_y7wee"]
+[ext_resource type="Shader" uid="uid://diyhfpaaxxg30" path="res://assets/shaders/shadow.gdshader" id="2_mo4dg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pacq5"]
+shader = ExtResource("2_mo4dg")
+shader_parameter/drop_shadow_color = Color(0, 0, 0, 0.5)
+shader_parameter/shadow_offset = Vector2(-0.005, 0.175)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7wee"]
 size = Vector2(66, 6)
@@ -12,6 +18,7 @@ motion_mode = 1
 script = ExtResource("1_y7wee")
 
 [node name="PaddleSprite" type="Sprite2D" parent="." unique_id=728051864]
+material = SubResource("ShaderMaterial_pacq5")
 texture = ExtResource("1_3xiby")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1071230332]

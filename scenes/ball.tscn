@@ -3,15 +3,25 @@
 [ext_resource type="Script" uid="uid://dry4lfagpgmn8" path="res://src/ball.gd" id="1_cxlvu"]
 [ext_resource type="Texture2D" uid="uid://x4firoxhcxcd" path="res://assets/ball.png" id="2_f7cbr"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eew57"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dx81"]
 radius = 4.0
 
 [node name="Ball" type="CharacterBody2D" unique_id=1066305207]
 script = ExtResource("1_cxlvu")
 
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1899209669]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_f7cbr")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1043873347]
+modulate = Color(0.9098587, 0.16027954, 0.07155854, 1)
+material = SubResource("ShaderMaterial_eew57")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_f7cbr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1989312242]
+visible = false
 shape = SubResource("CircleShape2D_4dx81")

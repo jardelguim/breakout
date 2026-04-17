@@ -1,9 +1,24 @@
 [gd_scene format=3 uid="uid://disc1xer5wdd3"]
 
 [ext_resource type="PackedScene" uid="uid://6ifm3eoe0fpc" path="res://scenes/level_1.tscn" id="1_uwrxv"]
+[ext_resource type="Shader" uid="uid://cxojjaj0ownm6" path="res://assets/shaders/postprocess/vhs_scanline.gdshader" id="2_yqjtg"]
+[ext_resource type="Shader" uid="uid://bsnswdpprdptk" path="res://assets/shaders/postprocess/vignette.gdshader" id="3_lnu2h"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8cj0n"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnu2h"]
+shader = ExtResource("2_yqjtg")
+shader_parameter/color_offset_multiplier = 0.0010000000475
+shader_parameter/black_offset_multiplier = 0.10000000149012
+shader_parameter/color_offset = 0.0020000033548800006
+shader_parameter/blur_amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbhrr"]
+shader = ExtResource("3_lnu2h")
+shader_parameter/vignette_intensity = 0.83
+shader_parameter/vignette_opacity = 0.3350000159125
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node2D" unique_id=433745597]
 
@@ -20,3 +35,21 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 texture = SubResource("ViewportTexture_8cj0n")
 stretch_mode = 4
+
+[node name="PostProcess" type="CanvasLayer" parent="." unique_id=450407155]
+
+[node name="VHSFilter" type="ColorRect" parent="PostProcess" unique_id=1960513558]
+material = SubResource("ShaderMaterial_lnu2h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="ColorRect" parent="PostProcess" unique_id=1761273327]
+material = SubResource("ShaderMaterial_lbhrr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
