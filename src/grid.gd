@@ -7,7 +7,7 @@ const max_columns = 21
 var brick_height = 15
 var brick_width = 15
 var x_offset = 0
-var y_offset = 20
+var y_offset = 15
 var padding = 0
 
 var colors : Array = [

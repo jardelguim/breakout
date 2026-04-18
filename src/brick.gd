@@ -2,13 +2,15 @@ extends RigidBody2D
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var animation_player: AnimationPlayer = $Sprite2D/AnimationPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 
 func _play_hit_animation():
 	animation_player.play("hit")
-
+	
 func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
+	angular_velocity = get_angle_to(ball_pos) * 8
 	gravity_scale = 0.2
 	var direction = -1.0 * global_position.direction_to(ball_pos)
 	var upward_force = Vector2.UP * randf_range(20 , 80)
