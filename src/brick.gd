@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: CanvasGroup = $CanvasGroup
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
