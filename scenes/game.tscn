@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://c1eqtv1h15sbc" path="res://assets/shaders/bg.gdshader" id="2_lbhrr"]
 [ext_resource type="Shader" uid="uid://cxojjaj0ownm6" path="res://assets/shaders/postprocess/vhs_scanline.gdshader" id="2_yqjtg"]
 [ext_resource type="Shader" uid="uid://bsnswdpprdptk" path="res://assets/shaders/postprocess/vignette.gdshader" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bqxg435sjxs56" path="res://scenes/UI.tscn" id="5_iywne"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iywne"]
 shader = ExtResource("2_lbhrr")
@@ -74,3 +75,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="UiLayer" type="CanvasLayer" parent="." unique_id=429580740]
+
+[node name="Ui" parent="UiLayer" unique_id=1908995237 instance=ExtResource("5_iywne")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
