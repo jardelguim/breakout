@@ -11,8 +11,9 @@
 script = ExtResource("1_rus8k")
 
 [node name="Frame" type="TextureRect" parent="." unique_id=354290095]
+visible = false
 offset_right = 320.0
-offset_bottom = 180.0
+offset_bottom = 320.0
 texture = ExtResource("1_014kd")
 
 [node name="Frame2" parent="." unique_id=783576445 instance=ExtResource("2_fcfvj")]
@@ -20,7 +21,7 @@ position = Vector2(159, 88)
 
 [node name="Paddle" parent="." unique_id=517680683 instance=ExtResource("2_bswci")]
 unique_name_in_owner = true
-position = Vector2(153, 165)
+position = Vector2(160, 290)
 
 [node name="Grid" parent="." unique_id=1177997231 instance=ExtResource("4_5xbjy")]
 

@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://6uillxp6xxjx"]
 
 [ext_resource type="Script" uid="uid://dmrej3tma67m0" path="res://src/grid.gd" id="1_t5fjg"]
-[ext_resource type="PackedScene" uid="uid://be6m7brci0ic2" path="res://scenes/brick.tscn" id="2_w88cy"]
+[ext_resource type="PackedScene" uid="uid://da43film4j2bg" path="res://scenes/brick.tscn" id="2_w88cy"]
 
 [node name="Grid" type="Node2D" unique_id=1177997231]
 script = ExtResource("1_t5fjg")
+rows = 6
 brick = ExtResource("2_w88cy")
 
 [node name="BrickContainer" type="Marker2D" parent="." unique_id=850376959]

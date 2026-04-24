@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://qmmajfahodnw"]
 
-[ext_resource type="Texture2D" uid="uid://cht0lv5s87uo1" path="res://assets/level_frame.png" id="1_dvj6e"]
+[ext_resource type="Texture2D" uid="uid://dyo5xkxiy0qmo" path="res://assets/level_frame_320.png" id="1_dvj6e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dvj6e"]
-size = Vector2(7, 192)
+size = Vector2(7, 326)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q7572"]
-size = Vector2(3, 192)
+size = Vector2(7, 325)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jlx0t"]
 size = Vector2(318, 4)
@@ -17,18 +17,19 @@ size = Vector2(318, 4)
 [node name="Frame" type="Node2D" unique_id=783576445]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2105529129]
+position = Vector2(0, 71)
 texture = ExtResource("1_dvj6e")
 
 [node name="LeftWall" type="StaticBody2D" parent="." unique_id=1901611888]
 
 [node name="LeftCollision" type="CollisionShape2D" parent="LeftWall" unique_id=928474326]
-position = Vector2(-158.5, 0)
+position = Vector2(-158.5, 67)
 shape = SubResource("RectangleShape2D_dvj6e")
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=2130426616]
 
 [node name="RightCollision" type="CollisionShape2D" parent="RightWall" unique_id=1807668768]
-position = Vector2(159, 0)
+position = Vector2(158.5, 66.5)
 shape = SubResource("RectangleShape2D_q7572")
 
 [node name="UpperWall" type="StaticBody2D" parent="." unique_id=390358064]
@@ -40,5 +41,5 @@ shape = SubResource("RectangleShape2D_jlx0t")
 [node name="FloorWall" type="StaticBody2D" parent="." unique_id=245607181]
 
 [node name="FloorCollision" type="CollisionShape2D" parent="FloorWall" unique_id=862709596]
-position = Vector2(0, 88)
+position = Vector2(0, 227)
 shape = SubResource("RectangleShape2D_ps88x")

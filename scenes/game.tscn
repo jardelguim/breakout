@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://c1eqtv1h15sbc" path="res://assets/shaders/bg.gdshader" id="2_lbhrr"]
 [ext_resource type="Shader" uid="uid://cxojjaj0ownm6" path="res://assets/shaders/postprocess/vhs_scanline.gdshader" id="2_yqjtg"]
 [ext_resource type="Shader" uid="uid://bsnswdpprdptk" path="res://assets/shaders/postprocess/vignette.gdshader" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://bqxg435sjxs56" path="res://scenes/UI.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://c1swnqbebgauo" path="res://scenes/UI.tscn" id="5_iywne"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iywne"]
 shader = ExtResource("2_lbhrr")
@@ -59,6 +59,7 @@ texture = SubResource("ViewportTexture_8cj0n")
 stretch_mode = 5
 
 [node name="PostProcess" type="CanvasLayer" parent="." unique_id=450407155]
+visible = false
 
 [node name="VHSFilter" type="ColorRect" parent="PostProcess" unique_id=1960513558]
 material = SubResource("ShaderMaterial_lnu2h")

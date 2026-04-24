@@ -10,9 +10,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# If active, moves the ball based on the velocity
 	if is_active:
+		rotate(20)
 		var collision = move_and_collide(velocity * delta)
 		
 		if collision:
+			var collider_node = collision.get_collider()
+			print(collider_node.name)
 			# Bounces to opposite direction when collision with another collision shape
 			velocity = velocity.bounce(collision.get_normal())
 			if collision.get_collider().has_method("hit"):
