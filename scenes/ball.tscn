@@ -2,6 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dry4lfagpgmn8" path="res://src/ball.gd" id="1_cxlvu"]
 [ext_resource type="Texture2D" uid="uid://x4firoxhcxcd" path="res://assets/ball.png" id="2_f7cbr"]
+[ext_resource type="Script" uid="uid://cqm4stl4cnibv" path="res://src/trail.gd" id="3_f7cbr"]
+
+[sub_resource type="Curve" id="Curve_f7cbr"]
+_data = [Vector2(0, 1), 0.0, -0.8221429, 0, 0, Vector2(1, 0), -1.2841094, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_f7cbr"]
+colors = PackedColorArray(1, 0, 0, 1, 0.37823159, 7.189531e-07, 1.92523e-07, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eew57"]
 
@@ -9,7 +17,19 @@
 radius = 4.0
 
 [node name="Ball" type="CharacterBody2D" unique_id=1066305207]
+scale = Vector2(1.5, 1.5)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_cxlvu")
+
+[node name="Trails" type="Line2D" parent="." unique_id=275523640]
+top_level = true
+z_index = -1
+width_curve = SubResource("Curve_f7cbr")
+gradient = SubResource("Gradient_f7cbr")
+script = ExtResource("3_f7cbr")
+MAX_LENGTH = 10
+metadata/_custom_type_script = "uid://cqm4stl4cnibv"
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1899209669]
 modulate = Color(0, 0, 0, 1)

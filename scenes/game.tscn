@@ -59,7 +59,6 @@ texture = SubResource("ViewportTexture_8cj0n")
 stretch_mode = 5
 
 [node name="PostProcess" type="CanvasLayer" parent="." unique_id=450407155]
-visible = false
 
 [node name="VHSFilter" type="ColorRect" parent="PostProcess" unique_id=1960513558]
 material = SubResource("ShaderMaterial_lnu2h")

@@ -29,7 +29,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 42
 bbcode_enabled = true
-text = "1.0"
+text = "1.0 x"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -39,9 +39,19 @@ vertical_alignment = 1
 [node name="Score" type="RichTextLabel" parent="VBoxContainer" unique_id=759890494]
 layout_mode = 2
 bbcode_enabled = true
-text = "000000000"
+text = "0"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Xvel" type="Label" parent="VBoxContainer" unique_id=963143556]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "100"
+
+[node name="Yvel" type="Label" parent="VBoxContainer" unique_id=773262834]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "100"

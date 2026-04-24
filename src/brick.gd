@@ -14,11 +14,11 @@ func set_brick_type() -> void:
 		"RED": 
 			score_given = 5
 			color = Color.RED
-			multiplier_given = 0.4
+			multiplier_given = 0.2
 		"GREEN": 
 			score_given = 2
 			color = Color.GREEN
-			multiplier_given = 0.3
+			multiplier_given = 0.2
 			
 		"BLUE": 
 			score_given = 1
@@ -27,19 +27,39 @@ func set_brick_type() -> void:
 			
 	modulate = color
 	
+func _play_die_animation():
+	animation_player.play("die")
+	
 func _play_hit_animation():
-	animation_player.play("hit")
+	var tween = create_tween()
+	tween.tween_property(self , "modulate" , Color.GRAY , 0.5)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
 	
 func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
 	angular_velocity = get_angle_to(ball_pos) * 8
+	_play_hit_animation()
 	gravity_scale = 0.2
 	var direction = -1.0 * global_position.direction_to(ball_pos)
 	var upward_force = Vector2.UP * randf_range(20 , 80)
 	apply_impulse(direction * 100 + upward_force)
-	collision.disabled = true
-	_play_hit_animation()
+	_change_collision_layer()
 	GameManager.game_score += score_given
 	GameManager.game_multiplier = clampf(GameManager.game_multiplier + multiplier_given , 1.0 , 2.5)
+
+func _change_collision_layer():
+	set_collision_layer_value(1 , false)
+	set_collision_mask_value(1 , false)
+	set_collision_layer_value(2 , true)
+	set_collision_mask_value(2 , true)
+	
+func entered_killzone():
+	_play_die_animation()
+	gravity_scale = 0
+	linear_velocity.y = 20
 	await get_tree().create_timer(1).timeout
 	queue_free()
+	
+	
+	
