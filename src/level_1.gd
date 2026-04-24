@@ -10,7 +10,6 @@ func _process(_delta: float) -> void:
 	pass
 
 func _ready() -> void:
-	print(screen_size)
 	grid.start_grid()
 	ball.position = screen_center
 

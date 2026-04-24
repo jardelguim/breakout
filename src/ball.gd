@@ -18,7 +18,8 @@ func _physics_process(delta: float) -> void:
 		
 		if collision:
 			var collider_node = collision.get_collider()
-			print(collider_node.name)
+			if collider_node.name == "FloorWall":
+				entered_killzone()
 			# Bounces to opposite direction when collision with another collision shape
 			velocity = velocity.bounce(collision.get_normal())
 			if collision.get_collider().has_method("hit"):

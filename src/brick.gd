@@ -45,7 +45,6 @@ func hit(ball_pos : Vector2):
 	var upward_force = Vector2.UP * randf_range(20 , 80)
 	apply_impulse(direction * 100 + upward_force)
 	_change_collision_layer()
-	GameManager.game_score += score_given
 	GameManager.game_multiplier = clampf(GameManager.game_multiplier + multiplier_given , 1.0 , 2.5)
 
 func _change_collision_layer():
@@ -55,10 +54,12 @@ func _change_collision_layer():
 	set_collision_mask_value(2 , true)
 	
 func entered_killzone():
+	collision.disabled = true
 	_play_die_animation()
 	gravity_scale = 0
 	linear_velocity.y = 20
 	await get_tree().create_timer(1).timeout
+	GameManager.game_score += score_given
 	queue_free()
 	
 	

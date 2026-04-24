@@ -6,7 +6,7 @@ const max_columns = 20
 @export var brick : PackedScene
 var brick_height = 15
 var brick_width = 15
-var x_offset = 18
+var x_offset = brick_width + 3
 var y_offset = 15
 var padding = 0
 
