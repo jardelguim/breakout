@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dbfj731vy3awl"]
+
+[sub_resource type="Gradient" id="Gradient_4foj3"]
+offsets = PackedFloat32Array(0.3442623, 0.6639344, 0.97540987)
+colors = PackedColorArray(1, 0.44705883, 0, 1, 0.7294118, 0.023529412, 0, 1, 0.7294118, 0.023529412, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ppbhl"]
+gradient = SubResource("Gradient_4foj3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kreiy"]
+emission_shape = 1
+emission_sphere_radius = 5.52
+direction = Vector3(0, -1, 0)
+spread = 0.0
+flatness = 1.0
+gravity = Vector3(0, -100, 0)
+radial_accel_min = -100.0
+radial_accel_max = -78.49
+scale_min = 0.0
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_ppbhl")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.16999997
+turbulence_enabled = true
+turbulence_noise_strength = 0.2
+turbulence_noise_speed = Vector3(0, 10, 0)
+
+[node name="FireParticles" type="GPUParticles2D" unique_id=1124014033]
+amount = 200
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_kreiy")

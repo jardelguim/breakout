@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://bwthlo64pi2gx"]
 
 [ext_resource type="Script" uid="uid://dry4lfagpgmn8" path="res://src/ball.gd" id="1_cxlvu"]
+[ext_resource type="PackedScene" uid="uid://dbfj731vy3awl" path="res://scenes/particles/fire_particles.tscn" id="2_4dx81"]
 [ext_resource type="Texture2D" uid="uid://x4firoxhcxcd" path="res://assets/ball.png" id="2_f7cbr"]
 [ext_resource type="Script" uid="uid://cqm4stl4cnibv" path="res://src/trail.gd" id="3_f7cbr"]
+[ext_resource type="PackedScene" uid="uid://b4ux7vaov3vsa" path="res://scenes/particles/explosion_particles.tscn" id="5_eew57"]
+[ext_resource type="Script" uid="uid://cps7k7fa7wnyf" path="res://src/ParticleEmitter.gd" id="6_jj7gd"]
 
 [sub_resource type="Curve" id="Curve_f7cbr"]
 _data = [Vector2(0, 1), 0.0, -0.8221429, 0, 0, Vector2(1, 0), -1.2841094, 0.0, 0, 0]
@@ -21,7 +24,11 @@ scale = Vector2(1.5, 1.5)
 collision_mask = 3
 script = ExtResource("1_cxlvu")
 
+[node name="FireParticles" parent="." unique_id=1124014033 instance=ExtResource("2_4dx81")]
+amount_ratio = 0.0
+
 [node name="Trails" type="Line2D" parent="." unique_id=275523640]
+visible = false
 top_level = true
 z_index = -1
 width_curve = SubResource("Curve_f7cbr")
@@ -41,5 +48,17 @@ material = SubResource("ShaderMaterial_eew57")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_f7cbr")
 
+[node name="ExplosionParticles" parent="." unique_id=1726222035 instance=ExtResource("5_eew57")]
+emitting = false
+one_shot = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1989312242]
 shape = SubResource("CircleShape2D_4dx81")
+
+[node name="ParticleEmitter" type="Node" parent="." unique_id=142858678]
+unique_name_in_owner = true
+script = ExtResource("6_jj7gd")
+particle_mapper = Dictionary[String, String]({
+"explosion": "res://scenes/particles/explosion_particles.tscn"
+})
+metadata/_custom_type_script = "uid://cps7k7fa7wnyf"

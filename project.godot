@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 InputManager="*uid://di8ypfk851lck"
 GameManager="*uid://bag5ndnhs6y24"
-ScoreCalculation="*uid://cbo3af8jqwdkr"
+ScoreCalculator="*uid://cbo3af8jqwdkr"
 
 [display]
 

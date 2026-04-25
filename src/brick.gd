@@ -44,7 +44,7 @@ func hit(ball_pos : Vector2):
 	var direction = -1.0 * global_position.direction_to(ball_pos)
 	var upward_force = Vector2.UP * randf_range(20 , 80)
 	apply_impulse(direction * 100 + upward_force)
-	ScoreCalculation.add_multiplier(multiplier_given)
+	ScoreCalculator.add_multiplier(multiplier_given)
 	_change_collision_layer()
 
 func _change_collision_layer():
@@ -54,10 +54,10 @@ func _change_collision_layer():
 	set_collision_mask_value(2 , true)
 	
 func entered_killzone():
-	collision.disabled = true
+	set_deferred("collision" , false)
 	_play_die_animation()
 	gravity_scale = 0
 	linear_velocity.y = 20
+	ScoreCalculator.add_score_with_multiplication(score_given)
 	await get_tree().create_timer(1).timeout
-	ScoreCalculation.add_score_with_multiplication(score_given)
 	queue_free()
