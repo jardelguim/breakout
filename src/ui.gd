@@ -5,8 +5,8 @@ extends Control
 @onready var ball = get_node("/root/Game/SubViewport/Level1/Ball")
 
 func _ready() -> void:
-	GameManager.connect("update" , _update_text)
-	
+	ScoreCalculation.connect("update" , _update_text)
+
 func _process(delta: float) -> void:
 	$VBoxContainer/Xvel.text = "X : " + str(int(ball.velocity.x))
 	$VBoxContainer/Yvel.text = "Y : " + str(int(ball.velocity.y))

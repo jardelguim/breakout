@@ -35,4 +35,4 @@ func _physics_process(delta: float) -> void:
 
 func entered_killzone():
 	velocity = Vector2(speed , speed)
-	GameManager.game_multiplier = 1.0
+	ScoreCalculation.reset_chain()

@@ -12,13 +12,13 @@ var color : Color
 func set_brick_type() -> void:
 	match brick_type:
 		"RED": 
-			score_given = 5
+			score_given = 3
 			color = Color.RED
-			multiplier_given = 0.2
+			multiplier_given = 0.1
 		"GREEN": 
 			score_given = 2
 			color = Color.GREEN
-			multiplier_given = 0.2
+			multiplier_given = 0.1
 			
 		"BLUE": 
 			score_given = 1
@@ -44,8 +44,8 @@ func hit(ball_pos : Vector2):
 	var direction = -1.0 * global_position.direction_to(ball_pos)
 	var upward_force = Vector2.UP * randf_range(20 , 80)
 	apply_impulse(direction * 100 + upward_force)
+	ScoreCalculation.add_multiplier(multiplier_given)
 	_change_collision_layer()
-	GameManager.game_multiplier = clampf(GameManager.game_multiplier + multiplier_given , 1.0 , 2.5)
 
 func _change_collision_layer():
 	set_collision_layer_value(1 , false)
@@ -59,8 +59,5 @@ func entered_killzone():
 	gravity_scale = 0
 	linear_velocity.y = 20
 	await get_tree().create_timer(1).timeout
-	GameManager.game_score += score_given
+	ScoreCalculation.add_score_with_multiplication(score_given)
 	queue_free()
-	
-	
-	
