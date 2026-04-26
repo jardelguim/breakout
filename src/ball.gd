@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 @onready var particle_emitter: ParticleEmitter = %ParticleEmitter
 @onready var fire_particles: GPUParticles2D = $FireParticles
 var ball_velocity = velocity * velocity_multiplier
@@ -28,7 +27,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var collider_node = collision.get_collider()
-	
+
 	if collider_node.name == "FloorWall":
 		entered_killzone()
 	# Bounces to opposite direction when collision with another collision shape
@@ -39,14 +38,17 @@ func _physics_process(delta: float) -> void:
 		particle_emitter.emit_particle("explosion" , global_position , particle_direction.normalized() , true , collider_node.modulate)
 		collision.get_collider().hit(global_position)
 		velocity_multiplier = clamp(velocity_multiplier + 0.1 , 1.0 , 2.0)
-				
+
 	if(velocity.y > 0 and velocity.y < 100):
 		velocity.y = -150
 
 	if velocity.x == 0:
 		velocity.x = -150
 
-
 func entered_killzone():
 	_reset_vel()
 	ScoreCalculator.reset_chain()
+
+func switch_active_state():
+	is_active = not is_active
+	print(is_active)
