@@ -7,7 +7,7 @@ class_name ParticleEmitter
 
 func _ready() -> void:
 	pass
-	
+
 func emit_particle(particle_id : String , position : Vector2 , angle : Vector3 , isOneShot : bool , color : Color):
 	var particle_dir : String = particle_mapper[particle_id]
 	var new_particle = load(particle_dir).instantiate()
