@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4yqt20fg36v4"]
 
-[ext_resource type="Texture2D" uid="uid://bnhy7rdmkk3ob" path="res://assets/paddle.png" id="1_3xiby"]
+[ext_resource type="Texture2D" uid="uid://bnhy7rdmkk3ob" path="res://assets/sprites/paddle.png" id="1_3xiby"]
 [ext_resource type="Script" uid="uid://djkekj0cqxk17" path="res://src/paddle.gd" id="1_y7wee"]
 [ext_resource type="Shader" uid="uid://diyhfpaaxxg30" path="res://assets/shaders/shadow.gdshader" id="2_mo4dg"]
 

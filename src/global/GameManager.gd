@@ -1,19 +1,21 @@
 extends Node
 
-signal update( game_score , game_multiplier )
-
 @onready var ball = get_node("/root/Game/SubViewport/Level1/Ball")
+
+var bricks_array : Array : set = _set_brick_array
 
 var brick_colors : Array = [
 	Color.RED ,
 	Color.GREEN ,
 	Color.BLUE ,
+	Color.YELLOW
 ] 
 
 var brick_types : Array = [
 	"RED" ,
 	"GREEN" ,
-	"BLUE"
+	"BLUE",
+	"YELLOW"
 ]
 
 func _ready() -> void:
@@ -31,3 +33,6 @@ func _launch_ball() -> void:
 	
 func _quit_game():
 	get_tree().quit()
+
+func _set_brick_array(value):
+	print(value)

@@ -1,13 +1,13 @@
 extends RigidBody2D
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
-@onready var sprite: CanvasGroup = $CanvasGroup
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var multiplier_given : float
 var score_given : int
 var brick_type : String
 var color : Color
+var texture
 
 func set_brick_type() -> void:
 	match brick_type:
@@ -15,26 +15,36 @@ func set_brick_type() -> void:
 			score_given = 3
 			color = Color.RED
 			multiplier_given = 0.1
+			texture = load("res://assets/sprites/bricks/red_brick.png")
+			
 		"GREEN": 
 			score_given = 2
 			color = Color.GREEN
 			multiplier_given = 0.1
+			texture = load("res://assets/sprites/bricks/green_brick.png")
 			
 		"BLUE": 
 			score_given = 1
 			color = Color.BLUE
 			multiplier_given = 0.1
+			texture = load("res://assets/sprites/bricks/blue_brick.png")
 			
-	modulate = color
-	
+		"YELLOW": 
+			score_given = 1
+			color = Color.YELLOW
+			multiplier_given = 0.1
+			texture = load("res://assets/sprites/bricks/yellow_brick.png")
+			
+	$%BrickSprite.texture = texture
+	modulate.a = 0.0
+		
 func _play_die_animation():
 	animation_player.play("die")
 	
 func _play_hit_animation():
+	color = Color.GRAY
 	var tween = create_tween()
-	tween.tween_property(self , "modulate" , Color.GRAY , 0.5)
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property($%BrickSprite.material, "shader_parameter/weight", 1.0, 0.5)
 	
 func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
@@ -45,6 +55,7 @@ func hit(ball_pos : Vector2):
 	var upward_force = Vector2.UP * randf_range(20 , 80)
 	apply_impulse(direction * 100 + upward_force)
 	ScoreCalculator.add_multiplier(multiplier_given)
+	GameManager.bricks_array.erase(self)
 	_change_collision_layer()
 
 func _change_collision_layer():

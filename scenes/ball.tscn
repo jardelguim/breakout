@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dry4lfagpgmn8" path="res://src/ball.gd" id="1_cxlvu"]
 [ext_resource type="PackedScene" uid="uid://dbfj731vy3awl" path="res://scenes/particles/fire_particles.tscn" id="2_4dx81"]
-[ext_resource type="Texture2D" uid="uid://x4firoxhcxcd" path="res://assets/ball.png" id="2_f7cbr"]
+[ext_resource type="Texture2D" uid="uid://x4firoxhcxcd" path="res://assets/sprites/ball.png" id="2_f7cbr"]
 [ext_resource type="Script" uid="uid://cqm4stl4cnibv" path="res://src/trail.gd" id="3_f7cbr"]
 [ext_resource type="PackedScene" uid="uid://b4ux7vaov3vsa" path="res://scenes/particles/explosion_particles.tscn" id="5_eew57"]
 [ext_resource type="Script" uid="uid://cps7k7fa7wnyf" path="res://src/ParticleEmitter.gd" id="6_jj7gd"]

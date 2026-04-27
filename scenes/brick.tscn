@@ -1,10 +1,19 @@
 [gd_scene format=3 uid="uid://da43film4j2bg"]
 
 [ext_resource type="Script" uid="uid://d4cff5btflkrl" path="res://src/brick.gd" id="1_0w5h4"]
-[ext_resource type="Texture2D" uid="uid://jb6fe7q0cj25" path="res://assets/brick.png" id="1_5l4w1"]
+[ext_resource type="Texture2D" uid="uid://jb6fe7q0cj25" path="res://assets/sprites/bricks/brick.png" id="1_5l4w1"]
+[ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="3_ci8dj"]
+[ext_resource type="Texture2D" uid="uid://d1lacokkyt24f" path="res://assets/sprites/bricks/grey_brick.png" id="4_x7yom"]
+[ext_resource type="Texture2D" uid="uid://cj57xktc2q6v1" path="res://assets/sprites/bricks/blue_brick.png" id="5_d02mp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0w5h4"]
 size = Vector2(14, 14)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tj0p1"]
+resource_local_to_scene = true
+shader = ExtResource("3_ci8dj")
+shader_parameter/target_texture = ExtResource("4_x7yom")
+shader_parameter/weight = 0.0
 
 [sub_resource type="Animation" id="Animation_7mekc"]
 length = 0.001
@@ -61,7 +70,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(0.34781694, 0.34781697, 0.3478169, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ci8dj"]
@@ -88,7 +97,9 @@ position = Vector2(-2, 2)
 texture = ExtResource("1_5l4w1")
 
 [node name="BrickSprite" type="Sprite2D" parent="CanvasGroup" unique_id=824540633]
-texture = ExtResource("1_5l4w1")
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_tj0p1")
+texture = ExtResource("5_d02mp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1807921520]
 libraries/ = SubResource("AnimationLibrary_ci8dj")

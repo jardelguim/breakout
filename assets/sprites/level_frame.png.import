@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jb6fe7q0cj25"
-path="res://.godot/imported/brick.png-2752dffcc7852625bd2ce25e2bde0c3a.ctex"
+uid="uid://cht0lv5s87uo1"
+path="res://.godot/imported/level_frame.png-47ae72e4f17f8b7dd2e861a7d3771432.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/brick.png"
-dest_files=["res://.godot/imported/brick.png-2752dffcc7852625bd2ce25e2bde0c3a.ctex"]
+source_file="res://assets/sprites/level_frame.png"
+dest_files=["res://.godot/imported/level_frame.png-47ae72e4f17f8b7dd2e861a7d3771432.ctex"]
 
 [params]
 

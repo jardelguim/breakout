@@ -7,7 +7,7 @@ extends Control
 func _ready() -> void:
 	ScoreCalculator.connect("update" , _update_text)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$VBoxContainer/Xvel.text = "vel : " + str(Vector2(ball.velocity))
 	$VBoxContainer/Yvel.text = "multi : " + str(float(ball.velocity_multiplier))
 

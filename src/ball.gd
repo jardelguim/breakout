@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	if collision.get_collider().has_method("hit"):
 		var particle_direction = Vector3(collision.get_normal().x , collision.get_normal().y , 0)
-		particle_emitter.emit_particle("explosion" , global_position , particle_direction.normalized() , true , collider_node.modulate)
+		particle_emitter.emit_particle("explosion" , global_position , particle_direction.normalized() , true , collider_node.color)
 		collision.get_collider().hit(global_position)
 		velocity_multiplier = clamp(velocity_multiplier + 0.1 , 1.0 , 2.0)
 

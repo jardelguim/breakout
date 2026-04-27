@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dl2jubcax3jfw"
-path="res://.godot/imported/kill_plane.png-35980e9eadf4f39fe6bdbba67103d754.ctex"
+path="res://.godot/imported/kill_plane.png-86f16d4d31e542f91cdb4b0079c7b33e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/kill_plane.png"
-dest_files=["res://.godot/imported/kill_plane.png-35980e9eadf4f39fe6bdbba67103d754.ctex"]
+source_file="res://assets/sprites/kill_plane.png"
+dest_files=["res://.godot/imported/kill_plane.png-86f16d4d31e542f91cdb4b0079c7b33e.ctex"]
 
 [params]
 
