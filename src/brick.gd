@@ -55,7 +55,7 @@ func hit(ball_pos : Vector2):
 	var upward_force = Vector2.UP * randf_range(20 , 80)
 	apply_impulse(direction * 100 + upward_force)
 	ScoreCalculator.add_multiplier(multiplier_given)
-	GameManager.bricks_array.erase(self)
+	BrickData.bricks_array.erase(self)
 	_change_collision_layer()
 
 func _change_collision_layer():

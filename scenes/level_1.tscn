@@ -13,7 +13,7 @@
 script = ExtResource("1_rus8k")
 
 [node name="KillArea" parent="." unique_id=1888985635 instance=ExtResource("2_pa8r4")]
-position = Vector2(159, 304)
+position = Vector2(159, 312.495)
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="TextureRect" parent="." unique_id=354290095]

@@ -10,7 +10,7 @@ shader_parameter/drop_shadow_color = Color(0, 0, 0, 0.5)
 shader_parameter/shadow_offset = Vector2(-0.005, 0.175)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7wee"]
-size = Vector2(66, 6)
+size = Vector2(66, 4)
 
 [node name="Paddle" type="CharacterBody2D" unique_id=581106425]
 texture_filter = 2
@@ -23,5 +23,5 @@ material = SubResource("ShaderMaterial_pacq5")
 texture = ExtResource("1_3xiby")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1071230332]
-visible = false
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_y7wee")
