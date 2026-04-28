@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://4gbf46r3m2wa"]
 
-[ext_resource type="Script" uid="uid://bamftki08mewl" path="res://scenes/kill_area.gd" id="1_5p8es"]
+[ext_resource type="Script" uid="uid://bamftki08mewl" path="res://src/kill_area.gd" id="1_5p8es"]
 [ext_resource type="Texture2D" uid="uid://dl2jubcax3jfw" path="res://assets/sprites/kill_plane.png" id="1_dyxuw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p8es"]

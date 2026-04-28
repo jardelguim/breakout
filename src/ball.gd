@@ -39,7 +39,6 @@ func _physics_process(delta: float) -> void:
 		
 	if collision.get_collider().has_method("hit"):
 		particle_color = collider_node.color
-		#particle_emitter.emit_particle("explosion" , global_position , particle_direction.normalized() , true , particle_color)
 		collision.get_collider().hit(global_position)
 		velocity_multiplier = clamp(velocity_multiplier + 0.1 , 1.0 , 2.0)
 		

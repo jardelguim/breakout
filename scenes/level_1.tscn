@@ -13,7 +13,7 @@
 script = ExtResource("1_rus8k")
 
 [node name="KillArea" parent="." unique_id=1888985635 instance=ExtResource("2_pa8r4")]
-position = Vector2(159, 312.495)
+position = Vector2(160, 312.495)
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="TextureRect" parent="." unique_id=354290095]
@@ -23,7 +23,7 @@ offset_bottom = 320.0
 texture = ExtResource("1_014kd")
 
 [node name="Frame2" parent="." unique_id=783576445 instance=ExtResource("2_fcfvj")]
-position = Vector2(159, 88)
+position = Vector2(160, 88)
 
 [node name="Paddle" parent="." unique_id=517680683 instance=ExtResource("2_bswci")]
 unique_name_in_owner = true

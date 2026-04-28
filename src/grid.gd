@@ -26,7 +26,6 @@ func start_grid() -> void:
 	
 	# Generate Grid
 	for line in range(rows):
-		var line_array = []
 		var line_brick_type = BrickData.brick_types.pick_random()
 		for col in range(columns):
 			var new_brick = brick.instantiate()

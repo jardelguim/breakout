@@ -16,6 +16,32 @@ colors = PackedColorArray(1, 0, 0, 1, 0.37823159, 7.189531e-07, 1.92523e-07, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eew57"]
 
+[sub_resource type="Curve" id="Curve_766sr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.98648655, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6dy78"]
+curve = SubResource("Curve_766sr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jj7gd"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 712.30005
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_max = 10.75
+gravity = Vector3(0, 1, 0)
+linear_accel_min = 3.2299976
+linear_accel_max = 53.76
+radial_accel_min = 13.979998
+radial_accel_max = 55.909996
+scale_min = 2.0
+scale_max = 3.0
+alpha_curve = SubResource("CurveTexture_6dy78")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dx81"]
 radius = 3.3333335
 
@@ -39,11 +65,13 @@ metadata/_custom_type_script = "uid://cqm4stl4cnibv"
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1899209669]
 modulate = Color(0, 0, 0, 1)
+texture_filter = 1
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_f7cbr")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1043873347]
 modulate = Color(0.9098587, 0.16027954, 0.07155854, 1)
+texture_filter = 1
 material = SubResource("ShaderMaterial_eew57")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_f7cbr")
@@ -51,6 +79,7 @@ texture = ExtResource("2_f7cbr")
 [node name="ExplosionParticles" parent="." unique_id=1726222035 instance=ExtResource("5_eew57")]
 emitting = false
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_jj7gd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1989312242]
 shape = SubResource("CircleShape2D_4dx81")
