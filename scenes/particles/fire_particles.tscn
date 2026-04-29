@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://dbfj731vy3awl"]
 
 [sub_resource type="Gradient" id="Gradient_4foj3"]
-offsets = PackedFloat32Array(0.3442623, 0.6639344, 0.97540987)
-colors = PackedColorArray(1, 0.44705883, 0, 1, 0.7294118, 0.023529412, 0, 1, 0.7294118, 0.023529412, 0, 0)
+offsets = PackedFloat32Array(0, 0.7295082, 1)
+colors = PackedColorArray(0.7953156, 0.3949985, 7.70092e-07, 1, 0.8666667, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ppbhl"]
 gradient = SubResource("Gradient_4foj3")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kreiy"]
+resource_local_to_scene = true
 emission_shape = 1
 emission_sphere_radius = 5.52
 direction = Vector3(0, -1, 0)

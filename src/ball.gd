@@ -18,12 +18,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# If active, moves the ball based on the velocity
 	fire_particles.amount_ratio = velocity_multiplier - 1.0
-	
+	rotate(5 * velocity_multiplier * delta)
 	if not is_active:
 		return
 
 	var collision = move_and_collide(velocity * velocity_multiplier * delta) 
-	rotate(30)
 	if not collision:
 		return
 

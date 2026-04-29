@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://6ifm3eoe0fpc"]
 
-[ext_resource type="Texture2D" uid="uid://cht0lv5s87uo1" path="res://assets/sprites/level_frame.png" id="1_014kd"]
 [ext_resource type="Script" uid="uid://c3vfbqcfnnmh8" path="res://src/level_1.gd" id="1_rus8k"]
 [ext_resource type="PackedScene" uid="uid://b4yqt20fg36v4" path="res://scenes/paddle.tscn" id="2_bswci"]
 [ext_resource type="PackedScene" uid="uid://qmmajfahodnw" path="res://scenes/frame.tscn" id="2_fcfvj"]
@@ -16,23 +15,16 @@ script = ExtResource("1_rus8k")
 position = Vector2(160, 312.495)
 metadata/_edit_lock_ = true
 
-[node name="Frame" type="TextureRect" parent="." unique_id=354290095]
-visible = false
-offset_right = 320.0
-offset_bottom = 320.0
-texture = ExtResource("1_014kd")
-
 [node name="Frame2" parent="." unique_id=783576445 instance=ExtResource("2_fcfvj")]
 position = Vector2(160, 88)
 
-[node name="Paddle" parent="." unique_id=517680683 instance=ExtResource("2_bswci")]
-unique_name_in_owner = true
-position = Vector2(160, 280)
-
 [node name="Grid" parent="." unique_id=1177997231 instance=ExtResource("4_5xbjy")]
 
-[node name="Ball" parent="." unique_id=1066305207 instance=ExtResource("5_4nkto")]
+[node name="Paddle" parent="." unique_id=581106425 instance=ExtResource("2_bswci")]
 unique_name_in_owner = true
+position = Vector2(160, 288)
+
+[node name="Ball" parent="." unique_id=1066305207 instance=ExtResource("5_4nkto")]
 
 [node name="VoidParticles" parent="." unique_id=1112738700 instance=ExtResource("8_15mv3")]
 position = Vector2(160, 304)

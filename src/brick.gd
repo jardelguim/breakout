@@ -3,6 +3,7 @@ extends RigidBody2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var is_alive = true
 var multiplier_given : float
 var score_given : int
 var brick_type : String
@@ -35,40 +36,48 @@ func set_brick_type() -> void:
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/yellow_brick.png")
 			
-	$%BrickSprite.texture = texture
+	%BrickSprite.texture = texture
 	modulate.a = 0.0
 		
+func hit(ball_pos : Vector2):
+	'''Called when hit by ball'''
+	_apply_ball_impulse(ball_pos)
+	_play_hit_animation()
+	_change_collision_layer()
+	ScoreCalculator.add_multiplier(multiplier_given)
+	BrickData.bricks_array.erase(self)
+	
+func entered_killzone():
+	_apply_death_effects()
+	_play_die_animation()
+	ScoreCalculator.add_score_with_multiplication(score_given)
+	await get_tree().create_timer(1).timeout
+	queue_free()
+	
 func _play_die_animation():
 	animation_player.play("die")
 	
 func _play_hit_animation():
 	color = Color.GRAY
+	is_alive = false
 	var tween = create_tween()
-	tween.tween_property($%BrickSprite.material, "shader_parameter/weight", 1.0, 0.5)
+	tween.tween_property(%BrickSprite.material, "shader_parameter/weight", 1.0, 0.5)
 	
-func hit(ball_pos : Vector2):
-	'''Called when hit by ball'''
-	angular_velocity = get_angle_to(ball_pos) * 8
-	_play_hit_animation()
-	gravity_scale = 0.2
+func _apply_ball_impulse(ball_pos):
+	var angular_vel_multi = 8
 	var direction = -1.0 * global_position.direction_to(ball_pos)
 	var upward_force = Vector2.UP * randf_range(20 , 80)
+	angular_velocity = get_angle_to(ball_pos) * angular_vel_multi
 	apply_impulse(direction * 100 + upward_force)
-	ScoreCalculator.add_multiplier(multiplier_given)
-	BrickData.bricks_array.erase(self)
-	_change_collision_layer()
-
+	gravity_scale = 0.2
+	
 func _change_collision_layer():
 	set_collision_layer_value(1 , false)
 	set_collision_mask_value(1 , false)
 	set_collision_layer_value(2 , true)
 	set_collision_mask_value(2 , true)
 	
-func entered_killzone():
-	set_deferred("collision" , false)
-	_play_die_animation()
+func _apply_death_effects():
 	gravity_scale = 0
 	linear_velocity.y = 20
-	ScoreCalculator.add_score_with_multiplication(score_given)
-	await get_tree().create_timer(1).timeout
-	queue_free()
+	set_deferred("collision" , false)

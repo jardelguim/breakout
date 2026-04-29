@@ -3,18 +3,34 @@
 [ext_resource type="Script" uid="uid://dry4lfagpgmn8" path="res://src/ball.gd" id="1_cxlvu"]
 [ext_resource type="PackedScene" uid="uid://dbfj731vy3awl" path="res://scenes/particles/fire_particles.tscn" id="2_4dx81"]
 [ext_resource type="Texture2D" uid="uid://x4firoxhcxcd" path="res://assets/sprites/ball.png" id="2_f7cbr"]
-[ext_resource type="Script" uid="uid://cqm4stl4cnibv" path="res://src/trail.gd" id="3_f7cbr"]
 [ext_resource type="PackedScene" uid="uid://b4ux7vaov3vsa" path="res://scenes/particles/explosion_particles.tscn" id="5_eew57"]
 [ext_resource type="Script" uid="uid://cps7k7fa7wnyf" path="res://src/ParticleEmitter.gd" id="6_jj7gd"]
 
-[sub_resource type="Curve" id="Curve_f7cbr"]
-_data = [Vector2(0, 1), 0.0, -0.8221429, 0, 0, Vector2(1, 0), -1.2841094, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Gradient" id="Gradient_4foj3"]
+offsets = PackedFloat32Array(0, 0.7295082, 1)
+colors = PackedColorArray(0.7953156, 0.3949985, 7.70092e-07, 1, 0.8666667, 0, 0, 1, 0, 0, 0, 0)
 
-[sub_resource type="Gradient" id="Gradient_f7cbr"]
-colors = PackedColorArray(1, 0, 0, 1, 0.37823159, 7.189531e-07, 1.92523e-07, 1)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ppbhl"]
+gradient = SubResource("Gradient_4foj3")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eew57"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eew57"]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 5.52
+direction = Vector3(0, -1, 0)
+spread = 0.0
+flatness = 1.0
+gravity = Vector3(0, -100, 0)
+radial_accel_min = -100.0
+radial_accel_max = -78.49
+scale_min = 0.0
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_ppbhl")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.16999997
+turbulence_enabled = true
+turbulence_noise_strength = 0.2
+turbulence_noise_speed = Vector3(0, 10, 0)
 
 [sub_resource type="Curve" id="Curve_766sr"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.98648655, 0), 0.0, 0.0, 0, 0]
@@ -46,34 +62,18 @@ alpha_curve = SubResource("CurveTexture_6dy78")
 radius = 3.3333335
 
 [node name="Ball" type="CharacterBody2D" unique_id=1066305207]
+texture_filter = 1
 scale = Vector2(1.5, 1.5)
 collision_mask = 3
 script = ExtResource("1_cxlvu")
 
 [node name="FireParticles" parent="." unique_id=1124014033 instance=ExtResource("2_4dx81")]
 amount_ratio = 0.0
-
-[node name="Trails" type="Line2D" parent="." unique_id=275523640]
-visible = false
-top_level = true
-z_index = -1
-width_curve = SubResource("Curve_f7cbr")
-gradient = SubResource("Gradient_f7cbr")
-script = ExtResource("3_f7cbr")
-MAX_LENGTH = 10
-metadata/_custom_type_script = "uid://cqm4stl4cnibv"
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1899209669]
-modulate = Color(0, 0, 0, 1)
-texture_filter = 1
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_f7cbr")
+process_material = SubResource("ParticleProcessMaterial_eew57")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1043873347]
-modulate = Color(0.9098587, 0.16027954, 0.07155854, 1)
 texture_filter = 1
-material = SubResource("ShaderMaterial_eew57")
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_f7cbr")
 
 [node name="ExplosionParticles" parent="." unique_id=1726222035 instance=ExtResource("5_eew57")]

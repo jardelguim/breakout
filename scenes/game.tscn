@@ -63,7 +63,6 @@ stretch_mode = 5
 [node name="PostProcess" type="CanvasLayer" parent="." unique_id=450407155]
 
 [node name="VHSFilter" type="ColorRect" parent="PostProcess" unique_id=1960513558]
-visible = false
 material = SubResource("ShaderMaterial_lnu2h")
 anchors_preset = 15
 anchor_right = 1.0

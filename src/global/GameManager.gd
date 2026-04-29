@@ -2,7 +2,6 @@ extends Node
 
 @onready var ball = get_node("/root/Game/SubViewport/Level1/Ball")
 
-
 func _ready() -> void:
 	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 
@@ -21,4 +20,7 @@ func _launch_ball() -> void:
 	
 func _quit_game():
 	get_tree().quit()
+	
+func toggle_pause_game():
+	get_tree().paused != get_tree().paused
 	

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c1swnqbebgauo"]
 
 [ext_resource type="Script" uid="uid://daevodm67p7qp" path="res://src/ui.gd" id="1_dj8aq"]
+[ext_resource type="Theme" uid="uid://4vsn3iu40ho3" path="res://assets/materials/base_text.tres" id="2_ro3t7"]
 
 [node name="Ui" type="Control" unique_id=1908995237]
 layout_mode = 3
@@ -17,7 +18,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -175.5
+offset_left = -189.0
+offset_top = 25.0
 offset_right = -111.0
 offset_bottom = 149.0
 grow_horizontal = 0
@@ -27,7 +29,7 @@ layout_mode = 2
 
 [node name="ScoreMultiplier" type="RichTextLabel" parent="VBoxContainer/Multiplier" unique_id=1467393261]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 42
+theme = ExtResource("2_ro3t7")
 bbcode_enabled = true
 text = "1.0 x"
 fit_content = true
@@ -38,6 +40,7 @@ vertical_alignment = 1
 
 [node name="Score" type="RichTextLabel" parent="VBoxContainer" unique_id=759890494]
 layout_mode = 2
+theme = ExtResource("2_ro3t7")
 bbcode_enabled = true
 text = "0"
 fit_content = true

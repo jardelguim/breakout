@@ -21,32 +21,32 @@ position = Vector2(0, 71)
 texture = ExtResource("1_dvj6e")
 
 [node name="LeftWall" type="StaticBody2D" parent="." unique_id=1901611888]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="LeftCollision" type="CollisionShape2D" parent="LeftWall" unique_id=928474326]
 position = Vector2(-163, 67)
 shape = SubResource("RectangleShape2D_dvj6e")
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=2130426616]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="RightCollision" type="CollisionShape2D" parent="RightWall" unique_id=1807668768]
 position = Vector2(162.5, 66.5)
 shape = SubResource("RectangleShape2D_q7572")
 
 [node name="UpperWall" type="StaticBody2D" parent="." unique_id=390358064]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="UpperCollision" type="CollisionShape2D" parent="UpperWall" unique_id=807276505]
 position = Vector2(0, -92.5)
 shape = SubResource("RectangleShape2D_jlx0t")
 
 [node name="FloorWall" type="StaticBody2D" parent="." unique_id=245607181]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="FloorCollision" type="CollisionShape2D" parent="FloorWall" unique_id=862709596]
 position = Vector2(0, 235.5)
