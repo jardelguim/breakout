@@ -98,7 +98,7 @@ script = ExtResource("1_y7wee")
 material = SubResource("ShaderMaterial_pacq5")
 texture = ExtResource("1_3xiby")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1071230332]
+[node name="PaddleCollision" type="CollisionShape2D" parent="." unique_id=1071230332]
 position = Vector2(0, 1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_mo4dg")

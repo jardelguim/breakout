@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://0p8o55sagubf"
+path="res://.godot/imported/Ball bounce off the player paddle.wav-cf87f2adc57190ba6ba34841d5f67bc7.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Ball bounce off the player paddle.wav"
+dest_files=["res://.godot/imported/Ball bounce off the player paddle.wav-cf87f2adc57190ba6ba34841d5f67bc7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

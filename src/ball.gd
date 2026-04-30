@@ -7,6 +7,7 @@ var velocity_multiplier : float = 1.0
 var base_speed = 150
 var dir = Vector2.UP
 var is_active = false
+var sound_to_play
 
 func _reset_vel():
 	velocity = Vector2(base_speed , base_speed)
@@ -19,28 +20,38 @@ func _physics_process(delta: float) -> void:
 	# If active, moves the ball based on the velocity
 	fire_particles.amount_ratio = velocity_multiplier - 1.0
 	rotate(5 * velocity_multiplier * delta)
+	
 	if not is_active:
 		return
-
+		
 	var collision = move_and_collide(velocity * velocity_multiplier * delta) 
+	
 	if not collision:
 		return
 
 	var collider_node = collision.get_collider()
-	if collider_node.name == "FloorWall":
-		entered_killzone()
-		
-	# Bounces to opposite direction when collision with another collision shape
-	
-	velocity = velocity.bounce(collision.get_normal())
 	var particle_direction = Vector3(collision.get_normal().x , collision.get_normal().y , 0)
 	var particle_color = Color.BLACK
 		
-	if collision.get_collider().has_method("hit"):
+	if collider_node.name == "FloorWall":
+		entered_killzone()
+		
+	if collider_node.has_method("hit"):
 		particle_color = collider_node.color
-		collision.get_collider().hit(global_position)
+		collider_node.hit(global_position)
 		velocity_multiplier = clamp(velocity_multiplier + 0.1 , 1.0 , 2.0)
 		
+	if collider_node:
+		if "object_sound" in collider_node:
+			sound_to_play = collider_node.object_sound
+		else:
+			sound_to_play = "bounce_screen_side"
+		
+	if sound_to_play != null:
+		SoundManager.play_sound(sound_to_play)
+		
+	# Bounces to opposite direction when collision with another collision shape
+	velocity = velocity.bounce(collision.get_normal())
 	particle_emitter.emit_particle("explosion" , global_position , particle_direction.normalized() , true , particle_color)
 
 	if(velocity.y > 0 and velocity.y < 100):

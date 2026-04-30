@@ -23,12 +23,12 @@ func start_grid() -> void:
 	var tween = create_tween()
 	
 	# Generate Grid
-	columns = randf_range(2 , max_columns)
-	rows = randf_range(2 , max_rows)
+	columns = randf_range(4 , max_columns)
+	rows = randf_range(4 , max_rows)
 	var x_offset = 18 + ((brick_width * (max_columns - columns)/2))
 	
 	for line in range(rows):
-		var line_brick_type = BrickData.brick_types.pick_random()
+		#var line_brick_type = BrickData.brick_types.pick_random()
 		for col in range(columns):
 			var new_brick = brick.instantiate()
 			
@@ -38,7 +38,7 @@ func start_grid() -> void:
 				y_offset + line * brick_height
 			)
 			# Set brick type
-			new_brick.brick_type = line_brick_type
+			new_brick.brick_type = BrickData.brick_types.pick_random()
 			new_brick.set_brick_type()	
 			new_brick.position = pos
 			BrickData.bricks_array.append(new_brick)

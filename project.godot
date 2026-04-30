@@ -21,6 +21,7 @@ InputManager="*uid://di8ypfk851lck"
 GameManager="*uid://bag5ndnhs6y24"
 ScoreCalculator="*uid://cbo3af8jqwdkr"
 BrickData="*uid://c6ikmkgte335h"
+SoundManager="*uid://bilbmlwmqfrdr"
 
 [display]
 

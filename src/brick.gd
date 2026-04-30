@@ -9,6 +9,7 @@ var score_given : int
 var brick_type : String
 var color : Color
 var texture
+var object_sound = "hit_normal"
 
 func set_brick_type() -> void:
 	match brick_type:

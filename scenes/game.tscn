@@ -63,6 +63,7 @@ stretch_mode = 5
 [node name="PostProcess" type="CanvasLayer" parent="." unique_id=450407155]
 
 [node name="VHSFilter" type="ColorRect" parent="PostProcess" unique_id=1960513558]
+visible = false
 material = SubResource("ShaderMaterial_lnu2h")
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,3 +87,6 @@ anchor_left = 1.0
 anchor_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 1
+
+[node name="SoundContainer" type="Node" parent="." unique_id=1777455724]
+unique_name_in_owner = true
