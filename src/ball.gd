@@ -8,6 +8,7 @@ var base_speed = 150
 var dir = Vector2.UP
 var is_active = false
 var sound_to_play
+var sound_type
 
 func _reset_vel():
 	velocity = Vector2(base_speed , base_speed)
@@ -40,14 +41,14 @@ func _physics_process(delta: float) -> void:
 		particle_color = collider_node.color
 		collider_node.hit(global_position)
 		velocity_multiplier = clamp(velocity_multiplier + 0.1 , 1.0 , 2.0)
+		ScoreCalculator.add_multiplier(0.1)
 		
 	if collider_node:
 		if "object_sound" in collider_node:
 			sound_to_play = collider_node.object_sound
 		else:
-			sound_to_play = "bounce_screen_side"
+			sound_to_play = SoundManager.wall_list
 		
-	if sound_to_play != null:
 		SoundManager.play_sound(sound_to_play)
 		
 	# Bounces to opposite direction when collision with another collision shape

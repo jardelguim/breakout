@@ -2,14 +2,23 @@ extends Node
 
 @onready var sound_container = get_node("/root/Game/SoundContainer")
 
-var sound_list = {
-	"bounce_screen_side" : "res://assets/sounds/Ball bounce off the sides of the screen.wav",
-	"bounce_paddle" : "res://assets/sounds/Ball bounce off the player paddle.wav",
-	"hit_normal" : "res://assets/sounds/Ball bounce off normal brick - destroy.wav"
+var wall_list = {
+	"wall_hit_1" : "res://assets/sounds/wall_hit_1.wav",
+	"wall_hit_2" : "res://assets/sounds/wall_hit_2.wav",
+}
+var paddle_list = {
+	"paddle_bounce_1" : "res://assets/sounds/paddle_bounce_1.wav",
+	"paddle_bounce_2" : "res://assets/sounds/paddle_bounce_2.wav",
+}
+var brick_list = {
+	"brick_hit_1" : "res://assets/sounds/brick_hit_1.wav", 
+	"brick_hit_2" : "res://assets/sounds/brick_hit_2.wav",
+	"brick_hit_3" : "res://assets/sounds/brick_hit_3.wav",
 }
 
-func play_sound(sound_id : String ):
+func play_sound(sound_list):
 	var sound_player = AudioStreamPlayer.new()
+	var sound_id = sound_list.keys().pick_random()
 	var sound = load(sound_list[sound_id])
 	sound_container.add_child(sound_player)
 	sound_player.stream = sound

@@ -9,7 +9,7 @@ var score_given : int
 var brick_type : String
 var color : Color
 var texture
-var object_sound = "hit_normal"
+var object_sound = SoundManager.brick_list
 
 func set_brick_type() -> void:
 	match brick_type:
@@ -45,7 +45,7 @@ func hit(ball_pos : Vector2):
 	_apply_ball_impulse(ball_pos)
 	_play_hit_animation()
 	_change_collision_layer()
-	ScoreCalculator.add_multiplier(multiplier_given)
+
 	BrickData.bricks_array.erase(self)
 	
 func entered_killzone():

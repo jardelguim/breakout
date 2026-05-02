@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var SPEED := 250.0
 var color = Color.BLACK
-var object_sound = "bounce_paddle"
+var object_sound = SoundManager.paddle_list
 
 func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)
