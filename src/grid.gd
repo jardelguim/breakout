@@ -38,9 +38,11 @@ func start_grid() -> void:
 				y_offset + line * brick_height
 			)
 			# Set brick type
-			new_brick.brick_type = BrickData.brick_types.pick_random()
+			new_brick.brick_type ="YELLOW"
 			new_brick.set_brick_type()	
 			new_brick.position = pos
+			new_brick.power_up_event.connect(GameManager.on_powerup_event)
+			
 			BrickData.bricks_array.append(new_brick)
 			brick_container.add_child(new_brick)
 			

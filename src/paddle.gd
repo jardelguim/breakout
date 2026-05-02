@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-@export var SPEED := 250.0
+@export var SPEED := 200.0
 var color = Color.BLACK
 var object_sound = SoundManager.paddle_list
+var quick_mode_flag: bool = false
 
 func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)

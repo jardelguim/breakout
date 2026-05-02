@@ -16,3 +16,8 @@ var brick_types : Array = [
 	"BLUE",
 	"YELLOW"
 ]
+
+var brick_powerups: Array = [
+	"NORMAL",
+	"SPEED",
+]
