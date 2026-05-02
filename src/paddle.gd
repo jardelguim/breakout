@@ -4,6 +4,7 @@ extends CharacterBody2D
 var color = Color.BLACK
 var object_sound = SoundManager.paddle_list
 var quick_mode_flag: bool = false
+var acceleration = 0.2
 
 func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)
@@ -16,11 +17,16 @@ func _on_action_pressed(action: String, delta: float) -> void:
 			_move_left(delta)
 
 func _move_right(delta) -> void:
-	position.x += 1 * SPEED * delta
+	velocity.x = lerp(velocity.x, 1 * SPEED, acceleration)
+	velocity.y = 0
+	move_and_slide()
 	_clamp_position()
 
 func _move_left(delta) -> void:
-	position.x += -1 * SPEED * delta
+	velocity.x = lerp(velocity.x, -1 * SPEED, acceleration)
+
+	velocity.y = 0
+	move_and_slide()
 	_clamp_position()
 
 func _clamp_position() -> void:
