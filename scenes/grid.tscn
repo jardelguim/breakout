@@ -5,7 +5,6 @@
 
 [node name="Grid" type="Node2D" unique_id=1177997231]
 script = ExtResource("1_t5fjg")
-rows = 6
 brick = ExtResource("2_w88cy")
 
-[node name="BrickContainer" type="Marker2D" parent="." unique_id=850376959]
+[node name="BrickContainer" type="Node2D" parent="." unique_id=1419688941]

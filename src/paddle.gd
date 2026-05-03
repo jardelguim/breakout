@@ -17,16 +17,11 @@ func _on_action_pressed(action: String, delta: float) -> void:
 			_move_left(delta)
 
 func _move_right(delta) -> void:
-	velocity.x = lerp(velocity.x, 1 * SPEED, acceleration)
-	velocity.y = 0
-	move_and_slide()
+	position.x += 1 * SPEED * delta
 	_clamp_position()
 
 func _move_left(delta) -> void:
-	velocity.x = lerp(velocity.x, -1 * SPEED, acceleration)
-
-	velocity.y = 0
-	move_and_slide()
+	position.x += -1 * SPEED * delta
 	_clamp_position()
 
 func _clamp_position() -> void:

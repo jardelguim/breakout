@@ -25,6 +25,7 @@ collision_layer = 7
 collision_mask = 7
 
 [node name="LeftCollision" type="CollisionShape2D" parent="LeftWall" unique_id=928474326]
+visible = false
 position = Vector2(-163, 67)
 shape = SubResource("RectangleShape2D_dvj6e")
 
@@ -33,6 +34,7 @@ collision_layer = 7
 collision_mask = 7
 
 [node name="RightCollision" type="CollisionShape2D" parent="RightWall" unique_id=1807668768]
+visible = false
 position = Vector2(162.5, 66.5)
 shape = SubResource("RectangleShape2D_q7572")
 
@@ -41,6 +43,7 @@ collision_layer = 7
 collision_mask = 7
 
 [node name="UpperCollision" type="CollisionShape2D" parent="UpperWall" unique_id=807276505]
+visible = false
 position = Vector2(0, -92.5)
 shape = SubResource("RectangleShape2D_jlx0t")
 
@@ -49,5 +52,6 @@ collision_layer = 7
 collision_mask = 7
 
 [node name="FloorCollision" type="CollisionShape2D" parent="FloorWall" unique_id=862709596]
+visible = false
 position = Vector2(0, 235.5)
 shape = SubResource("RectangleShape2D_ps88x")

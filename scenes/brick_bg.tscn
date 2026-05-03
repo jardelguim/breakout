@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bbeq510otllu2"]
+
+[ext_resource type="Script" uid="uid://do0mnahybue8b" path="res://src/brick_bg.gd" id="1_e6cvp"]
+[ext_resource type="Texture2D" uid="uid://jb6fe7q0cj25" path="res://assets/sprites/bricks/brick.png" id="2_ifkr4"]
+[ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="3_0ox1j"]
+[ext_resource type="Texture2D" uid="uid://d1lacokkyt24f" path="res://assets/sprites/bricks/grey_brick.png" id="4_arj87"]
+[ext_resource type="Texture2D" uid="uid://cj57xktc2q6v1" path="res://assets/sprites/bricks/blue_brick.png" id="5_6rw5b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0w5h4"]
+size = Vector2(148, 134)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tj0p1"]
+resource_local_to_scene = true
+shader = ExtResource("3_0ox1j")
+shader_parameter/target_texture = ExtResource("4_arj87")
+shader_parameter/weight = 0.0
+
+[node name="Brick_BG" type="RigidBody2D" unique_id=1408615861]
+mass = 0.144
+gravity_scale = 0.2
+script = ExtResource("1_e6cvp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=508980370]
+shape = SubResource("RectangleShape2D_0w5h4")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=1896404571]
+fit_margin = 0.0
+clear_margin = 466.0
+
+[node name="ShadowSprite" type="Sprite2D" parent="CanvasGroup" unique_id=1887776018]
+modulate = Color(0, 0, 0, 0.5803922)
+position = Vector2(-6.025, 7.5)
+scale = Vector2(10, 10)
+texture = ExtResource("2_ifkr4")
+
+[node name="BrickSprite" type="Sprite2D" parent="CanvasGroup" unique_id=824540633]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_tj0p1")
+scale = Vector2(10, 10)
+texture = ExtResource("5_6rw5b")
+
+[node name="DelTimer" type="Timer" parent="." unique_id=891334680]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="DelTimer" to="." method="_on_del_timer_timeout"]

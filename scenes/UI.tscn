@@ -2,6 +2,35 @@
 
 [ext_resource type="Script" uid="uid://daevodm67p7qp" path="res://src/ui.gd" id="1_dj8aq"]
 [ext_resource type="Theme" uid="uid://4vsn3iu40ho3" path="res://assets/materials/base_text.tres" id="2_ro3t7"]
+[ext_resource type="FontFile" uid="uid://vlxmohsocujq" path="res://assets/fonts/PixelGameFont.ttf" id="3_ua6yw"]
+[ext_resource type="StyleBox" uid="uid://dq5j3ur2xfdo6" path="res://assets/materials/button_style_normal.tres" id="4_75u2n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ro3t7"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+expand_margin_top = 30.0
+
+[sub_resource type="Gradient" id="Gradient_ua6yw"]
+colors = PackedColorArray(0, 0, 0, 1, 0.23031479, 0.23031497, 0.23031488, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_75u2n"]
+noise_type = 2
+frequency = 0.0091
+fractal_octaves = 2
+fractal_lacunarity = 4.17
+fractal_gain = 0.405
+fractal_weighted_strength = 0.41
+cellular_jitter = 1.46
+cellular_return_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3wlde"]
+width = 1920
+height = 1080
+noise = SubResource("FastNoiseLite_75u2n")
+color_ramp = SubResource("Gradient_ua6yw")
 
 [node name="Ui" type="Control" unique_id=1908995237]
 layout_mode = 3
@@ -13,34 +42,80 @@ grow_vertical = 2
 script = ExtResource("1_dj8aq")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1552311179]
+[node name="Label" type="Label" parent="." unique_id=845784538]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 341.0
+offset_right = 274.0
+offset_bottom = 428.0
+theme_override_font_sizes/font_size = 30
+text = "150 150"
+
+[node name="ScoreMargin" type="MarginContainer" parent="." unique_id=662790997]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 6
 anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-offset_left = -189.0
-offset_top = 25.0
-offset_right = -111.0
-offset_bottom = 149.0
+anchor_bottom = 0.5
+offset_left = -349.46497
+offset_top = -171.5
+offset_right = -68.464966
+offset_bottom = 171.5
 grow_horizontal = 0
+grow_vertical = 2
 
-[node name="Multiplier" type="HBoxContainer" parent="VBoxContainer" unique_id=1917990776]
+[node name="Panel" type="Panel" parent="ScoreMargin" unique_id=1865560391]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ro3t7")
 
-[node name="ScoreMultiplier" type="RichTextLabel" parent="VBoxContainer/Multiplier" unique_id=1467393261]
+[node name="ScoreContainer" type="VBoxContainer" parent="ScoreMargin" unique_id=1552311179]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MultiText" type="RichTextLabel" parent="ScoreMargin/ScoreContainer" unique_id=244775068]
+visible = false
+clip_contents = false
 layout_mode = 2
 theme = ExtResource("2_ro3t7")
 bbcode_enabled = true
-text = "1.0 x"
+text = "[wave amp=70.0 freq=5.0 connected=1]Multi[/wave]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreMultiplier" type="RichTextLabel" parent="ScoreMargin/ScoreContainer" unique_id=1467393261]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_ro3t7")
+bbcode_enabled = true
+text = "1.0x"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score" type="RichTextLabel" parent="VBoxContainer" unique_id=759890494]
+[node name="ScoreText" type="RichTextLabel" parent="ScoreMargin/ScoreContainer" unique_id=2063016678]
+visible = false
+clip_contents = false
 layout_mode = 2
 theme = ExtResource("2_ro3t7")
+bbcode_enabled = true
+text = "[wave amp=70.0 freq=5.0 connected=1]Score[/wave]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="RichTextLabel" parent="ScoreMargin/ScoreContainer" unique_id=759890494]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_ro3t7")
+theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
 text = "0"
 fit_content = true
@@ -49,14 +124,75 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Xvel" type="Label" parent="VBoxContainer" unique_id=963143556]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "100"
+[node name="MainMenu" type="Control" parent="." unique_id=984038013]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Yvel" type="Label" parent="VBoxContainer" unique_id=773262834]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="MainMenu" unique_id=176705154]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1880.0
+offset_bottom = 1040.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_3wlde")
+
+[node name="GameTitle" type="RichTextLabel" parent="MainMenu" unique_id=856149675]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 857.0
+offset_top = 500.0
+offset_right = 1023.0
+offset_bottom = 641.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_ua6yw")
+theme_override_font_sizes/normal_font_size = 120
+bbcode_enabled = true
+text = "[tornado radius=10.0 freq=1.0 connected=1]breakout[/tornado]"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu" unique_id=2075931196]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 730.5
+offset_top = 860.0
+offset_right = 1149.5
+offset_bottom = 943.0007
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/MarginContainer" unique_id=1745707717]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "100"
+theme_override_constants/separation = 100
+
+[node name="StartButton" type="Button" parent="MainMenu/MarginContainer/HBoxContainer" unique_id=1865336802]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ua6yw")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = ExtResource("4_75u2n")
+text = "start"
+
+[node name="QuitButton" type="Button" parent="MainMenu/MarginContainer/HBoxContainer" unique_id=1048154768]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ua6yw")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = ExtResource("4_75u2n")
+text = "quit"
+
+[connection signal="pressed" from="MainMenu/MarginContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

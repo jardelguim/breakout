@@ -2,14 +2,18 @@ extends Node
 
 @onready var ball = get_node("/root/Game/SubViewport/Level1/Ball")
 @onready var paddle = get_node("/root/Game/SubViewport/Level1/Paddle")
+@onready var grid = get_node("/root/Game/SubViewport/Level1/Grid")
+var screen_center : Vector2 = Vector2(320 , 320) / 2
 var speed_timer = Timer.new()
-
+var game_started = false
 
 func _ready() -> void:
+	grid.start_grid()
+	ball.position = screen_center
 	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 	speed_timer.timeout.connect(speed_over)
 	add_child(speed_timer)
-
+	
 func _on_action_just_pressed(action : String , _delta : float) -> void:
 	match action:
 		"escape":
@@ -20,6 +24,8 @@ func _on_action_just_pressed(action : String , _delta : float) -> void:
 func _launch_ball() -> void:
 	print(BrickData.is_generating_grid)
 	if BrickData.is_generating_grid:
+		return
+	if game_started == true:
 		return
 	ball.switch_active_state()
 	

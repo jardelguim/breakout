@@ -6,5 +6,4 @@ extends Node2D
 @onready var screen_center : Vector2 = screen_size / 2
 
 func _ready() -> void:
-	grid.start_grid()
-	ball.position = screen_center
+	pass
