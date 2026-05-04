@@ -3,7 +3,7 @@ extends Node
 signal update(score, multiplier)
 
 var multiplier: float = 1.0
-var multiplier_limit: float = 10.0
+var multiplier_limit: float = 2.5
 var score: int = 0
 
 func reset_chain():

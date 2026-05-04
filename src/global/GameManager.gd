@@ -8,18 +8,18 @@ var speed_timer = Timer.new()
 var game_started = false
 
 func _ready() -> void:
-	grid.start_grid()
-	ball.position = screen_center
+	toggle_pause_game()
 	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 	speed_timer.timeout.connect(speed_over)
 	add_child(speed_timer)
+	ball.position = screen_center
 	
 func _on_action_just_pressed(action : String , _delta : float) -> void:
 	match action:
 		"escape":
 			_quit_game()
 		"launch":
-			_launch_ball()
+			start_game()
 
 func _launch_ball() -> void:
 	print(BrickData.is_generating_grid)
@@ -28,6 +28,17 @@ func _launch_ball() -> void:
 	if game_started == true:
 		return
 	ball.switch_active_state()
+	
+func grid_generated():
+	_launch_ball()
+	
+func start_game():
+	print("is grid empty:" + str(BrickData.is_grid_empty))
+	if not BrickData.is_grid_empty:
+		return
+	grid.start_grid()
+	BrickData.is_grid_empty = false
+	ball.position = screen_center
 	
 func _quit_game():
 	get_tree().quit()

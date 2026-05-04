@@ -1,5 +1,7 @@
 extends Node2D
 
+signal grid_generated
+
 const max_rows = 7
 const max_columns = 20
 const max_screen_size = 320
@@ -48,3 +50,4 @@ func start_grid() -> void:
 			
 	await tween.finished
 	BrickData.is_generating_grid = false
+	GameManager.grid_generated()

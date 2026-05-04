@@ -4,6 +4,7 @@ extends RigidBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 signal power_up_event(power_up_type: String)
+signal brick_erased
 
 var is_alive = true
 var multiplier_given : float
@@ -51,12 +52,11 @@ func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
 	if is_alive:
 		power_up_event.emit(brick_powerup_type)
-
 	_apply_ball_impulse(ball_pos)
 	_play_hit_animation()
 	_change_collision_layer()
-
 	BrickData.bricks_array.erase(self)
+	BrickData._check_brick_array()
 	
 func entered_killzone():
 	_apply_death_effects()

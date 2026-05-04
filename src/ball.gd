@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# If active, moves the ball based on the velocity
-	fire_particles.amount_ratio = velocity_multiplier - 1.0
+	fire_particles.amount_ratio = velocity_multiplier - 1.5
 	rotate(5 * velocity_multiplier * delta)
 
 	if not is_active:
