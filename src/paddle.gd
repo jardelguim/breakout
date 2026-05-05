@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var SPEED := 200.0
+var base_speed = 300
 var color = Color.BLACK
 var object_sound = SoundManager.paddle_list
 var quick_mode_flag: bool = false
@@ -17,11 +17,11 @@ func _on_action_pressed(action: String, delta: float) -> void:
 			_move_left(delta)
 
 func _move_right(delta) -> void:
-	position.x += 1 * SPEED * delta
+	position.x += 1 * base_speed * delta
 	_clamp_position()
 
 func _move_left(delta) -> void:
-	position.x += -1 * SPEED * delta
+	position.x += -1 * base_speed * delta
 	_clamp_position()
 
 func _clamp_position() -> void:

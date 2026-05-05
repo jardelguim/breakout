@@ -9,6 +9,8 @@
 [ext_resource type="StyleBox" uid="uid://c5jyvogvqagrh" path="res://assets/materials/score_panel.tres" id="4_ukj8e"]
 [ext_resource type="StyleBox" uid="uid://xh7dy2q52aj1" path="res://assets/materials/button_style_hover.tres" id="5_3wlde"]
 [ext_resource type="PackedScene" uid="uid://cp24l3l2h4csx" path="res://scenes/particles/void_particles.tscn" id="5_75u2n"]
+[ext_resource type="Shader" uid="uid://rdc6odrhmja1" path="res://assets/shaders/transition.gdshader" id="7_aputy"]
+[ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="10_w7enk"]
 
 [sub_resource type="Gradient" id="Gradient_4foj3"]
 offsets = PackedFloat32Array(0, 0.7295082, 1)
@@ -17,7 +19,7 @@ colors = PackedColorArray(0.7953156, 0.3949985, 7.70092e-07, 1, 0.8666667, 0, 0,
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ppbhl"]
 gradient = SubResource("Gradient_4foj3")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w7enk"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ukj8e"]
 resource_local_to_scene = true
 emission_shape = 3
 emission_box_extents = Vector3(138.59, 50, 1)
@@ -212,23 +214,23 @@ _data = {
 &"score_add2": SubResource("Animation_5sqrc")
 }
 
-[sub_resource type="Gradient" id="Gradient_ua6yw"]
-colors = PackedColorArray(0, 0, 0, 1, 0.23031479, 0.23031497, 0.23031488, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aputy"]
+shader = ExtResource("10_w7enk")
+shader_parameter/weight = 0.0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_75u2n"]
-noise_type = 2
-frequency = 0.0076
-fractal_octaves = 2
-fractal_lacunarity = 4.17
-fractal_gain = 0.405
-fractal_weighted_strength = 0.41
-cellular_return_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3wlde"]
-width = 1920
-height = 1080
-noise = SubResource("FastNoiseLite_75u2n")
-color_ramp = SubResource("Gradient_ua6yw")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7paak"]
+resource_local_to_scene = true
+shader = ExtResource("7_aputy")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/radius = 0.0
+shader_parameter/pixel_size = 8.0
+shader_parameter/resolution = Vector2(400, 400)
+shader_parameter/dither_offset = Vector2(2.425, 0.45)
+shader_parameter/bayer_size = 2
+shader_parameter/interpolate = true
+shader_parameter/invert = true
+shader_parameter/falloff = 2.5
+shader_parameter/color = Color(0, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_3wlde"]
 colors = PackedColorArray(0, 0, 0, 1, 0.24477637, 0.2447764, 0.24477637, 1)
@@ -245,7 +247,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.48962224, 0.48962224, 0.48962218, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3g7nd"]
 gradient = SubResource("Gradient_65k0f")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_24e4x"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w7enk"]
 resource_local_to_scene = true
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
@@ -256,6 +258,84 @@ scale_min = 2.0
 scale_max = 10.38
 color_ramp = SubResource("GradientTexture1D_3g7nd")
 turbulence_noise_strength = 0.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5sqrc"]
+resource_local_to_scene = true
+shader = ExtResource("7_aputy")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/radius = 0.0
+shader_parameter/pixel_size = 8.0
+shader_parameter/resolution = Vector2(400, 400)
+shader_parameter/dither_offset = Vector2(2.425, 0.45)
+shader_parameter/bayer_size = 2
+shader_parameter/interpolate = true
+shader_parameter/invert = true
+shader_parameter/falloff = 2.5
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_flkkw"]
+resource_name = "MenuFadeOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainMenu/MenuTransitionRect:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.000000095, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mhjpf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainMenu/MenuTransitionRect:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UITransitionRect:material:shader_parameter/radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_s2m3y"]
+resource_name = "UiFadeOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UITransitionRect:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.000000095]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mhjpf"]
+_data = {
+&"MenuFadeOut": SubResource("Animation_flkkw"),
+&"RESET": SubResource("Animation_mhjpf"),
+&"UiFadeOut": SubResource("Animation_s2m3y")
+}
 
 [node name="Ui" type="Control" unique_id=1908995237]
 layout_mode = 3
@@ -274,7 +354,7 @@ position = Vector2(1703, 392)
 amount = 300
 amount_ratio = 0.0
 lifetime = 0.86
-process_material = SubResource("ParticleProcessMaterial_w7enk")
+process_material = SubResource("ParticleProcessMaterial_ukj8e")
 
 [node name="MultiControl" type="Control" parent="." unique_id=318884307]
 anchors_preset = 0
@@ -361,24 +441,34 @@ offset_bottom = 428.0
 theme_override_font_sizes/font_size = 30
 text = "150 150"
 
-[node name="MainMenu" type="Control" parent="." unique_id=984038013]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="NoiseTexture" type="TextureRect" parent="MainMenu" unique_id=176705154]
+[node name="GrayScaleFilter" type="ColorRect" parent="." unique_id=101374942]
 visible = false
+material = SubResource("ShaderMaterial_aputy")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1880.0
-offset_bottom = 1040.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("NoiseTexture2D_3wlde")
 
-[node name="NoiseTexture2" type="TextureRect" parent="MainMenu" unique_id=1538111553]
+[node name="UITransitionRect" type="ColorRect" parent="." unique_id=420522002]
+visible = false
+material = SubResource("ShaderMaterial_7paak")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MainMenu" type="Control" parent="." unique_id=984038013]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainMenuBG" type="TextureRect" parent="MainMenu" unique_id=1538111553]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -438,6 +528,22 @@ text = "start"
 position = Vector2(959, 1074)
 amount = 100
 lifetime = 7.0
-process_material = SubResource("ParticleProcessMaterial_24e4x")
+process_material = SubResource("ParticleProcessMaterial_w7enk")
+
+[node name="MenuTransitionRect" type="ColorRect" parent="MainMenu" unique_id=272398888]
+material = SubResource("ShaderMaterial_5sqrc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1880.0
+offset_bottom = 1041.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TransitionsAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1678933447]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_mhjpf")
 
 [connection signal="pressed" from="MainMenu/MarginContainer/StartButton" to="." method="_on_start_button_pressed"]

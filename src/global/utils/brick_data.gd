@@ -29,3 +29,4 @@ func _check_brick_array():
 		is_grid_empty = false
 	else:
 		is_grid_empty = true
+		GameManager.level += 1

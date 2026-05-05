@@ -38,7 +38,6 @@ metadata/_edit_lock_ = true
 position = Vector2(160, 88)
 
 [node name="Grid" parent="." unique_id=1177997231 instance=ExtResource("4_5xbjy")]
-columns = 10
 
 [node name="Paddle" parent="." unique_id=581106425 instance=ExtResource("2_bswci")]
 unique_name_in_owner = true

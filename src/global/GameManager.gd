@@ -3,9 +3,11 @@ extends Node
 @onready var ball = get_node("/root/Game/SubViewport/Level1/Ball")
 @onready var paddle = get_node("/root/Game/SubViewport/Level1/Paddle")
 @onready var grid = get_node("/root/Game/SubViewport/Level1/Grid")
+
 var screen_center : Vector2 = Vector2(320 , 320) / 2
 var speed_timer = Timer.new()
 var game_started = false
+var level = 1
 
 func _ready() -> void:
 	toggle_pause_game()
@@ -22,10 +24,11 @@ func _on_action_just_pressed(action : String , _delta : float) -> void:
 			start_game()
 
 func _launch_ball() -> void:
-	print(BrickData.is_generating_grid)
 	if BrickData.is_generating_grid:
 		return
 	if game_started == true:
+		return
+	if ball.is_active:
 		return
 	ball.switch_active_state()
 	
@@ -33,7 +36,6 @@ func grid_generated():
 	_launch_ball()
 	
 func start_game():
-	print("is grid empty:" + str(BrickData.is_grid_empty))
 	if not BrickData.is_grid_empty:
 		return
 	grid.start_grid()
@@ -47,7 +49,7 @@ func toggle_pause_game():
 	get_tree().paused != get_tree().paused
 
 func speed_over():
-	paddle.SPEED = 200
+	paddle.base_speed = 300
 
 func on_powerup_event(powerup_type: String):
 	print("Event: ", powerup_type)
@@ -56,4 +58,4 @@ func on_powerup_event(powerup_type: String):
 			pass
 		"SPEED":
 			speed_timer.start(5)
-			paddle.SPEED = clamp(paddle.SPEED + 200, 200, 600)
+			paddle.base_speed = clamp(paddle.base_speed + 100, 300, 500)

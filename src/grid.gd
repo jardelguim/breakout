@@ -2,12 +2,12 @@ extends Node2D
 
 signal grid_generated
 
-const max_rows = 7
+@export var brick : PackedScene
+const max_rows = 8
 const max_columns = 20
 const max_screen_size = 320
-@export var columns : int = 20
-@export var rows : int = 6
-@export var brick : PackedScene
+var columns : int = 10
+var rows : int = 4
 var brick_height = 15
 var brick_width = 15
 var left_screen_offset = 0
@@ -24,8 +24,9 @@ func start_grid() -> void:
 	# Generate Grid
 	#columns = randf_range(4 , max_columns)
 	#rows = randf_range(4 , max_rows)
+	columns = clamp(columns + GameManager.level , 10 , max_columns)
+	rows = clamp(rows + GameManager.level , 4 , max_rows)
 	var x_offset = 18 + ((brick_width * (max_columns - columns)/2))
-	
 	for line in range(rows):
 		#var line_brick_type = BrickData.brick_types.pick_random()
 		for col in range(columns):
