@@ -51,6 +51,8 @@ func _on_game_score_update(score):
 
 func _on_game_multiplier_update(multiplier):
 	_play_multi_animation()
+	if ScoreCalculator.multiplier != 2.5:
+		SoundManager.play_selected_sound("generic1")
 	shake_rate = clamp((multiplier - 1)/1.5 * 50, 0 , 50)
 	multiplier_fire_particles.amount_ratio = clamp(multiplier - 1.5 , 0.0 , 1.0)
 	level = clamp(multiplier/2.5 * 40, 5, 40)

@@ -2,6 +2,7 @@ extends RigidBody2D
 
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var damage_numbers: DamageNumbers = $DamageNumbers
 
 signal power_up_event(power_up_type: String)
 signal brick_erased
@@ -62,6 +63,8 @@ func entered_killzone():
 	_apply_death_effects()
 	_play_die_animation()
 	ScoreCalculator.add_score_with_multiplication(score_given)
+	damage_numbers.display_number(int(score_given * ScoreCalculator.multiplier) , global_position)
+	SoundManager.play_sound(SoundManager.poker_list)
 	await get_tree().create_timer(1).timeout
 	queue_free()
 	
