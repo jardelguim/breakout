@@ -21,6 +21,8 @@ var brick_types : Array = [
 var brick_powerups: Array = [
 	"NORMAL",
 	"SPEED",
+	"WIDER_PADDLE",
+	"MULTI_BALL"
 ]
 
 func _check_brick_array():

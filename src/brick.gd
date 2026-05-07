@@ -30,14 +30,14 @@ func set_brick_type() -> void:
 			color = Color.GREEN
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/green_brick.png")
-			brick_powerup_type = "NORMAL"
+			brick_powerup_type = "WIDER_PADDLE"
 
 		"BLUE": 
 			score_given = 1
 			color = Color.BLUE
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/blue_brick.png")
-			brick_powerup_type = "NORMAL"
+			brick_powerup_type = "MULTI_BALL"
 			
 		"YELLOW": 
 			score_given = 1
@@ -45,7 +45,7 @@ func set_brick_type() -> void:
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/yellow_brick.png")
 			brick_powerup_type = "SPEED"
-			
+
 	%BrickSprite.texture = texture
 	modulate.a = 0.0
 		

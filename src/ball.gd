@@ -69,3 +69,7 @@ func entered_killzone():
 func switch_active_state():
 	is_active = not is_active
 	print(is_active)
+
+func launch_with_direction(dir: Vector2):
+	velocity = dir.normalized() * base_speed
+	is_active = true
