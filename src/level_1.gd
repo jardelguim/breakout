@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var ball: CharacterBody2D = $Ball
-@onready var grid: Node2D = $Grid
-@onready var screen_size : Vector2 = Vector2( 320, 320)
-@onready var screen_center : Vector2 = screen_size / 2
+@onready var level_timer: Timer = $LevelTimer
 
-func _ready() -> void:
-	pass
+func set_level_timer(value):
+	level_timer.wait_time = value
+
+func _on_level_timer_timeout() -> void:
+	pass # Replace with function body.

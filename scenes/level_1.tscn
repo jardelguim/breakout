@@ -49,3 +49,8 @@ position = Vector2(160, 288)
 position = Vector2(160, 304)
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_pa8r4")
+
+[node name="LevelTimer" type="Timer" parent="." unique_id=729004688]
+wait_time = 30.0
+
+[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]

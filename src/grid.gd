@@ -22,8 +22,6 @@ func start_grid() -> void:
 	var tween = create_tween()
 	
 	# Generate Grid
-	#columns = randf_range(4 , max_columns)
-	#rows = randf_range(4 , max_rows)
 	columns = clamp(columns + GameManager.level , 10 , max_columns)
 	rows = clamp(rows + GameManager.level , 4 , max_rows)
 	var x_offset = 18 + ((brick_width * (max_columns - columns)/2))
