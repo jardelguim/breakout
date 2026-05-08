@@ -59,3 +59,18 @@ func on_powerup_event(powerup_type: String):
 		"SPEED":
 			speed_timer.start(5)
 			paddle.base_speed = clamp(paddle.base_speed + 100, 300, 500)
+		"WIDER_PADDLE":
+			paddle.scale = Vector2(1.5, 1.0)
+			var paddle_timer = Timer.new()
+			paddle_timer.timeout.connect(func(): 
+				paddle.scale = Vector2(1.0, 1.0)
+			)
+			add_child(paddle_timer)
+			paddle_timer.start(7)
+		"MULTI_BALL":
+			var new_ball = preload("res://scenes/ball.tscn").instantiate()
+			new_ball.position = ball.position
+			new_ball.scale = Vector2(0.7, 0.7)
+			ball.get_parent().add_child(new_ball)
+			ball.launch_with_direction(Vector2(randf_range(-1.0, -0.3), -1.0))
+			new_ball.launch_with_direction(Vector2(randf_range(0.3, 1.0), -1.0))
