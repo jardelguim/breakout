@@ -1,14 +1,21 @@
 extends CharacterBody2D
 
+@export var ghost_sprite : PackedScene
+@onready var fire_particles: GPUParticles2D = $FireParticles
+@onready var ghost_spawn_timer: Timer = $GhostSpawnTimer
 var base_speed = 300
 var color = Color.BLACK
 var object_sound = SoundManager.paddle_list
-var quick_mode_flag: bool = false
+var speed_up_flag: bool = false
+var size_up_flag : bool = false
 var acceleration = 0.2
 
 func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)
 
+func _physics_process(delta: float) -> void:
+	fire_particles.amount_ratio = ScoreCalculator.multiplier - 1.5
+	
 func _on_action_pressed(action: String, delta: float) -> void:
 	match action:
 		"move_right":
@@ -25,9 +32,43 @@ func _move_left(delta) -> void:
 	_clamp_position()
 
 func _clamp_position() -> void:
-	var half_width: float = $PaddleCollision.shape.height / 2.0
+	var half_width: float = $ClampCollision.shape.height / 2.0
 	var screen_width := get_viewport_rect().size.x
 	position.x = clamp(position.x, half_width, screen_width - half_width)
 
 func hit(_value):
-	$AnimationPlayer.play("reaction")
+	$AnimationPlayer.play("hit")
+	
+func wider_paddle():
+	if $WiderTimer.is_stopped():
+		$WiderTimer.start()
+	else:
+		$WiderTimer.wait_time += 2.0
+	if size_up_flag == false:
+		$AnimationPlayer.play("size_up")
+		size_up_flag = true
+	
+func speed_up():
+	if $SpeedTimer.is_stopped():
+		$SpeedTimer.start()
+	else:
+		$SpeedTimer.wait_time += 2.0
+	speed_up_flag = true
+	base_speed = clamp(base_speed + 100, 300, 500)
+
+func _add_ghost():
+	var ghost = ghost_sprite.instantiate()
+	ghost.set_property(position , scale)
+	get_parent().add_child(ghost)
+	
+func _on_speed_timer_timeout() -> void:
+	speed_up_flag = false
+	base_speed = 300
+
+func _on_wider_timer_timeout() -> void:
+	$AnimationPlayer.play_backwards("size_up")
+	size_up_flag = false
+
+func _on_ghost_spawn_timer_timeout() -> void:
+	if speed_up_flag:
+		_add_ghost()

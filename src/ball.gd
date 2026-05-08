@@ -15,6 +15,7 @@ func _reset_vel():
 	velocity_multiplier = 1.0
 
 func _ready() -> void:
+	global_position = GameManager.screen_center
 	_reset_vel()
 
 func _physics_process(delta: float) -> void:

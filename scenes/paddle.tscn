@@ -2,6 +2,27 @@
 
 [ext_resource type="Texture2D" uid="uid://bnhy7rdmkk3ob" path="res://assets/sprites/paddle.png" id="1_3xiby"]
 [ext_resource type="Script" uid="uid://djkekj0cqxk17" path="res://src/paddle.gd" id="1_y7wee"]
+[ext_resource type="PackedScene" uid="uid://d2pahw6axst2e" path="res://scenes/paddle_ghost.tscn" id="2_kvcsl"]
+[ext_resource type="PackedScene" uid="uid://dbfj731vy3awl" path="res://scenes/particles/fire_particles.tscn" id="2_mo4dg"]
+[ext_resource type="Texture2D" uid="uid://dla0wc5fkxtof" path="res://assets/normal_fire_texture.tres" id="3_pacq5"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pacq5"]
+resource_local_to_scene = true
+emission_shape_scale = Vector3(1.085, 3.895, 1)
+emission_shape = 3
+emission_box_extents = Vector3(31.25, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+flatness = 1.0
+gravity = Vector3(0, -100, 0)
+radial_accel_min = -100.0
+radial_accel_max = -78.49
+scale_min = 0.0
+scale_max = 3.0
+color_ramp = ExtResource("3_pacq5")
+turbulence_enabled = true
+turbulence_noise_strength = 0.2
+turbulence_noise_speed = Vector3(0, 10, 0)
 
 [sub_resource type="Shader" id="Shader_y7wee"]
 code = "shader_type canvas_item;
@@ -49,25 +70,29 @@ shader_parameter/shadow_offset = Vector2(-0.005, 0.175)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mo4dg"]
 radius = 2.0
-height = 64.0
+height = 74.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pacq5"]
+radius = 2.0
+height = 66.0
 
 [sub_resource type="Animation" id="Animation_mo4dg"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PaddleSprite:position")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_pacq5"]
-resource_name = "reaction"
+resource_name = "hit"
 length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -76,16 +101,33 @@ tracks/0/path = NodePath("PaddleSprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 2, 0.5, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 4), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, 4), Vector2(0, -2), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kvcsl"]
+resource_name = "size_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvcsl"]
 _data = {
 &"RESET": SubResource("Animation_mo4dg"),
-&"reaction": SubResource("Animation_pacq5")
+&"hit": SubResource("Animation_pacq5"),
+&"size_up": SubResource("Animation_kvcsl")
 }
 
 [node name="Paddle" type="CharacterBody2D" unique_id=581106425]
@@ -93,15 +135,41 @@ texture_filter = 1
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_y7wee")
+ghost_sprite = ExtResource("2_kvcsl")
+
+[node name="FireParticles" parent="." unique_id=1124014033 instance=ExtResource("2_mo4dg")]
+amount = 100
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_pacq5")
 
 [node name="PaddleSprite" type="Sprite2D" parent="." unique_id=728051864]
 material = SubResource("ShaderMaterial_pacq5")
 texture = ExtResource("1_3xiby")
 
-[node name="PaddleCollision" type="CollisionShape2D" parent="." unique_id=1071230332]
+[node name="ClampCollision" type="CollisionShape2D" parent="." unique_id=1071230332]
 position = Vector2(0, 1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_mo4dg")
+disabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1336598790]
+[node name="PaddleCollision" type="CollisionShape2D" parent="." unique_id=1406908228]
+position = Vector2(0, 1)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_pacq5")
+
+[node name="SpeedTimer" type="Timer" parent="." unique_id=1782268763]
+wait_time = 5.0
+
+[node name="WiderTimer" type="Timer" parent="." unique_id=791695578]
+wait_time = 5.0
+
+[node name="GhostSpawnTimer" type="Timer" parent="." unique_id=1751609302]
+wait_time = 0.1
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1154548266]
 libraries/ = SubResource("AnimationLibrary_kvcsl")
+
+[connection signal="timeout" from="SpeedTimer" to="." method="_on_speed_timer_timeout"]
+[connection signal="timeout" from="WiderTimer" to="." method="_on_wider_timer_timeout"]
+[connection signal="timeout" from="GhostSpawnTimer" to="." method="_on_ghost_spawn_timer_timeout"]

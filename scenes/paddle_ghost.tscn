@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d2pahw6axst2e"]
+
+[ext_resource type="Texture2D" uid="uid://bnhy7rdmkk3ob" path="res://assets/sprites/paddle.png" id="1_1krig"]
+[ext_resource type="Script" uid="uid://c5l8r6jiexemb" path="res://src/paddle_ghost.gd" id="2_v3c7g"]
+
+[node name="PaddleGhost" type="Sprite2D" unique_id=1545083153]
+self_modulate = Color(0.22745098, 0.22745098, 0.22745098, 0.49019608)
+show_behind_parent = true
+texture = ExtResource("1_1krig")
+script = ExtResource("2_v3c7g")
