@@ -26,6 +26,8 @@ func _on_start_button_pressed() -> void:
 	await transitions_animation_player.animation_finished
 	$MainMenu.hide()
 	transitions_animation_player.play("UiFadeOut")
+	await transitions_animation_player.animation_finished
+	GameManager.generate_grid()
 	
 	###### Animations ######
 	

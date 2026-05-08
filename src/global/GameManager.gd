@@ -10,7 +10,7 @@ var game_started = false
 var level = 1
 
 func _ready() -> void:
-	toggle_pause_game()
+	self.process_mode = self.PROCESS_MODE_ALWAYS
 	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 	speed_timer.timeout.connect(speed_over)
 	add_child(speed_timer)
@@ -21,19 +21,19 @@ func _on_action_just_pressed(action : String , _delta : float) -> void:
 		"escape":
 			_quit_game()
 		"launch":
-			start_game()
+			_launch_ball()
 
 func _launch_ball() -> void:
 	if BrickData.is_generating_grid:
 		return
-	if game_started == true:
+	if game_started:
 		return
 	if ball.is_active:
 		return
 	ball.switch_active_state()
 	
-func grid_generated():
-	_launch_ball()
+func generate_grid():
+	grid.start_grid()
 	
 func start_game():
 	if not BrickData.is_grid_empty:
@@ -46,7 +46,7 @@ func _quit_game():
 	get_tree().quit()
 	
 func toggle_pause_game():
-	get_tree().paused != get_tree().paused
+	get_tree().paused = !get_tree().paused
 
 func speed_over():
 	paddle.base_speed = 300

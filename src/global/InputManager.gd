@@ -6,6 +6,9 @@ signal action_pressed(action: String)
 signal action_released(action: String)
 signal action_just_pressed(action: String)
 
+func _ready() -> void:
+	self.process_mode = self.PROCESS_MODE_ALWAYS
+	
 func _physics_process(delta: float):
 	for action in InputMap.get_actions():
 		if action.is_empty():
