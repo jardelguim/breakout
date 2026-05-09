@@ -40,19 +40,15 @@ func hit(_value):
 	$AnimationPlayer.play("hit")
 	
 func wider_paddle():
-	if $WiderTimer.is_stopped():
-		$WiderTimer.start()
-	else:
-		$WiderTimer.wait_time += 2.0
 	if size_up_flag == false:
 		$AnimationPlayer.play("size_up")
 		size_up_flag = true
+	$WiderTimer.start()
+	$WiderTimer.wait_time = clamp($WiderTimer.time_left + 2.0 , 0.0 , 10.0 )
 	
 func speed_up():
-	if $SpeedTimer.is_stopped():
-		$SpeedTimer.start()
-	else:
-		$SpeedTimer.wait_time += 2.0
+	$SpeedTimer.start()
+	$SpeedTimer.wait_time = clamp($SpeedTimer.time_left + 2.0 , 0.0 , 10.0 )
 	speed_up_flag = true
 	base_speed = clamp(base_speed + 100, 300, 500)
 
@@ -62,10 +58,12 @@ func _add_ghost():
 	get_parent().add_child(ghost)
 	
 func _on_speed_timer_timeout() -> void:
+	$SpeedTimer.wait_time = 5.0
 	speed_up_flag = false
 	base_speed = 300
 
 func _on_wider_timer_timeout() -> void:
+	$WiderTimer.wait_time = 5.0
 	$AnimationPlayer.play_backwards("size_up")
 	size_up_flag = false
 

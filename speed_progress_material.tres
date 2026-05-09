@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dkycifptlkjsh"]
+
+[ext_resource type="Shader" uid="uid://rt42yh3mn03u" path="res://assets/shaders/radial_progress.gdshader" id="1_2fc4l"]
+
+[resource]
+shader = ExtResource("1_2fc4l")
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/outer_bound = 0.4
+shader_parameter/inner_bound = 0.20000000298024
+shader_parameter/fill_direction = 1.0
+shader_parameter/progress = 1.0

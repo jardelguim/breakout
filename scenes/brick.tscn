@@ -102,6 +102,8 @@ unique_name_in_owner = true
 material = SubResource("ShaderMaterial_tj0p1")
 texture = ExtResource("5_d02mp")
 
+[node name="PowerUpSprite" type="Sprite2D" parent="." unique_id=470704183]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1807921520]
 libraries/ = SubResource("AnimationLibrary_ci8dj")
 

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dbfj731vy3awl" path="res://scenes/particles/fire_particles.tscn" id="2_mo4dg"]
 [ext_resource type="Texture2D" uid="uid://dla0wc5fkxtof" path="res://assets/normal_fire_texture.tres" id="3_pacq5"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pacq5"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kvcsl"]
 resource_local_to_scene = true
 emission_shape_scale = Vector3(1.085, 3.895, 1)
 emission_shape = 3
@@ -140,7 +140,7 @@ ghost_sprite = ExtResource("2_kvcsl")
 [node name="FireParticles" parent="." unique_id=1124014033 instance=ExtResource("2_mo4dg")]
 amount = 100
 lifetime = 0.3
-process_material = SubResource("ParticleProcessMaterial_pacq5")
+process_material = SubResource("ParticleProcessMaterial_kvcsl")
 
 [node name="PaddleSprite" type="Sprite2D" parent="." unique_id=728051864]
 material = SubResource("ShaderMaterial_pacq5")
@@ -159,9 +159,11 @@ shape = SubResource("CapsuleShape2D_pacq5")
 
 [node name="SpeedTimer" type="Timer" parent="." unique_id=1782268763]
 wait_time = 5.0
+one_shot = true
 
 [node name="WiderTimer" type="Timer" parent="." unique_id=791695578]
 wait_time = 5.0
+one_shot = true
 
 [node name="GhostSpawnTimer" type="Timer" parent="." unique_id=1751609302]
 wait_time = 0.1

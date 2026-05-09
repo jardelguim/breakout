@@ -49,16 +49,20 @@ offset_bottom = 1080.0
 texture = SubResource("ViewportTexture_8cj0n")
 stretch_mode = 5
 
+[node name="UiLayer" type="CanvasLayer" parent="." unique_id=429580740]
+
+[node name="Ui" parent="UiLayer" unique_id=1908995237 instance=ExtResource("5_iywne")]
+
 [node name="PostProcess" type="CanvasLayer" parent="." unique_id=450407155]
 
 [node name="VHSFilter" type="ColorRect" parent="PostProcess" unique_id=1960513558]
-visible = false
 material = SubResource("ShaderMaterial_lnu2h")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Vignette" type="ColorRect" parent="PostProcess" unique_id=1761273327]
 material = SubResource("ShaderMaterial_lbhrr")
@@ -67,10 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="UiLayer" type="CanvasLayer" parent="." unique_id=429580740]
-
-[node name="Ui" parent="UiLayer" unique_id=1908995237 instance=ExtResource("5_iywne")]
+mouse_filter = 2
 
 [node name="SoundContainer" type="Node" parent="." unique_id=1777455724]
 unique_name_in_owner = true

@@ -9,8 +9,19 @@
 [ext_resource type="StyleBox" uid="uid://c5jyvogvqagrh" path="res://assets/materials/score_panel.tres" id="4_ukj8e"]
 [ext_resource type="StyleBox" uid="uid://xh7dy2q52aj1" path="res://assets/materials/button_style_hover.tres" id="5_3wlde"]
 [ext_resource type="PackedScene" uid="uid://cp24l3l2h4csx" path="res://scenes/particles/void_particles.tscn" id="5_75u2n"]
+[ext_resource type="Material" uid="uid://dkycifptlkjsh" path="res://speed_progress_material.tres" id="6_7paak"]
+[ext_resource type="Material" uid="uid://cabfab7ftqcil" path="res://wider_progress_material.tres" id="7_5sqrc"]
 [ext_resource type="Shader" uid="uid://rdc6odrhmja1" path="res://assets/shaders/transition.gdshader" id="7_aputy"]
 [ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="10_w7enk"]
+
+[sub_resource type="Gradient" id="Gradient_5sqrc"]
+offsets = PackedFloat32Array(0, 0.98268396)
+colors = PackedColorArray(0, 0, 0, 1, 0.29219002, 0.29219005, 0.29219002, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ilk7v"]
+gradient = SubResource("Gradient_5sqrc")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="Gradient" id="Gradient_4foj3"]
 offsets = PackedFloat32Array(0, 0.7295082, 1)
@@ -349,6 +360,17 @@ script = ExtResource("1_dj8aq")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2128180965]
+layer = -3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=19741578]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ilk7v")
+
 [node name="MultiplierFireParticles" parent="." unique_id=1124014033 instance=ExtResource("2_ukj8e")]
 unique_name_in_owner = true
 position = Vector2(1703, 392)
@@ -449,6 +471,32 @@ offset_right = 274.0
 offset_bottom = 428.0
 theme_override_font_sizes/font_size = 30
 text = "150 150"
+
+[node name="TmerLabel" type="Label" parent="." unique_id=308910594]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 397.0
+offset_right = 272.0
+offset_bottom = 484.0
+theme_override_font_sizes/font_size = 30
+text = "speed_timer: 
+wide_timer: "
+
+[node name="SpeedProgress" type="ColorRect" parent="." unique_id=1328231886]
+material = ExtResource("6_7paak")
+layout_mode = 0
+offset_left = 83.0
+offset_top = 516.0
+offset_right = 191.0
+offset_bottom = 624.0
+
+[node name="WiderProgress" type="ColorRect" parent="." unique_id=40658688]
+material = ExtResource("7_5sqrc")
+layout_mode = 0
+offset_left = 83.0
+offset_top = 635.0
+offset_right = 191.0
+offset_bottom = 743.0
 
 [node name="GrayScaleFilter" type="ColorRect" parent="." unique_id=101374942]
 visible = false

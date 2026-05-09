@@ -1,11 +1,16 @@
 extends Control
 
+@onready var ball = get_node("/root/Game/SubViewport/Level1/Ball")
+@onready var paddle = get_node("/root/Game/SubViewport/Level1/Paddle")
+@onready var multiplier_fire_particles: GPUParticles2D = %MultiplierFireParticles
 @onready var transitions_animation_player: AnimationPlayer = %TransitionsAnimationPlayer
 @onready var label_score: RichTextLabel = %Score
 @onready var label_score_multiplier: RichTextLabel = %ScoreMultiplier
-@onready var ball = get_node("/root/Game/SubViewport/Level1/Ball")
 @onready var label: Label = $Label
-@onready var multiplier_fire_particles: GPUParticles2D = %MultiplierFireParticles
+@onready var speed_progress: ColorRect = $SpeedProgress
+@onready var wider_progress: ColorRect = $WiderProgress
+var speed_time_left
+var wider_time_left
 var shake_rate = 20
 var level = 5
 var fire_rate = 0.0
@@ -16,8 +21,17 @@ func _ready() -> void:
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
 	
 func _process(delta: float) -> void:
-	# Debug only remove later
+	speed_time_left = float(paddle.get_node("SpeedTimer").time_left)
+	wider_time_left = float(paddle.get_node("WiderTimer").time_left)
+	var tween = create_tween()
+	tween.tween_property(speed_progress.material, "shader_parameter/progress" , speed_time_left/10.0 , 0.1).set_ease(Tween.EASE_IN)
+	tween.tween_property(wider_progress.material, "shader_parameter/progress" , wider_time_left/10.0 , 0.1).set_ease(Tween.EASE_IN)
+	
+	#speed_progress.material.set("shader_parameter/progress" , speed_time_left / 5.0 )
+	#wider_progress.material.set("shader_parameter/progress" , wider_time_left / 5.0 )
 	label.text = str(GameManager.level)
+	$TmerLabel.text = "speed_timer: %d
+	wide_timer: %d" %[speed_time_left , wider_time_left]
 	
 	###### Buttons #######
 	
