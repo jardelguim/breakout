@@ -9,8 +9,8 @@
 [ext_resource type="StyleBox" uid="uid://c5jyvogvqagrh" path="res://assets/materials/score_panel.tres" id="4_ukj8e"]
 [ext_resource type="StyleBox" uid="uid://xh7dy2q52aj1" path="res://assets/materials/button_style_hover.tres" id="5_3wlde"]
 [ext_resource type="PackedScene" uid="uid://cp24l3l2h4csx" path="res://scenes/particles/void_particles.tscn" id="5_75u2n"]
-[ext_resource type="Material" uid="uid://dkycifptlkjsh" path="res://speed_progress_material.tres" id="6_7paak"]
-[ext_resource type="Material" uid="uid://cabfab7ftqcil" path="res://wider_progress_material.tres" id="7_5sqrc"]
+[ext_resource type="Material" uid="uid://dkycifptlkjsh" path="res://assets/speed_progress_material.tres" id="6_7paak"]
+[ext_resource type="Material" uid="uid://cabfab7ftqcil" path="res://assets/wider_progress_material.tres" id="7_5sqrc"]
 [ext_resource type="Shader" uid="uid://rdc6odrhmja1" path="res://assets/shaders/transition.gdshader" id="7_aputy"]
 [ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="10_w7enk"]
 
@@ -30,7 +30,7 @@ colors = PackedColorArray(0.7953156, 0.3949985, 7.70092e-07, 1, 0.8666667, 0, 0,
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ppbhl"]
 gradient = SubResource("Gradient_4foj3")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aputy"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5sqrc"]
 resource_local_to_scene = true
 emission_shape = 3
 emission_box_extents = Vector3(138.59, 50, 1)
@@ -258,7 +258,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.48962224, 0.48962224, 0.48962218, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3g7nd"]
 gradient = SubResource("Gradient_65k0f")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7paak"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ilk7v"]
 resource_local_to_scene = true
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
@@ -377,7 +377,7 @@ position = Vector2(1703, 392)
 amount = 300
 amount_ratio = 0.0
 lifetime = 0.86
-process_material = SubResource("ParticleProcessMaterial_aputy")
+process_material = SubResource("ParticleProcessMaterial_5sqrc")
 
 [node name="MultiControl" type="Control" parent="." unique_id=318884307]
 anchors_preset = 0
@@ -583,7 +583,7 @@ text = "start"
 position = Vector2(959, 1074)
 amount = 100
 lifetime = 7.0
-process_material = SubResource("ParticleProcessMaterial_7paak")
+process_material = SubResource("ParticleProcessMaterial_ilk7v")
 
 [node name="MenuTransitionRect" type="ColorRect" parent="MainMenu" unique_id=272398888]
 material = SubResource("ShaderMaterial_5sqrc")

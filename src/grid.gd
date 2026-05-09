@@ -1,7 +1,5 @@
 extends Node2D
 
-signal grid_generated
-
 @export var brick : PackedScene
 const max_rows = 8
 const max_columns = 20

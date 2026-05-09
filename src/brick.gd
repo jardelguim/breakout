@@ -5,7 +5,6 @@ extends RigidBody2D
 @onready var damage_numbers: DamageNumbers = $DamageNumbers
 
 signal power_up_event(power_up_type: String)
-signal brick_erased
 
 var is_alive = true
 var multiplier_given : float

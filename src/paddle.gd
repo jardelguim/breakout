@@ -13,7 +13,7 @@ var acceleration = 0.2
 func _ready() -> void:
 	InputManager.action_pressed.connect(_on_action_pressed)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	fire_particles.amount_ratio = ScoreCalculator.multiplier - 1.5
 	
 func _on_action_pressed(action: String, delta: float) -> void:

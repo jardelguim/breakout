@@ -20,7 +20,7 @@ func _ready() -> void:
 	ScoreCalculator.connect("on_game_score_change" , _on_game_score_update)
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	speed_time_left = float(paddle.get_node("SpeedTimer").time_left)
 	wider_time_left = float(paddle.get_node("WiderTimer").time_left)
 	var tween = create_tween()
