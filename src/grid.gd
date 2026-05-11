@@ -11,6 +11,12 @@ var brick_width = 15
 var left_screen_offset = 0
 var y_offset = 15
 
+func _on_brick_hit(is_alive):
+	var powerup = GameManager.powerups["increase_paddle"]
+	if not is_alive:
+		return
+	powerup.activate()
+
 func start_grid() -> void:
 	'''Function to generate a new grid'''
 	if BrickData.is_generating_grid == true:
@@ -37,8 +43,7 @@ func start_grid() -> void:
 			new_brick.brick_type = BrickData.brick_types.pick_random()
 			new_brick.set_brick_type()	
 			new_brick.position = pos
-			new_brick.power_up_event.connect(GameManager.on_powerup_event)
-			
+
 			BrickData.bricks_array.append(new_brick)
 			$BrickContainer.add_child(new_brick)
 			

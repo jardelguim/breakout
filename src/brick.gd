@@ -4,7 +4,7 @@ extends RigidBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var damage_numbers: DamageNumbers = $DamageNumbers
 
-signal power_up_event(power_up_type: String)
+signal on_hit(is_alive: bool)
 
 var is_alive = true
 var multiplier_given : float
@@ -13,7 +13,7 @@ var brick_type : String
 var color : Color
 var texture
 var object_sound = SoundManager.brick_list
-var brick_powerup_type: String = "ordinary"
+
 
 func set_brick_type() -> void:
 	match brick_type:
@@ -22,36 +22,31 @@ func set_brick_type() -> void:
 			color = Color.RED
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/red_brick.png")
-			brick_powerup_type = "NORMAL"
 
 		"GREEN": 
 			score_given = 2
 			color = Color.GREEN
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/green_brick.png")
-			brick_powerup_type = "WIDER_PADDLE"
 
 		"BLUE": 
 			score_given = 1
 			color = Color.BLUE
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/blue_brick.png")
-			brick_powerup_type = "MULTI_BALL"
-			
+
 		"YELLOW": 
 			score_given = 1
 			color = Color.YELLOW
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/yellow_brick.png")
-			brick_powerup_type = "SPEED"
 
 	%BrickSprite.texture = texture
 	modulate.a = 0.0
-		
+
 func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
-	if is_alive:
-		power_up_event.emit(brick_powerup_type)
+	on_hit.emit(is_alive)
 	_apply_ball_impulse(ball_pos)
 	_play_hit_animation()
 	_change_collision_layer()
