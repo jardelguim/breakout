@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="Breakout"
+config/version="1.0"
 run/main_scene="uid://disc1xer5wdd3"
 config/features=PackedStringArray("4.6", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/show_image=false
+config/icon="uid://d7lyumfuad0f"
 
 [audio]
 

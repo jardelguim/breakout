@@ -12,7 +12,9 @@
 [ext_resource type="Material" uid="uid://dkycifptlkjsh" path="res://assets/speed_progress_material.tres" id="6_7paak"]
 [ext_resource type="Material" uid="uid://cabfab7ftqcil" path="res://assets/wider_progress_material.tres" id="7_5sqrc"]
 [ext_resource type="Shader" uid="uid://rdc6odrhmja1" path="res://assets/shaders/transition.gdshader" id="7_aputy"]
+[ext_resource type="Texture2D" uid="uid://bun81dtu001vg" path="res://assets/sprites/powerups/size_up_icon.png" id="8_flkkw"]
 [ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="10_w7enk"]
+[ext_resource type="Texture2D" uid="uid://b7t0tlekw0te" path="res://assets/sprites/powerups/speed_icon.png" id="13_ilk7v"]
 
 [sub_resource type="Gradient" id="Gradient_5sqrc"]
 offsets = PackedFloat32Array(0, 0.98268396)
@@ -30,7 +32,7 @@ colors = PackedColorArray(0.7953156, 0.3949985, 7.70092e-07, 1, 0.8666667, 0, 0,
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ppbhl"]
 gradient = SubResource("Gradient_4foj3")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5sqrc"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_flkkw"]
 resource_local_to_scene = true
 emission_shape = 3
 emission_box_extents = Vector3(138.59, 50, 1)
@@ -258,7 +260,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.48962224, 0.48962224, 0.48962218, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3g7nd"]
 gradient = SubResource("Gradient_65k0f")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ilk7v"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mhjpf"]
 resource_local_to_scene = true
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
@@ -348,6 +350,72 @@ _data = {
 &"UiFadeOut": SubResource("Animation_s2m3y")
 }
 
+[sub_resource type="Animation" id="Animation_4dthu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WiderProgressControl/WiderIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpeedProgressControl/SpeedIcon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_hu0pd"]
+resource_name = "size_scale_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WiderProgressControl/WiderIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.19999999),
+"transitions": PackedFloat32Array(2, 0.5, 0.5),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o5ifv"]
+resource_name = "speed_scale_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpeedProgressControl/SpeedIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(2, 0.5, 0.5),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o5ifv"]
+_data = {
+&"RESET": SubResource("Animation_4dthu"),
+&"size_scale_up": SubResource("Animation_hu0pd"),
+&"speed_scale_up": SubResource("Animation_o5ifv")
+}
+
 [node name="Ui" type="Control" unique_id=1908995237]
 process_mode = 3
 layout_mode = 3
@@ -377,7 +445,7 @@ position = Vector2(1703, 392)
 amount = 300
 amount_ratio = 0.0
 lifetime = 0.86
-process_material = SubResource("ParticleProcessMaterial_5sqrc")
+process_material = SubResource("ParticleProcessMaterial_flkkw")
 
 [node name="MultiControl" type="Control" parent="." unique_id=318884307]
 anchors_preset = 0
@@ -463,40 +531,161 @@ vertical_alignment = 1
 unique_name_in_owner = true
 position = Vector2(1704, 586)
 
-[node name="Label" type="Label" parent="." unique_id=845784538]
-layout_mode = 0
-offset_left = 43.0
-offset_top = 341.0
-offset_right = 274.0
-offset_bottom = 428.0
-theme_override_font_sizes/font_size = 30
-text = "150 150"
+[node name="SpeedProgressControl" type="Control" parent="." unique_id=1460402882]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="TmerLabel" type="Label" parent="." unique_id=308910594]
+[node name="SpeedIcon" type="TextureRect" parent="SpeedProgressControl" unique_id=1492468390]
 layout_mode = 0
-offset_left = 41.0
-offset_top = 397.0
-offset_right = 272.0
-offset_bottom = 484.0
-theme_override_font_sizes/font_size = 30
-text = "speed_timer: 
-wide_timer: "
+offset_left = 57.87
+offset_top = 822.0
+offset_right = 137.87
+offset_bottom = 902.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(40, 40)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("13_ilk7v")
+stretch_mode = 5
 
-[node name="SpeedProgress" type="ColorRect" parent="." unique_id=1328231886]
+[node name="SpeedProgress" type="ColorRect" parent="SpeedProgressControl" unique_id=1328231886]
+unique_name_in_owner = true
 material = ExtResource("6_7paak")
 layout_mode = 0
-offset_left = 83.0
-offset_top = 516.0
-offset_right = 191.0
-offset_bottom = 624.0
+offset_left = 57.87
+offset_top = 912.0
+offset_right = 197.87
+offset_bottom = 1052.0
+size_flags_vertical = 3
 
-[node name="WiderProgress" type="ColorRect" parent="." unique_id=40658688]
+[node name="WiderProgressControl" type="Control" parent="." unique_id=723410537]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WiderIcon" type="TextureRect" parent="WiderProgressControl" unique_id=1401403956]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 238.515
+offset_top = 822.0
+offset_right = 318.515
+offset_bottom = 902.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(40, 40)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("8_flkkw")
+stretch_mode = 5
+
+[node name="WiderProgress" type="ColorRect" parent="WiderProgressControl" unique_id=40658688]
+unique_name_in_owner = true
 material = ExtResource("7_5sqrc")
 layout_mode = 0
+offset_left = 238.515
+offset_top = 912.0
+offset_right = 378.515
+offset_bottom = 1052.0
+size_flags_vertical = 3
+
+[node name="LevelControl" type="Control" parent="." unique_id=764163413]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MultiMargin" type="MarginContainer" parent="LevelControl" unique_id=1086792031]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
 offset_left = 83.0
-offset_top = 635.0
-offset_right = 191.0
-offset_bottom = 743.0
+offset_top = -449.0
+offset_right = 288.0
+offset_bottom = -298.0
+grow_vertical = 2
+pivot_offset = Vector2(102.5, 86)
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="LevelControl/MultiMargin" unique_id=2109335717]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_24e4x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelControl/MultiMargin" unique_id=1259347045]
+layout_mode = 2
+
+[node name="Level" type="RichTextLabel" parent="LevelControl/MultiMargin/VBoxContainer" unique_id=1012294382]
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("2_ro3t7")
+theme_override_font_sizes/normal_font_size = 58
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=5.0 connected=1]LEVEL[/wave]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelLabel" type="RichTextLabel" parent="LevelControl/MultiMargin/VBoxContainer" unique_id=2130435462]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("2_ro3t7")
+theme_override_font_sizes/normal_font_size = 78
+bbcode_enabled = true
+text = "1"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerControl" type="Control" parent="." unique_id=211051362]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MultiMargin" type="MarginContainer" parent="TimerControl" unique_id=474542992]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 83.0
+offset_top = -183.0
+offset_right = 288.0
+offset_bottom = -111.0
+grow_vertical = 2
+pivot_offset = Vector2(94, 0)
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="TimerControl/MultiMargin" unique_id=1053798552]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_24e4x")
+
+[node name="Timer" type="RichTextLabel" parent="TimerControl/MultiMargin" unique_id=1736728964]
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("2_ro3t7")
+theme_override_font_sizes/normal_font_size = 67
+bbcode_enabled = true
+text = "00:30"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GrayScaleFilter" type="ColorRect" parent="." unique_id=101374942]
 visible = false
@@ -583,7 +772,7 @@ text = "start"
 position = Vector2(959, 1074)
 amount = 100
 lifetime = 7.0
-process_material = SubResource("ParticleProcessMaterial_ilk7v")
+process_material = SubResource("ParticleProcessMaterial_mhjpf")
 
 [node name="MenuTransitionRect" type="ColorRect" parent="MainMenu" unique_id=272398888]
 material = SubResource("ShaderMaterial_5sqrc")
@@ -600,5 +789,8 @@ mouse_filter = 2
 [node name="TransitionsAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1678933447]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_mhjpf")
+
+[node name="IconsAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1455254187]
+libraries/ = SubResource("AnimationLibrary_o5ifv")
 
 [connection signal="pressed" from="MainMenu/MarginContainer/StartButton" to="." method="_on_start_button_pressed"]

@@ -6,6 +6,7 @@ extends RigidBody2D
 
 signal on_hit(is_alive: bool)
 
+var powerup : PowerUp
 var is_alive = true
 var multiplier_given : float
 var score_given : int
@@ -42,11 +43,14 @@ func set_brick_type() -> void:
 			texture = load("res://assets/sprites/bricks/yellow_brick.png")
 
 	%BrickSprite.texture = texture
+	if powerup != null:
+		$PowerUpSprite.texture = powerup.icon
 	modulate.a = 0.0
 
 func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
-	on_hit.emit(is_alive)
+	if powerup != null:	
+		powerup.activate()
 	_apply_ball_impulse(ball_pos)
 	_play_hit_animation()
 	_change_collision_layer()

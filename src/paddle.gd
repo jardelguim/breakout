@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+signal speed_powerup
+signal speed_ended
+signal size_powerup
+signal size_ended
+
 @export var ghost_sprite : PackedScene
 @onready var fire_particles: GPUParticles2D = $FireParticles
 @onready var ghost_spawn_timer: Timer = $GhostSpawnTimer
@@ -42,14 +47,17 @@ func hit(_value):
 func wider_paddle():
 	if size_up_flag == false:
 		$AnimationPlayer.play("size_up")
+		size_powerup.emit()
 		size_up_flag = true
 	$WiderTimer.start()
 	$WiderTimer.wait_time = clamp($WiderTimer.time_left + 2.0 , 0.0 , 10.0 )
 	
 func speed_up():
+	if speed_up_flag == false:
+		speed_powerup.emit()
+	speed_up_flag = true
 	$SpeedTimer.start()
 	$SpeedTimer.wait_time = clamp($SpeedTimer.time_left + 2.0 , 0.0 , 10.0 )
-	speed_up_flag = true
 	base_speed = clamp(base_speed + 100, 300, 500)
 
 func _add_ghost():
@@ -60,12 +68,14 @@ func _add_ghost():
 func _on_speed_timer_timeout() -> void:
 	$SpeedTimer.wait_time = 5.0
 	speed_up_flag = false
+	speed_ended.emit()
 	base_speed = 300
 
 func _on_wider_timer_timeout() -> void:
 	$WiderTimer.wait_time = 5.0
 	$AnimationPlayer.play_backwards("size_up")
 	size_up_flag = false
+	size_ended.emit()
 
 func _on_ghost_spawn_timer_timeout() -> void:
 	if speed_up_flag:

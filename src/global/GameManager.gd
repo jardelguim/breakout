@@ -8,6 +8,8 @@ extends Node
 	"increase_paddle": IncreasePaddlePowerUp.new(paddle)
 }
 
+signal level_changed(level)
+
 var screen_center : Vector2 = Vector2(320 , 320) / 2
 var game_started = false
 var level = 1
