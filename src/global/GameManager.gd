@@ -6,7 +6,8 @@ extends Node
 @onready var level_node = get_node("/root/Game/SubViewport/Level1")
 @onready var powerups: Dictionary[String, PowerUp] = {
 	"speed_up": SpeederPowerUp.new(paddle),
-	"increase_paddle": IncreasePaddlePowerUp.new(paddle)
+	"increase_paddle": IncreasePaddlePowerUp.new(paddle),
+	"explosion": ExplosionPowerUp.new(level_node)
 }
 
 signal level_changed(level)

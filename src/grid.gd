@@ -14,7 +14,7 @@ var y_offset = 15
 func _generate_powerup() -> PowerUp:
 	var chance = 20.0
 	var powerup
-	if randf_range(0.0 , 100.0) <= chance:
+	if randf_range(0, 100) <= chance:
 		powerup = GameManager.powerups.values().pick_random()
 	else:
 		powerup = null

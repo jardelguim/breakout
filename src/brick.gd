@@ -50,7 +50,9 @@ func set_brick_type() -> void:
 func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
 	if powerup != null:	
-		powerup.activate()
+		powerup.activate({
+			"position": position
+		})
 	_apply_ball_impulse(ball_pos)
 	_play_hit_animation()
 	_change_collision_layer()
