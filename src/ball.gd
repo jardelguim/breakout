@@ -7,6 +7,7 @@ var velocity_multiplier : float = 1.0
 var base_speed = 150
 var dir = Vector2.UP
 var is_active = false
+var is_dead = false
 var sound_to_play
 var sound_type
 
@@ -22,7 +23,7 @@ func _physics_process(delta: float) -> void:
 	# If active, moves the ball based on the velocity
 	fire_particles.amount_ratio = velocity_multiplier - 1.5
 	rotate(5 * velocity_multiplier * delta)
-
+	
 	if not is_active:
 		return
 		
@@ -66,11 +67,20 @@ func _physics_process(delta: float) -> void:
 func entered_killzone():
 	_reset_vel()
 	ScoreCalculator.reset_chain()
+	
+func disable_ball():
+	is_active = false
+	set_collision_layer_value( 1 , false)
+	set_collision_mask_value( 1 , false)
+	set_collision_mask_value( 2 , false)
+	
+func enable_ball():
+	is_active = true
+	set_collision_layer_value( 1 , true)
+	set_collision_mask_value( 1 , true)
+	set_collision_mask_value( 2 , true)
 
-func switch_active_state():
-	is_active = not is_active
-	print(is_active)
-
-#func launch_with_direction(dir: Vector2):
-#	velocity = dir.normalized() * base_speed
-#	is_active = true
+func game_over():
+	disable_ball()
+	var tween = create_tween()
+	tween.tween_property(self , "position" , GameManager.screen_center , 1.0).set_ease(Tween.EASE_IN)

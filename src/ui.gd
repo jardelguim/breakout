@@ -8,6 +8,7 @@ extends Control
 @onready var label_score_multiplier: RichTextLabel = %ScoreMultiplier
 @onready var speed_progress: ColorRect = %SpeedProgress
 @onready var wider_progress: ColorRect = %WiderProgress
+@onready var timer_label: RichTextLabel = %Timer
 var speed_time_left
 var wider_time_left
 var shake_rate = 20
@@ -23,11 +24,11 @@ func _ready() -> void:
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
 	
 func _process(_delta: float) -> void:
-	speed_time_left = float(paddle.get_node("SpeedTimer").time_left)
-	wider_time_left = float(paddle.get_node("WiderTimer").time_left)
-	var tween = create_tween()
-	tween.tween_property(speed_progress.material, "shader_parameter/progress" , speed_time_left/10.0 , 0.1).set_ease(Tween.EASE_IN)
-	tween.tween_property(wider_progress.material, "shader_parameter/progress" , wider_time_left/10.0 , 0.1).set_ease(Tween.EASE_IN)
+	_animate_progress_bar()
+	if GameManager.game_timer.is_stopped():
+		timer_label.text = "00:%d" %GameManager.game_timer.wait_time
+	else:	
+		timer_label.text = "00:%d" %GameManager.game_timer.time_left
 	
 	###### Buttons #######
 	
@@ -39,6 +40,21 @@ func _on_start_button_pressed() -> void:
 	await transitions_animation_player.animation_finished
 	GameManager.generate_grid()
 	
+	###### Score ######
+	
+func _on_game_score_update(score):
+	_play_score_animation()
+	label_score.text = str(score)
+
+func _on_game_multiplier_update(multiplier):
+	_play_multi_animation()
+	if ScoreCalculator.multiplier != 2.5:
+		SoundManager.play_selected_sound("generic1")
+	shake_rate = clamp((multiplier - 1)/1.5 * 50, 0 , 50)
+	multiplier_fire_particles.amount_ratio = clamp(multiplier - 1.5 , 0.0 , 1.0)
+	level = clamp(multiplier/2.5 * 40, 5, 40)
+	label_score_multiplier.text = "[shake rate=%s level=%s connected=1]%sx[/shake]" %[shake_rate , level , multiplier]
+
 	###### Animations ######
 	
 func _play_multi_animation():
@@ -55,20 +71,18 @@ func _play_score_animation():
 	]
 	%ScoreAnimationPlayer.play(score_animations.pick_random())
 	
-	###### Score ######
-	
-func _on_game_score_update(score):
-	_play_score_animation()
-	label_score.text = str(score)
-
-func _on_game_multiplier_update(multiplier):
-	_play_multi_animation()
-	if ScoreCalculator.multiplier != 2.5:
-		SoundManager.play_selected_sound("generic1")
-	shake_rate = clamp((multiplier - 1)/1.5 * 50, 0 , 50)
-	multiplier_fire_particles.amount_ratio = clamp(multiplier - 1.5 , 0.0 , 1.0)
-	level = clamp(multiplier/2.5 * 40, 5, 40)
-	label_score_multiplier.text = "[shake rate=%s level=%s connected=1]%sx[/shake]" %[shake_rate , level , multiplier]
+func _animate_progress_bar():
+	speed_time_left = float(paddle.get_node("SpeedTimer").time_left)
+	wider_time_left = float(paddle.get_node("WiderTimer").time_left)
+	var tween = create_tween()
+	tween.tween_property(
+		speed_progress.material,
+		"shader_parameter/progress" ,
+		speed_time_left/10.0 , 0.1).set_ease(Tween.EASE_IN)
+	tween.tween_property(
+		wider_progress.material, 
+		"shader_parameter/progress" , 
+		wider_time_left/10.0 , 0.1).set_ease(Tween.EASE_IN)
 
 func _on_paddle_size_powerup() -> void:
 	$IconsAnimationPlayer.play("size_scale_up")
