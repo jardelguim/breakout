@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b1dbb165088ae"]
+
+[sub_resource type="Curve" id="Curve_766sr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.98648655, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6dy78"]
+curve = SubResource("Curve_766sr")
+
+[sub_resource type="Gradient" id="Gradient_ask2s"]
+offsets = PackedFloat32Array(0.27272728, 0.82887703)
+colors = PackedColorArray(0.791529, 0.2885626, 0.49546283, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vlqcd"]
+gradient = SubResource("Gradient_ask2s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7poan"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 712.30005
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_max = 10.75
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 20.319998
+linear_accel_max = 37.869995
+radial_accel_min = -4.740002
+radial_accel_max = 50.359997
+scale_min = 2.0
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_vlqcd")
+alpha_curve = SubResource("CurveTexture_6dy78")
+hue_variation_min = 0.019999977
+hue_variation_max = 0.36999997
+
+[node name="BigExplosionParticles" type="GPUParticles2D" unique_id=1726222035]
+emitting = false
+amount = 150
+lifetime = 1.5
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_7poan")

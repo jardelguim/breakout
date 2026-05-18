@@ -12,6 +12,6 @@ func emit_particle(particle_id : String , position : Vector2 , angle : Vector3 ,
 	new_particle.process_material.set("direction", angle )
 	new_particle.one_shot = isOneShot
 	new_particle.process_material.set("color", color )
-	add_child(new_particle)
+	GameManager.level_node.add_child(new_particle)
 	await get_tree().create_timer(new_particle.lifetime).timeout
 	new_particle.queue_free()

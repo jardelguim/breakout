@@ -26,9 +26,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	_animate_progress_bar()
 	if GameManager.game_timer.is_stopped():
-		timer_label.text = "00:%d" %GameManager.game_timer.wait_time
+		timer_label.text = "%d" %GameManager.game_timer.wait_time
 	else:	
-		timer_label.text = "00:%d" %GameManager.game_timer.time_left
+		timer_label.text = "%d" %GameManager.game_timer.time_left
 	
 	###### Buttons #######
 	

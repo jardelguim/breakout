@@ -13,7 +13,7 @@
 [ext_resource type="Material" uid="uid://cabfab7ftqcil" path="res://assets/wider_progress_material.tres" id="7_5sqrc"]
 [ext_resource type="Shader" uid="uid://rdc6odrhmja1" path="res://assets/shaders/transition.gdshader" id="7_aputy"]
 [ext_resource type="Texture2D" uid="uid://bun81dtu001vg" path="res://assets/sprites/powerups/size_up_icon.png" id="8_flkkw"]
-[ext_resource type="Shader" path="res://assets/shaders/gray_scale.gdshader" id="10_w7enk"]
+[ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="10_w7enk"]
 [ext_resource type="Texture2D" uid="uid://b7t0tlekw0te" path="res://assets/sprites/powerups/speed_icon.png" id="13_ilk7v"]
 
 [sub_resource type="Gradient" id="Gradient_5sqrc"]

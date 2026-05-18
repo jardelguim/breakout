@@ -10,6 +10,15 @@ extends Node
 	"explosion": ExplosionPowerUp.new(level_node)
 }
 
+enum GAME_STATES {
+	MAIN_MENU,
+	INGAME,
+	PAUSED,
+	GAME_OVER,
+	LEVEL_CLEAR
+}
+var GAME_STATE : GAME_STATES
+
 signal level_changed(level)
 
 var game_timer = Timer.new()
@@ -18,8 +27,9 @@ var game_started = false
 var level = 1
 
 func _ready() -> void:
+	GAME_STATE = GAME_STATES.MAIN_MENU
 	add_child(game_timer)
-	game_timer.wait_time = 10.0
+	game_timer.wait_time = 60.0
 	game_timer.one_shot = true
 	game_timer.connect("timeout" , game_over)
 	self.process_mode = self.PROCESS_MODE_ALWAYS
@@ -39,18 +49,21 @@ func _launch_ball() -> void:
 		return
 	if ball.is_active:
 		return
+	if GAME_STATE != GAME_STATES.INGAME:
+		return
 	game_timer.start()
 	ball.enable_ball()
 	
 func generate_grid():
 	grid.start_grid()
+	GAME_STATE = GAME_STATES.INGAME
 	
-func start_game():
-	if not BrickData.is_grid_empty:
-		return
-	grid.start_grid()
-	BrickData.is_grid_empty = false
-	ball.position = screen_center
+#func start_game():
+#	if not BrickData.is_grid_empty:
+#		return
+#	grid.start_grid()
+#	BrickData.is_grid_empty = false
+#	ball.position = screen_center
 
 func game_over():
 	ball.game_over()

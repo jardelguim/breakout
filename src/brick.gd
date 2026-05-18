@@ -4,8 +4,6 @@ extends RigidBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var damage_numbers: DamageNumbers = $DamageNumbers
 
-signal on_hit(is_alive: bool)
-
 var powerup : PowerUp
 var is_alive = true
 var multiplier_given : float
@@ -49,7 +47,7 @@ func set_brick_type() -> void:
 
 func hit(ball_pos : Vector2):
 	'''Called when hit by ball'''
-	if powerup != null:	
+	if powerup != null and is_alive:
 		powerup.activate({
 			"position": position
 		})
