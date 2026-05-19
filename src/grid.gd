@@ -54,4 +54,5 @@ func start_grid() -> void:
 			tween.tween_property(new_brick , "modulate:a" , 1 , 0.05)
 			
 	await tween.finished
+	BrickData._check_brick_array()
 	BrickData.is_generating_grid = false

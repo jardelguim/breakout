@@ -26,6 +26,13 @@ var brick_list = {
 	"brick_hit_3" : "res://assets/sounds/brick_hit_3.wav",
 }
 
+var explosion_list = {
+	"explosion1" : "res://assets/sounds/explode1.ogg",
+	"explosion2" : "res://assets/sounds/explode2.ogg",
+	"explosion3" : "res://assets/sounds/explode3.ogg",
+	"explosion4" : "res://assets/sounds/explode4.ogg"
+}
+
 func play_sound(sound_list):
 	var sound_player = AudioStreamPlayer.new()
 	var sound_id = sound_list.keys().pick_random()

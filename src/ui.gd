@@ -20,6 +20,7 @@ func _ready() -> void:
 	paddle.connect("speed_ended" , _on_paddle_speed_powerup_ended)
 	paddle.connect("size_ended" , _on_paddle_size_powerup_ended)
 	GameManager.connect("level_changed" , _on_level_change)
+	GameManager.connect("space_pressed" , _on_space_pressed)
 	ScoreCalculator.connect("on_game_score_change" , _on_game_score_update)
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
 	
@@ -38,13 +39,17 @@ func _on_start_button_pressed() -> void:
 	$MainMenu.hide()
 	transitions_animation_player.play("UiFadeOut")
 	await transitions_animation_player.animation_finished
-	GameManager.generate_grid()
+	GameManager.GAME_STATE = GameManager.GAME_STATES.INGAME
+	
+func _on_space_pressed():
+	var tween = create_tween()
+	tween.tween_property(%PressControl, "modulate:a" , 0.0 , 0.5)
 	
 	###### Score ######
 	
 func _on_game_score_update(score):
 	_play_score_animation()
-	label_score.text = str(score)
+	label_score.text = "%d/%d" %[score , ScoreCalculator.required_score]
 
 func _on_game_multiplier_update(multiplier):
 	_play_multi_animation()

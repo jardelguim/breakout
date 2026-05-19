@@ -45,13 +45,13 @@ func set_brick_type() -> void:
 		$PowerUpSprite.texture = powerup.icon
 	modulate.a = 0.0
 
-func hit(ball_pos : Vector2):
+func hit(ball_pos : Vector2 , vel_multi , can_trigger_powerup : bool):
 	'''Called when hit by ball'''
-	if powerup != null and is_alive:
+	if powerup != null and is_alive and can_trigger_powerup:
 		powerup.activate({
 			"position": position
 		})
-	_apply_ball_impulse(ball_pos)
+	_apply_ball_impulse(ball_pos , vel_multi)
 	_play_hit_animation()
 	_change_collision_layer()
 	BrickData.bricks_array.erase(self)
@@ -74,20 +74,22 @@ func _play_hit_animation():
 	is_alive = false
 	var tween = create_tween()
 	tween.tween_property(%BrickSprite.material, "shader_parameter/weight", 1.0, 0.5)
+	tween.tween_property(%BrickSprite, "modulate:a" , 0.5 , 0.5)
 	
-func _apply_ball_impulse(ball_pos):
+	
+func _apply_ball_impulse(ball_pos , vel_multi):
 	var angular_vel_multi = 8
 	var direction = -1.0 * global_position.direction_to(ball_pos)
 	var upward_force = Vector2.UP * randf_range(20 , 80)
 	angular_velocity = get_angle_to(ball_pos) * angular_vel_multi
-	apply_impulse(direction * 100 + upward_force)
+	apply_impulse(direction * 100 + upward_force * vel_multi)
 	gravity_scale = 0.2
 	
 func _change_collision_layer():
 	set_collision_layer_value(1 , false)
 	set_collision_mask_value(1 , false)
 	set_collision_layer_value(2 , true)
-	set_collision_mask_value(2 , true)
+	set_collision_mask_value(3 , true)
 	
 func _apply_death_effects():
 	gravity_scale = 0

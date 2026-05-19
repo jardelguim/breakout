@@ -13,7 +13,6 @@
 [ext_resource type="Material" uid="uid://cabfab7ftqcil" path="res://assets/wider_progress_material.tres" id="7_5sqrc"]
 [ext_resource type="Shader" uid="uid://rdc6odrhmja1" path="res://assets/shaders/transition.gdshader" id="7_aputy"]
 [ext_resource type="Texture2D" uid="uid://bun81dtu001vg" path="res://assets/sprites/powerups/size_up_icon.png" id="8_flkkw"]
-[ext_resource type="Shader" uid="uid://dtw3tjdweqd5o" path="res://assets/shaders/gray_scale.gdshader" id="10_w7enk"]
 [ext_resource type="Texture2D" uid="uid://b7t0tlekw0te" path="res://assets/sprites/powerups/speed_icon.png" id="13_ilk7v"]
 
 [sub_resource type="Gradient" id="Gradient_5sqrc"]
@@ -227,9 +226,43 @@ _data = {
 &"score_add2": SubResource("Animation_5sqrc")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aputy"]
-shader = ExtResource("10_w7enk")
-shader_parameter/weight = 0.0
+[sub_resource type="Animation" id="Animation_s2vcx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MultiMargin:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_38m54"]
+resource_name = "breathing_anim"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MultiMargin:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(2, 0.5, 2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h3f0y"]
+_data = {
+&"RESET": SubResource("Animation_s2vcx"),
+&"breathing_anim": SubResource("Animation_38m54")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7paak"]
 resource_local_to_scene = true
@@ -260,7 +293,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.48962224, 0.48962224, 0.48962218, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3g7nd"]
 gradient = SubResource("Gradient_65k0f")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mhjpf"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yamhi"]
 resource_local_to_scene = true
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
@@ -520,7 +553,7 @@ layout_mode = 2
 theme = ExtResource("2_ro3t7")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
-text = "0"
+text = "0/70"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -649,6 +682,56 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PressControl" type="Control" parent="." unique_id=1711239665]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MultiMargin" type="MarginContainer" parent="PressControl" unique_id=816221744]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.5
+offset_top = -75.5
+offset_right = 102.5
+offset_bottom = -12.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(208.5, 31.5)
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="PressControl/MultiMargin" unique_id=1212661241]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_24e4x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PressControl/MultiMargin" unique_id=1345145057]
+layout_mode = 2
+
+[node name="Level" type="RichTextLabel" parent="PressControl/MultiMargin/VBoxContainer" unique_id=214107258]
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("2_ro3t7")
+theme_override_font_sizes/normal_font_size = 58
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=5.0 connected=1]PRESS SPACE
+TO START[/wave]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressAnimationPlayer" type="AnimationPlayer" parent="PressControl" unique_id=454398037]
+libraries/ = SubResource("AnimationLibrary_h3f0y")
+autoplay = &"breathing_anim"
+
 [node name="TimerControl" type="Control" parent="." unique_id=211051362]
 layout_mode = 1
 anchors_preset = 15
@@ -687,16 +770,6 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="GrayScaleFilter" type="ColorRect" parent="." unique_id=101374942]
-visible = false
-material = SubResource("ShaderMaterial_aputy")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="UITransitionRect" type="ColorRect" parent="." unique_id=420522002]
 material = SubResource("ShaderMaterial_7paak")
@@ -773,7 +846,7 @@ text = "start"
 position = Vector2(959, 1074)
 amount = 100
 lifetime = 7.0
-process_material = SubResource("ParticleProcessMaterial_mhjpf")
+process_material = SubResource("ParticleProcessMaterial_yamhi")
 
 [node name="MenuTransitionRect" type="ColorRect" parent="MainMenu" unique_id=272398888]
 material = SubResource("ShaderMaterial_5sqrc")

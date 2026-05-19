@@ -41,7 +41,7 @@ func _clamp_position() -> void:
 	var screen_width := get_viewport_rect().size.x
 	position.x = clamp(position.x, half_width, screen_width - half_width)
 
-func hit(_value):
+func hit(_value , _value2 , _value3):
 	$AnimationPlayer.play("hit")
 	
 func wider_paddle():

@@ -14,11 +14,12 @@ enum GAME_STATES {
 	MAIN_MENU,
 	INGAME,
 	PAUSED,
-	GAME_OVER,
+	TIME_OVER,
 	LEVEL_CLEAR
 }
 var GAME_STATE : GAME_STATES
 
+signal space_pressed
 signal level_changed(level)
 
 var game_timer = Timer.new()
@@ -31,7 +32,7 @@ func _ready() -> void:
 	add_child(game_timer)
 	game_timer.wait_time = 60.0
 	game_timer.one_shot = true
-	game_timer.connect("timeout" , game_over)
+	game_timer.connect("timeout" , time_over)
 	self.process_mode = self.PROCESS_MODE_ALWAYS
 	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 
@@ -40,33 +41,42 @@ func _on_action_just_pressed(action : String , _delta : float) -> void:
 		"escape":
 			_quit_game()
 		"launch":
-			_launch_ball()
+			_space_pressed()
 
-func _launch_ball() -> void:
-	if BrickData.is_generating_grid:
-		return
-	if game_started:
+func _space_pressed() -> void:
+	print(GAME_STATE)
+	print(ball.is_active)
+	print(BrickData.is_generating_grid)
+	print(BrickData.is_grid_empty)
+	if GAME_STATE != GAME_STATES.INGAME:
 		return
 	if ball.is_active:
 		return
-	if GAME_STATE != GAME_STATES.INGAME:
-		return
-	game_timer.start()
-	ball.enable_ball()
+	if BrickData.is_grid_empty:
+		space_pressed.emit()
+		_generate_grid()
+	if BrickData.is_generating_grid == false:
+		ball.enable_ball()
+		game_timer.start()
 	
-func generate_grid():
+func _generate_grid():
 	grid.start_grid()
-	GAME_STATE = GAME_STATES.INGAME
 	
-#func start_game():
-#	if not BrickData.is_grid_empty:
-#		return
-#	grid.start_grid()
-#	BrickData.is_grid_empty = false
-#	ball.position = screen_center
+func delete_all_bricks():
+	while BrickData.bricks_array.size() > 0:
+		var first_brick = BrickData.bricks_array[-1]
+		await get_tree().create_timer(0.1).timeout
+		var x = randf_range(-1.0 , 1.0)
+		var y = randf_range(-1.0 , 1.0)
+		first_brick.hit(Vector2( x , y) , randf_range(1.0 , 5.0) , false)
+	ScoreCalculator
 
-func game_over():
-	ball.game_over()
+func time_over():
+	#GAME_STATE = GAME_STATES.TIME_OVER
+	ball.time_over()
+	if ScoreCalculator.score >= ScoreCalculator.required_score:
+		delete_all_bricks()
+		print("Level clear")
 	print("Game is over")
 
 func _quit_game():

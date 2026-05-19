@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		
 	if collider_node.has_method("hit"):
 		particle_color = collider_node.color
-		collider_node.hit(global_position)
+		collider_node.hit(global_position , velocity_multiplier , true)
 		velocity_multiplier = clamp(velocity_multiplier + 0.1 , 1.0 , 2.0)
 		ScoreCalculator.add_multiplier(0.1)
 		
@@ -80,7 +80,7 @@ func enable_ball():
 	set_collision_mask_value( 1 , true)
 	set_collision_mask_value( 2 , true)
 
-func game_over():
+func time_over():
 	disable_ball()
 	var tween = create_tween()
 	tween.tween_property(self , "position" , GameManager.screen_center , 1.0).set_ease(Tween.EASE_IN)
