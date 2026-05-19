@@ -23,6 +23,7 @@ func _ready() -> void:
 	GameManager.connect("space_pressed" , _on_space_pressed)
 	ScoreCalculator.connect("on_game_score_change" , _on_game_score_update)
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
+	ScoreCalculator.connect("on_required_score_change", _on_game_required_score_update)
 	
 func _process(_delta: float) -> void:
 	_animate_progress_bar()
@@ -60,8 +61,11 @@ func _on_game_multiplier_update(multiplier):
 	level = clamp(multiplier/2.5 * 40, 5, 40)
 	label_score_multiplier.text = "[shake rate=%s level=%s connected=1]%sx[/shake]" %[shake_rate , level , multiplier]
 
-	###### Animations ######
-	
+func _on_game_required_score_update(required_score):
+	_play_score_animation()
+	label_score.text = "%d/%d" %[ScoreCalculator.score, required_score]
+
+###### Animations ######	
 func _play_multi_animation():
 	var multi_animations : Array = [
 		"multi_add1",

@@ -30,7 +30,7 @@ var level = 1
 func _ready() -> void:
 	GAME_STATE = GAME_STATES.MAIN_MENU
 	add_child(game_timer)
-	game_timer.wait_time = 60.0
+	game_timer.wait_time = 15.0
 	game_timer.one_shot = true
 	game_timer.connect("timeout" , time_over)
 	self.process_mode = self.PROCESS_MODE_ALWAYS
@@ -65,11 +65,11 @@ func _generate_grid():
 func delete_all_bricks():
 	while BrickData.bricks_array.size() > 0:
 		var first_brick = BrickData.bricks_array[-1]
+		first_brick.count_points = false
 		await get_tree().create_timer(0.1).timeout
 		var x = randf_range(-1.0 , 1.0)
 		var y = randf_range(-1.0 , 1.0)
 		first_brick.hit(Vector2( x , y) , randf_range(1.0 , 5.0) , false)
-	ScoreCalculator
 
 func time_over():
 	#GAME_STATE = GAME_STATES.TIME_OVER
@@ -81,6 +81,6 @@ func time_over():
 
 func _quit_game():
 	get_tree().quit()
-	
+
 func toggle_pause_game():
 	get_tree().paused = !get_tree().paused

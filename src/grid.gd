@@ -10,14 +10,18 @@ var brick_height = 15
 var brick_width = 15
 var left_screen_offset = 0
 var y_offset = 15
+var myseed = 123
+var seedinc = 0
 
 func _generate_powerup() -> PowerUp:
 	var chance = 20.0
 	var powerup
+	seed(myseed + seedinc)
 	if randf_range(0, 100) <= chance:
 		powerup = GameManager.powerups.values().pick_random()
 	else:
 		powerup = null
+	seedinc+=1
 	return powerup
 
 func start_grid() -> void:

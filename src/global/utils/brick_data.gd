@@ -33,3 +33,4 @@ func _check_brick_array():
 		is_grid_empty = true
 		GameManager.level += 1
 		GameManager.level_changed.emit(GameManager.level)
+		ScoreCalculator._on_level_changed()

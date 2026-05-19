@@ -12,6 +12,7 @@ var brick_type : String
 var color : Color
 var texture
 var object_sound = SoundManager.brick_list
+var count_points: bool = true
 
 
 func set_brick_type() -> void:
@@ -60,9 +61,10 @@ func hit(ball_pos : Vector2 , vel_multi , can_trigger_powerup : bool):
 func entered_killzone():
 	_apply_death_effects()
 	_play_die_animation()
-	ScoreCalculator.add_score_with_multiplication(score_given)
-	damage_numbers.display_number(int(score_given * ScoreCalculator.multiplier) , global_position)
-	SoundManager.play_sound(SoundManager.poker_list)
+	if count_points:
+		ScoreCalculator.add_score_with_multiplication(score_given)
+		damage_numbers.display_number(int(score_given * ScoreCalculator.multiplier) , global_position)
+		SoundManager.play_sound(SoundManager.poker_list)
 	await get_tree().create_timer(1).timeout
 	queue_free()
 	
