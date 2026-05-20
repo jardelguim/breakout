@@ -1,5 +1,7 @@
 extends Node2D
 
+signal grid_generated
+
 @export var brick : PackedScene
 const max_rows = 8
 const max_columns = 20
@@ -26,6 +28,8 @@ func _generate_powerup() -> PowerUp:
 
 func start_grid() -> void:
 	'''Function to generate a new grid'''
+	if BrickData.is_grid_empty == false:
+		return
 	if BrickData.is_generating_grid == true:
 		return
 	BrickData.is_generating_grid = true
@@ -60,4 +64,4 @@ func start_grid() -> void:
 	await tween.finished
 	BrickData._check_brick_array()
 	BrickData.is_generating_grid = false
-	GameManager.start_game()
+	emit_signal("grid_generated")

@@ -23,12 +23,14 @@ enum GAME_STATES {
 var GAME_STATE : GAME_STATES
 
 signal level_clear(level)
-signal space_pressed
+signal level_clear_pressed
+signal game_over_pressed
+signal ingame_pressed
+signal game_started
 
 var game_timer = Timer.new()
-var game_wait_time = 10
+var game_wait_time = 60
 var screen_center : Vector2 = Vector2(320 , 320) / 2
-var game_started = false
 var level = 1
 
 func _ready() -> void:
@@ -47,7 +49,6 @@ func _on_action_just_pressed(action : String , _delta : float) -> void:
 		"launch":
 			_space_pressed()
 
-##### STATE FUNCTIONS #####
 
 func _set_state(new_state: GAME_STATES) ->void:
 	if new_state == GAME_STATE:
@@ -58,6 +59,8 @@ func _set_state(new_state: GAME_STATES) ->void:
 	match GAME_STATE:
 		GAME_STATES.PAUSED:
 			get_tree().paused = !get_tree().paused
+		GAME_STATES.INGAME:
+			start_game()
 		GAME_STATES.LEVEL_CLEAR:
 			level_cleared()
 		GAME_STATES.GAME_OVER:
@@ -80,18 +83,18 @@ func _space_pressed() -> void:
 	print("Ball.is_active: %s" %ball.is_active)
 	print("BrickData.is_generating_grid: %s" %BrickData.is_generating_grid)
 	print("BrickData.is_grid_empty: %s" %BrickData.is_grid_empty)
-	if GAME_STATE == GAME_STATES.LEVEL_CLEAR:
-		_set_state(GAME_STATES.INGAME)
-	if GAME_STATE != GAME_STATES.INGAME:
-		return
-	if ball.is_active:
-		return
-	if BrickData.is_grid_empty:
-		space_pressed.emit()
-		_generate_grid()
-	
-func _generate_grid():
-	grid.start_grid()
+	match GAME_STATE:
+		GAME_STATES.LEVEL_CLEAR:
+			level_clear_pressed.emit()
+			await get_tree().create_timer(1.0).timeout
+			_set_state(GAME_STATES.INGAME)
+		GAME_STATES.GAME_OVER:
+			print("Game over")
+		GAME_STATES.TIME_OVER:
+			pass
+		GAME_STATES.INGAME:
+			ingame_pressed.emit()
+			start_game()
 	
 func delete_all_bricks():
 	while BrickData.bricks_array.size() > 0:
@@ -103,8 +106,11 @@ func delete_all_bricks():
 		first_brick.hit(Vector2( x , y) , randf_range(1.0 , 5.0) , false)
 	
 func start_game():
+	grid.start_grid()
+	await grid.grid_generated
 	ball.enable_ball()
 	game_timer.start()
+	game_started.emit()
 	
 func time_over():
 	_set_state(GAME_STATES.TIME_OVER)

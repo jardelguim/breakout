@@ -884,7 +884,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UITransitionRect" type="ColorRect" parent="." unique_id=420522002]
-visible = false
 material = SubResource("ShaderMaterial_7paak")
 layout_mode = 1
 anchors_preset = 15
@@ -895,7 +894,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="MainMenu" type="Control" parent="." unique_id=984038013]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

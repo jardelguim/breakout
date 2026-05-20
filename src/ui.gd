@@ -9,7 +9,7 @@ extends Control
 @onready var speed_progress: ColorRect = %SpeedProgress
 @onready var wider_progress: ColorRect = %WiderProgress
 @onready var timer_label: RichTextLabel = %Timer
-var can_play_clear_animation = true
+var can_play_animation_flag = true
 var speed_time_left
 var wider_time_left
 var shake_rate = 20
@@ -20,9 +20,13 @@ func _ready() -> void:
 	transitions_animation_player.play_backwards("MenuFadeOut")
 	paddle.connect("speed_ended" , _on_paddle_speed_powerup_ended)
 	paddle.connect("size_ended" , _on_paddle_size_powerup_ended)
-	GameManager.connect("space_pressed" , _on_space_pressed)
 	GameManager.connect("level_clear" , _on_level_cleared)
-	
+	GameManager.connect("ingame_pressed" , _on_ingame_pressed)
+	GameManager.connect("level_clear_pressed", _on_level_clear_pressed)
+	GameManager.connect(
+		"game_started" ,
+		func(): can_play_animation_flag = true
+		)
 	ScoreCalculator.connect("on_game_score_change" , _on_game_score_update)
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
 	ScoreCalculator.connect("on_required_score_change", _on_game_required_score_update)
@@ -44,18 +48,18 @@ func _on_start_button_pressed() -> void:
 	await transitions_animation_player.animation_finished
 	GameManager.GAME_STATE = GameManager.GAME_STATES.INGAME
 	
-func _on_space_pressed():
-	match GameManager.GAME_STATE:
-		GameManager.GAME_STATES.LEVEL_CLEAR:
-			if can_play_clear_animation == false:
-				return
-			can_play_clear_animation = false
-			%ClearAnimationPlayer.play("scale_down")
-			%PressAnimationPlayer.play_backwards("scale_down")
-		GameManager.GAME_STATES.INGAME:
-			#%PressAnimationPlayer.stop()
-			%PressAnimationPlayer.play("scale_down")
+func _on_ingame_pressed():
+	if can_play_animation_flag == false:
+		return
+	%PressAnimationPlayer.play("scale_down")
+	can_play_animation_flag = false
 
+func _on_level_clear_pressed():
+	if can_play_animation_flag == false:
+		return
+	%PressAnimationPlayer.play("scale_down")
+	%ClearAnimationPlayer.play("scale_down")
+	can_play_animation_flag = false
 	
 	###### Score ######
 	
@@ -124,5 +128,4 @@ TO CONTINUE[/wave]"
 	await %ClearAnimationPlayer.animation_finished
 	%PressAnimationPlayer.play("scale_up")
 	await  %PressAnimationPlayer.animation_finished
-	can_play_clear_animation = true
 	
