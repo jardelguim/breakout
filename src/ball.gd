@@ -11,8 +11,14 @@ var is_dead = false
 var sound_to_play
 var sound_type
 
+var start_speed = [
+	Vector2(150 , 150),
+	Vector2(-150 , 150),
+	Vector2(150 , -150)
+]
+
 func _reset_vel():
-	velocity = Vector2(base_speed , base_speed)
+	velocity = start_speed.pick_random()
 	velocity_multiplier = 1.0
 
 func _ready() -> void:
@@ -82,5 +88,6 @@ func enable_ball():
 
 func time_over():
 	disable_ball()
+	_reset_vel()
 	var tween = create_tween()
 	tween.tween_property(self , "position" , GameManager.screen_center , 1.0).set_ease(Tween.EASE_IN)

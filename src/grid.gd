@@ -60,3 +60,4 @@ func start_grid() -> void:
 	await tween.finished
 	BrickData._check_brick_array()
 	BrickData.is_generating_grid = false
+	GameManager.start_game()

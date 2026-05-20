@@ -26,11 +26,8 @@ var brick_powerups: Array = [
 ]
 
 func _check_brick_array():
-	print(bricks_array.size())
 	if bricks_array.size() > 0:
 		is_grid_empty = false
 	else:
 		is_grid_empty = true
-		GameManager.level += 1
-		GameManager.level_changed.emit(GameManager.level)
-		ScoreCalculator._on_level_changed()
+	return is_grid_empty

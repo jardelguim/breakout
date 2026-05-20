@@ -1,7 +1,6 @@
 extends Area2D
 
 func start():
-	print("exploded")
 	$AnimationPlayer.play("increase_area")
 	$BigExplosionParticles.emitting = true
 	SoundManager.play_sound(SoundManager.explosion_list)
