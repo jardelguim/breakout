@@ -34,15 +34,16 @@ func start_grid() -> void:
 		return
 	BrickData.is_generating_grid = true
 	
-	var tween = create_tween()
 	
 	# Generate Grid
-	columns = clamp(columns + GameManager.level , 11 , max_columns)
+	columns = clamp(columns + GameManager.level , 10 , max_columns)
 	rows = clamp(rows + GameManager.level , 4 , max_rows)
 	var x_offset = 18 + ((brick_width * (max_columns - columns)/2))
+	print(columns,rows,GameManager.level)
 	for line in range(rows):
 		for col in range(columns):
 			var new_brick = brick.instantiate()
+			var tween = create_tween()
 			
 			# Set brick position
 			var pos = Vector2(
@@ -60,8 +61,15 @@ func start_grid() -> void:
 			
 			# Animate the brick
 			tween.tween_property(new_brick , "modulate:a" , 1 , 0.05)
+			await tween.finished
+			SoundManager.play_selected_sound("generic2")
 			
-	await tween.finished
+	#await tween.finished
 	BrickData._check_brick_array()
 	BrickData.is_generating_grid = false
 	emit_signal("grid_generated")
+	SoundManager.play_selected_sound("generic3")
+	
+func reset_grid_size():
+	columns = 10
+	rows = 4

@@ -30,4 +30,5 @@ func _check_brick_array():
 		is_grid_empty = false
 	else:
 		is_grid_empty = true
+		GameManager.on_bricks_cleared()
 	return is_grid_empty

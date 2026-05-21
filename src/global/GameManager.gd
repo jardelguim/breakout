@@ -4,13 +4,25 @@ extends Node
 @onready var paddle = get_node("/root/Game/SubViewport/Level1/Paddle")
 @onready var grid = get_node("/root/Game/SubViewport/Level1/Grid")
 @onready var level_node = get_node("/root/Game/SubViewport/Level1")
-
 @onready var powerups: Dictionary[String, PowerUp] = {
 	"speed_up": SpeederPowerUp.new(paddle),
 	"increase_paddle": IncreasePaddlePowerUp.new(paddle),
 	"explosion": ExplosionPowerUp.new(level_node)
 }
+var game_timer = Timer.new()
+var game_wait_time = 60
+var screen_center : Vector2 = Vector2(320 , 320) / 2
+var level = 1
 
+signal level_clear(level)
+signal level_clear_pressed
+signal game_over_signal
+signal game_over_pressed(level)
+signal ingame_pressed
+signal game_started
+signal close_game
+
+var GAME_STATE : GAME_STATES
 enum GAME_STATES {
 	MAIN_MENU,
 	INGAME,
@@ -19,19 +31,6 @@ enum GAME_STATES {
 	LEVEL_CLEAR,
 	GAME_OVER
 }
-
-var GAME_STATE : GAME_STATES
-
-signal level_clear(level)
-signal level_clear_pressed
-signal game_over_pressed
-signal ingame_pressed
-signal game_started
-
-var game_timer = Timer.new()
-var game_wait_time = 60
-var screen_center : Vector2 = Vector2(320 , 320) / 2
-var level = 1
 
 func _ready() -> void:
 	_set_state(GAME_STATES.MAIN_MENU)
@@ -49,7 +48,6 @@ func _on_action_just_pressed(action : String , _delta : float) -> void:
 		"launch":
 			_space_pressed()
 
-
 func _set_state(new_state: GAME_STATES) ->void:
 	if new_state == GAME_STATE:
 		return
@@ -60,23 +58,33 @@ func _set_state(new_state: GAME_STATES) ->void:
 		GAME_STATES.PAUSED:
 			get_tree().paused = !get_tree().paused
 		GAME_STATES.INGAME:
+			print("Ingame!")
 			start_game()
 		GAME_STATES.LEVEL_CLEAR:
+			print("Level Clear")
 			level_cleared()
 		GAME_STATES.GAME_OVER:
-			print("Game over")
+			print("Game Over")
+			game_over()
 		GAME_STATES.TIME_OVER:
+			print("Time Over")
 			ball.time_over()
 			await delete_all_bricks()
 			if ScoreCalculator.score >= ScoreCalculator.required_score:
+				print("Score reached")
 				_set_state(GAME_STATES.LEVEL_CLEAR)
 			else:
+				print("Score not reached")
 				_set_state(GAME_STATES.GAME_OVER)
 	
 func level_cleared():
 	level += 1
 	ScoreCalculator._on_level_changed()
 	level_clear.emit(level)
+
+func game_over():
+	game_over_signal.emit()
+	grid.reset_grid_size()
 
 func _space_pressed() -> void:
 	print("Game_state: %d" %GAME_STATE)
@@ -89,9 +97,10 @@ func _space_pressed() -> void:
 			await get_tree().create_timer(1.0).timeout
 			_set_state(GAME_STATES.INGAME)
 		GAME_STATES.GAME_OVER:
-			print("Game over")
-		GAME_STATES.TIME_OVER:
-			pass
+			game_over_pressed.emit()
+			reset_game()
+			await get_tree().create_timer(1.0).timeout
+			_set_state(GAME_STATES.INGAME)
 		GAME_STATES.INGAME:
 			ingame_pressed.emit()
 			start_game()
@@ -104,11 +113,21 @@ func delete_all_bricks():
 		var x = randf_range(-1.0 , 1.0)
 		var y = randf_range(-1.0 , 1.0)
 		first_brick.hit(Vector2( x , y) , randf_range(1.0 , 5.0) , false)
+		SoundManager.play_sound(first_brick.object_sound)
+	
+func reset_game():
+	level = 1
+	print("Game level reseted")
+	print("Game level: %d" %level)
+	ScoreCalculator.reset_score()
+	start_game()
 	
 func start_game():
+	print("Game started")
 	grid.start_grid()
 	await grid.grid_generated
 	ball.enable_ball()
+	game_timer.wait_time = 60.0
 	game_timer.start()
 	game_started.emit()
 	
@@ -116,8 +135,12 @@ func time_over():
 	_set_state(GAME_STATES.TIME_OVER)
 	
 func _quit_game():
+	close_game.emit()
+	await get_tree().create_timer(0.7).timeout
 	get_tree().quit()
 
 func toggle_pause_game():
 	_set_state(GAME_STATES.PAUSED)
 	
+func on_bricks_cleared():
+	game_timer.wait_time = 0.0

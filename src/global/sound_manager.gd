@@ -2,6 +2,30 @@ extends Node
 
 @onready var sound_container = get_node("/root/Game/SoundContainer")
 
+var speed_up_list = {
+	"speedup1": "res://assets/sounds/speedup1.wav" ,
+	"speedup2": "res://assets/sounds/speedup2.wav" ,
+	
+}
+
+var speed_down_list = {
+	"speeddrop1": "res://assets/sounds/speeddrop1.wav" ,
+	"speeddrop2": "res://assets/sounds/speeddrop2.wav" ,
+	
+}
+
+var size_up_list = {
+	"sizeup1": "res://assets/sounds/sizeup1.wav" ,
+	"sizeup2": "res://assets/sounds/sizeup2.wav" ,
+	
+}
+
+var size_down_list = {
+	"sizedown1": "res://assets/sounds/sizedown1.wav" ,
+	"sizedown2": "res://assets/sounds/sizedown2.wav" ,
+	
+}
+
 var poker_list = {
 	"poker1" : "res://assets/sounds/poker1.wav" ,
 	"poker2" : "res://assets/sounds/poker2.wav" ,
@@ -9,7 +33,12 @@ var poker_list = {
 }
 
 var generic_list = {
-	"generic1" : "res://assets/sounds/generic1.ogg"
+	"generic1" : "res://assets/sounds/generic1.ogg",
+	"generic2" : "res://assets/sounds/generic2.wav",
+	"generic3" : "res://assets/sounds/generic3.wav",
+	"menuSlidein" : "res://assets/sounds/menuSlidein.wav",
+	"menuSlideout" : "res://assets/sounds/menuSlideout.wav"
+	
 }
 
 var wall_list = {
