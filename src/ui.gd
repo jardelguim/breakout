@@ -57,17 +57,16 @@ func _on_start_button_pressed() -> void:
 	GameManager.GAME_STATE = GameManager.GAME_STATES.INGAME
 	
 func _on_ingame_pressed():
-	if can_play_animation_flag == false:
-		return
 	%PressAnimationPlayer.play("scale_down")
 	can_play_animation_flag = false
 
 func _on_level_clear_pressed(level):
-	if can_play_animation_flag == false:
-		return
+	print("inicio da funçao")
+	%LevelLabel.text = str(GameManager.level)
 	%PressAnimationPlayer.play("scale_down")
 	%ClearAnimationPlayer.play("scale_down")
 	can_play_animation_flag = false
+	print("fim da funçao")
 	
 	###### Score ######
 	
@@ -135,14 +134,15 @@ func _on_paddle_size_powerup_ended() -> void:
 func _on_paddle_speed_powerup_ended() -> void:
 	$IconsAnimationPlayer.play("speed_scale_down")
 
-func _on_level_cleared(level):
+func _on_level_cleared(_level):
 	%ClearAnimationPlayer.play("scale_up")
-	%LevelLabel.text = str(level)
 	%PressLabel.text = "[wave amp=50.0 freq=5.0 connected=1]PRESS SPACE
 TO CONTINUE[/wave]"
 	await %ClearAnimationPlayer.animation_finished
 	%PressAnimationPlayer.play("scale_up")
 	await %PressAnimationPlayer.animation_finished
+	can_play_animation_flag = true
+	
 	
 func _on_game_over():
 	%ClearAnimationPlayer.play("scale_up")

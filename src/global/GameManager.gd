@@ -10,7 +10,7 @@ extends Node
 	"explosion": ExplosionPowerUp.new(level_node)
 }
 var game_timer = Timer.new()
-var game_wait_time = 60
+var game_wait_time = 20
 var screen_center : Vector2 = Vector2(320 , 320) / 2
 var level = 1
 
@@ -97,7 +97,7 @@ func _space_pressed() -> void:
 			await get_tree().create_timer(1.0).timeout
 			_set_state(GAME_STATES.INGAME)
 		GAME_STATES.GAME_OVER:
-			game_over_pressed.emit()
+			game_over_pressed.emit(level)
 			reset_game()
 			await get_tree().create_timer(1.0).timeout
 			_set_state(GAME_STATES.INGAME)
@@ -127,7 +127,7 @@ func start_game():
 	grid.start_grid()
 	await grid.grid_generated
 	ball.enable_ball()
-	game_timer.wait_time = 60.0
+	game_timer.wait_time = game_wait_time
 	game_timer.start()
 	game_started.emit()
 	
