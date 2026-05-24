@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal lost_streak
+
 @onready var particle_emitter: ParticleEmitter = %ParticleEmitter
 @onready var fire_particles: GPUParticles2D = $FireParticles
 var ball_velocity = velocity * velocity_multiplier
@@ -73,6 +75,8 @@ func _physics_process(delta: float) -> void:
 func entered_killzone():
 	_reset_vel()
 	ScoreCalculator.reset_chain()
+	lost_streak.emit()
+	
 	
 func disable_ball():
 	is_active = false

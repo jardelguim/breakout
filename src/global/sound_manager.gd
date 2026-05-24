@@ -36,8 +36,10 @@ var generic_list = {
 	"generic1" : "res://assets/sounds/generic1.ogg",
 	"generic2" : "res://assets/sounds/generic2.wav",
 	"generic3" : "res://assets/sounds/generic3.wav",
+	"generic4" : "res://assets/sounds/generic4.wav",
 	"menuSlidein" : "res://assets/sounds/menuSlidein.wav",
-	"menuSlideout" : "res://assets/sounds/menuSlideout.wav"
+	"menuSlideout" : "res://assets/sounds/menuSlideout.wav",
+	"timer" : "res://assets/sounds/timer.wav"
 	
 }
 

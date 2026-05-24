@@ -46,7 +46,9 @@ func hit(_value , _value2 , _value3):
 	
 func wider_paddle():
 	if size_up_flag == false:
-		$AnimationPlayer.play("size_up")
+		#$AnimationPlayer.play("size_up")
+		var tween = create_tween()
+		tween.tween_property(self , "scale:x" , 1.5 , 0.5)
 		size_powerup.emit()
 		size_up_flag = true
 		SoundManager.play_sound(SoundManager.size_up_list)
@@ -72,15 +74,13 @@ func _add_ghost():
 	get_parent().add_child(ghost)
 	
 func _on_speed_timer_timeout() -> void:
-	$SpeedTimer.wait_time = 5.0
 	SoundManager.play_sound(SoundManager.speed_down_list)
 	speed_up_flag = false
 	speed_ended.emit()
 	base_speed = 300
 
 func _on_wider_timer_timeout() -> void:
-	$WiderTimer.wait_time = 5.0
-	$AnimationPlayer.play_backwards("size_up")
+	$AnimationPlayer.play("size_down")
 	SoundManager.play_sound(SoundManager.size_down_list)
 	size_up_flag = false
 	size_ended.emit()
@@ -88,3 +88,9 @@ func _on_wider_timer_timeout() -> void:
 func _on_ghost_spawn_timer_timeout() -> void:
 	if speed_up_flag:
 		_add_ghost()
+
+func _on_ball_lost_streak() -> void:
+	SoundManager.play_selected_sound("generic4")
+	$PaddleCollision.disabled = true
+	await get_tree().create_timer(0.5).timeout
+	$PaddleCollision.disabled = false

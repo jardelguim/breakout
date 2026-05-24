@@ -10,17 +10,18 @@ extends Node
 	"explosion": ExplosionPowerUp.new(level_node)
 }
 var game_timer = Timer.new()
+var game_sec_counter = Timer.new()
 var game_wait_time = 60
 var screen_center : Vector2 = Vector2(320 , 320) / 2
 var level = 1 : set = _on_level_changed
 
 signal level_changed(level)
 signal level_clear
+signal sec_over
 signal level_clear_pressed
 signal game_over_signal
 signal game_over_pressed
 signal ingame_pressed
-#signal game_started
 signal close_game
 
 var GAME_STATE : GAME_STATES
@@ -37,9 +38,14 @@ enum GAME_STATES {
 func _ready() -> void:
 	_set_state(GAME_STATES.MAIN_MENU)
 	add_child(game_timer)
+	add_child(game_sec_counter)
+	game_sec_counter.wait_time = 1.0
+	game_sec_counter.one_shot = false
+	game_sec_counter.autostart = true
 	game_timer.wait_time = game_wait_time
 	game_timer.one_shot = true
 	game_timer.connect("timeout" , time_over)
+	game_sec_counter.connect("timeout" , func(): sec_over.emit())
 	self.process_mode = self.PROCESS_MODE_ALWAYS
 	InputManager.action_just_pressed.connect(_on_action_just_pressed)
 
@@ -64,6 +70,7 @@ func _set_state(new_state: GAME_STATES) ->void:
 			start_game()
 			_set_state(GAME_STATES.RUNNING)
 		GAME_STATES.RUNNING:
+			game_sec_counter.start()
 			print("Running!")
 		GAME_STATES.LEVEL_CLEAR:
 			print("Level Clear")
@@ -73,6 +80,7 @@ func _set_state(new_state: GAME_STATES) ->void:
 			game_over()
 		GAME_STATES.TIME_OVER:
 			print("Time Over")
+			game_timer.stop()
 			ball.time_over()
 			await delete_all_bricks()
 			if ScoreCalculator.score >= ScoreCalculator.required_score:
@@ -134,7 +142,7 @@ func start_game():
 	await grid.grid_generated
 	ball.enable_ball()
 	game_timer.wait_time = game_wait_time
-	game_timer.start()
+	game_timer.start(60)
 	#game_started.emit()
 	
 func time_over():
@@ -153,5 +161,4 @@ func _on_level_changed(value):
 	level_changed.emit(level)
 	
 func on_bricks_cleared():
-	pass
-	#game_timer.wait_time = 0.0
+	_set_state(GAME_STATES.TIME_OVER)

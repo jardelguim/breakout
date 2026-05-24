@@ -53,4 +53,5 @@ process_material = SubResource("ParticleProcessMaterial_pa8r4")
 [node name="LevelTimer" type="Timer" parent="." unique_id=729004688]
 wait_time = 30.0
 
+[connection signal="lost_streak" from="Ball" to="Paddle" method="_on_ball_lost_streak"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]

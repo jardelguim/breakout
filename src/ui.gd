@@ -18,18 +18,12 @@ var level = 5
 var fire_rate = 0.0
 
 func _ready() -> void:
+	_connect_game_manager_signals()
 	transitions_animation_player.play_backwards("MenuFadeOut")
 	await transitions_animation_player.animation_finished
 	play_menu_animations()
 	paddle.connect("speed_ended" , _on_paddle_speed_powerup_ended)
 	paddle.connect("size_ended" , _on_paddle_size_powerup_ended)
-	GameManager.connect("level_clear" , _on_level_cleared)
-	GameManager.connect("level_changed" , _on_level_changed)
-	GameManager.connect("close_game" , _on_game_closed)
-	GameManager.connect("game_over_signal" , _on_game_over)
-	GameManager.connect("game_over_pressed" , _on_level_clear_pressed)
-	GameManager.connect("ingame_pressed" , _on_ingame_pressed)
-	GameManager.connect("level_clear_pressed", _on_level_clear_pressed)
 	ScoreCalculator.connect("on_game_score_change" , _on_game_score_update)
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
 	ScoreCalculator.connect("on_required_score_change", _on_game_required_score_update)
@@ -40,6 +34,16 @@ func _process(_delta: float) -> void:
 		timer_label.text = "%d" %GameManager.game_timer.wait_time
 	else:	
 		timer_label.text = "%d" %GameManager.game_timer.time_left
+		
+func _connect_game_manager_signals():
+	GameManager.connect("level_clear" , _on_level_cleared)
+	GameManager.connect("level_changed" , _on_level_changed)
+	GameManager.connect("close_game" , _on_game_closed)
+	GameManager.connect("game_over_signal" , _on_game_over)
+	GameManager.connect("game_over_pressed" , _on_level_clear_pressed)
+	GameManager.connect("ingame_pressed" , _on_ingame_pressed)
+	GameManager.connect("level_clear_pressed", _on_level_clear_pressed)
+	GameManager.connect("sec_over", on_sec_over)
 	
 	###### Buttons #######
 	
@@ -136,6 +140,16 @@ func _on_paddle_size_powerup_ended() -> void:
 func _on_paddle_speed_powerup_ended() -> void:
 	$IconsAnimationPlayer.play("speed_scale_down")
 
+func play_menu_animations():
+	%MenuAnimations.play("game_title_pop_in")
+	await %MenuAnimations.animation_finished
+	%MenuAnimations.play("start_pop_in")
+	await %MenuAnimations.animation_finished
+	%MenuAnimations.play("exit_pop_in")
+	await %MenuAnimations.animation_finished
+	
+	#### Game state events ####
+	
 func _on_level_changed(level):
 	%LevelLabel.text = str(level)
 
@@ -163,11 +177,9 @@ TO RETRY[/wave]"
 func _on_game_closed():
 	transitions_animation_player.play_backwards("UiFadeOut")
 	SoundManager.play_selected_sound("menuSlidein")
-
-func play_menu_animations():
-	%MenuAnimations.play("game_title_pop_in")
-	await %MenuAnimations.animation_finished
-	%MenuAnimations.play("start_pop_in")
-	await %MenuAnimations.animation_finished
-	%MenuAnimations.play("exit_pop_in")
-	await %MenuAnimations.animation_finished
+	
+func on_sec_over():
+	if GameManager.game_timer.is_stopped():
+		return
+	if GameManager.game_timer.time_left <= 10.0:
+		SoundManager.play_selected_sound("timer")

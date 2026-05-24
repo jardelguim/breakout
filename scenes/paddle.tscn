@@ -72,9 +72,9 @@ shader_parameter/shadow_offset = Vector2(-0.005, 0.175)
 radius = 2.0
 height = 74.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pacq5"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kvcsl"]
 radius = 2.0
-height = 66.0
+height = 62.0
 
 [sub_resource type="Animation" id="Animation_mo4dg"]
 length = 0.001
@@ -119,6 +119,34 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 4), Vector2(0, -2), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_nk5r3"]
+resource_name = "size_down"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2),
+"update": 0,
+"values": [Vector2(1.5, 1), Vector2(1.6, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ClampCollision:shape:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [110.0, 74.0]
+}
+
 [sub_resource type="Animation" id="Animation_kvcsl"]
 resource_name = "size_up"
 length = 0.5
@@ -151,6 +179,7 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_mo4dg"),
 &"hit": SubResource("Animation_pacq5"),
+&"size_down": SubResource("Animation_nk5r3"),
 &"size_up": SubResource("Animation_kvcsl")
 }
 
@@ -179,7 +208,7 @@ disabled = true
 [node name="PaddleCollision" type="CollisionShape2D" parent="." unique_id=1406908228]
 position = Vector2(0, 1)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_pacq5")
+shape = SubResource("CapsuleShape2D_kvcsl")
 
 [node name="SpeedTimer" type="Timer" parent="." unique_id=1782268763]
 wait_time = 5.0
