@@ -24,15 +24,12 @@ func _ready() -> void:
 	paddle.connect("speed_ended" , _on_paddle_speed_powerup_ended)
 	paddle.connect("size_ended" , _on_paddle_size_powerup_ended)
 	GameManager.connect("level_clear" , _on_level_cleared)
+	GameManager.connect("level_changed" , _on_level_changed)
 	GameManager.connect("close_game" , _on_game_closed)
 	GameManager.connect("game_over_signal" , _on_game_over)
 	GameManager.connect("game_over_pressed" , _on_level_clear_pressed)
 	GameManager.connect("ingame_pressed" , _on_ingame_pressed)
 	GameManager.connect("level_clear_pressed", _on_level_clear_pressed)
-	GameManager.connect(
-		"game_started" ,
-		func(): can_play_animation_flag = true
-		)
 	ScoreCalculator.connect("on_game_score_change" , _on_game_score_update)
 	ScoreCalculator.connect("on_game_multiplier_change" , _on_game_multiplier_update)
 	ScoreCalculator.connect("on_required_score_change", _on_game_required_score_update)
@@ -55,14 +52,19 @@ func _on_start_button_pressed() -> void:
 	SoundManager.play_selected_sound("menuSlideout")
 	await transitions_animation_player.animation_finished
 	GameManager.GAME_STATE = GameManager.GAME_STATES.INGAME
+
+func _on_exit_button_pressed() -> void:
+	GameManager._quit_game()
 	
 func _on_ingame_pressed():
+	SoundManager.play_selected_sound("menuSlideout")
+	print("Ingame pressed")
 	%PressAnimationPlayer.play("scale_down")
 	can_play_animation_flag = false
 
-func _on_level_clear_pressed(level):
-	print("inicio da funçao")
-	%LevelLabel.text = str(GameManager.level)
+func _on_level_clear_pressed():
+	SoundManager.play_selected_sound("menuSlideout")
+	print("On level clear pressed")
 	%PressAnimationPlayer.play("scale_down")
 	%ClearAnimationPlayer.play("scale_down")
 	can_play_animation_flag = false
@@ -134,8 +136,13 @@ func _on_paddle_size_powerup_ended() -> void:
 func _on_paddle_speed_powerup_ended() -> void:
 	$IconsAnimationPlayer.play("speed_scale_down")
 
-func _on_level_cleared(_level):
+func _on_level_changed(level):
+	%LevelLabel.text = str(level)
+
+func _on_level_cleared():
+	SoundManager.play_selected_sound("menuSlidein")
 	%ClearAnimationPlayer.play("scale_up")
+	%ClearLabel.text = "[wave amp=50.0 freq=5.0 connected=1]LEVEL CLEAR[/wave]"
 	%PressLabel.text = "[wave amp=50.0 freq=5.0 connected=1]PRESS SPACE
 TO CONTINUE[/wave]"
 	await %ClearAnimationPlayer.animation_finished
@@ -143,8 +150,8 @@ TO CONTINUE[/wave]"
 	await %PressAnimationPlayer.animation_finished
 	can_play_animation_flag = true
 	
-	
 func _on_game_over():
+	SoundManager.play_selected_sound("menuSlidein")
 	%ClearAnimationPlayer.play("scale_up")
 	%ClearLabel.text = "[wave amp=50.0 freq=5.0 connected=1]GAME OVER[/wave]"
 	%PressLabel.text = "[wave amp=50.0 freq=5.0 connected=1]PRESS SPACE

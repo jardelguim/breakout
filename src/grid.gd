@@ -36,8 +36,8 @@ func start_grid() -> void:
 	
 	
 	# Generate Grid
-	columns = clamp(columns + GameManager.level , 10 , max_columns)
-	rows = clamp(rows + GameManager.level , 4 , max_rows)
+	columns = clamp(10 + GameManager.level , 10 , max_columns)
+	rows = clamp(4 + GameManager.level , 4 , max_rows)
 	var x_offset = 18 + ((brick_width * (max_columns - columns)/2))
 	print(columns,rows,GameManager.level)
 	for line in range(rows):

@@ -920,7 +920,7 @@ layout_mode = 2
 theme = ExtResource("2_ro3t7")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
-text = "120"
+text = "80"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -1237,6 +1237,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(83, 70)
+theme_override_constants/outline_size = 35
 theme_override_fonts/normal_font = ExtResource("3_ua6yw")
 theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true
@@ -1316,5 +1317,5 @@ libraries/ = SubResource("AnimationLibrary_mhjpf")
 [node name="IconsAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1455254187]
 libraries/ = SubResource("AnimationLibrary_o5ifv")
 
-[connection signal="pressed" from="MainMenu/ExitContainer/ExitButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainMenu/ExitContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="MainMenu/StartContainer/StartButton" to="." method="_on_start_button_pressed"]

@@ -10,16 +10,17 @@ extends Node
 	"explosion": ExplosionPowerUp.new(level_node)
 }
 var game_timer = Timer.new()
-var game_wait_time = 20
+var game_wait_time = 60
 var screen_center : Vector2 = Vector2(320 , 320) / 2
-var level = 1
+var level = 1 : set = _on_level_changed
 
-signal level_clear(level)
+signal level_changed(level)
+signal level_clear
 signal level_clear_pressed
 signal game_over_signal
-signal game_over_pressed(level)
+signal game_over_pressed
 signal ingame_pressed
-signal game_started
+#signal game_started
 signal close_game
 
 var GAME_STATE : GAME_STATES
@@ -29,7 +30,8 @@ enum GAME_STATES {
 	PAUSED,
 	TIME_OVER,
 	LEVEL_CLEAR,
-	GAME_OVER
+	GAME_OVER,
+	RUNNING
 }
 
 func _ready() -> void:
@@ -60,6 +62,9 @@ func _set_state(new_state: GAME_STATES) ->void:
 		GAME_STATES.INGAME:
 			print("Ingame!")
 			start_game()
+			_set_state(GAME_STATES.RUNNING)
+		GAME_STATES.RUNNING:
+			print("Running!")
 		GAME_STATES.LEVEL_CLEAR:
 			print("Level Clear")
 			level_cleared()
@@ -78,32 +83,33 @@ func _set_state(new_state: GAME_STATES) ->void:
 				_set_state(GAME_STATES.GAME_OVER)
 	
 func level_cleared():
-	level += 1
-	ScoreCalculator._on_level_changed()
-	level_clear.emit(level)
+	level_clear.emit()
 
 func game_over():
 	game_over_signal.emit()
 	grid.reset_grid_size()
 
 func _space_pressed() -> void:
-	print("Game_state: %d" %GAME_STATE)
-	print("Ball.is_active: %s" %ball.is_active)
-	print("BrickData.is_generating_grid: %s" %BrickData.is_generating_grid)
-	print("BrickData.is_grid_empty: %s" %BrickData.is_grid_empty)
+	#print("Game_state: %d" %GAME_STATE)
+	#print("Ball.is_active: %s" %ball.is_active)
+	#print("BrickData.is_generating_grid: %s" %BrickData.is_generating_grid)
+	#print("BrickData.is_grid_empty: %s" %BrickData.is_grid_empty)
 	match GAME_STATE:
 		GAME_STATES.LEVEL_CLEAR:
 			level_clear_pressed.emit()
+			level += 1
+			ScoreCalculator._on_level_changed()
 			await get_tree().create_timer(1.0).timeout
 			_set_state(GAME_STATES.INGAME)
 		GAME_STATES.GAME_OVER:
-			game_over_pressed.emit(level)
+			game_over_pressed.emit()
 			reset_game()
 			await get_tree().create_timer(1.0).timeout
 			_set_state(GAME_STATES.INGAME)
 		GAME_STATES.INGAME:
 			ingame_pressed.emit()
 			start_game()
+			_set_state(GAME_STATES.RUNNING)
 	
 func delete_all_bricks():
 	while BrickData.bricks_array.size() > 0:
@@ -129,7 +135,7 @@ func start_game():
 	ball.enable_ball()
 	game_timer.wait_time = game_wait_time
 	game_timer.start()
-	game_started.emit()
+	#game_started.emit()
 	
 func time_over():
 	_set_state(GAME_STATES.TIME_OVER)
@@ -142,5 +148,10 @@ func _quit_game():
 func toggle_pause_game():
 	_set_state(GAME_STATES.PAUSED)
 	
+func _on_level_changed(value):
+	level = value
+	level_changed.emit(level)
+	
 func on_bricks_cleared():
-	game_timer.wait_time = 0.0
+	pass
+	#game_timer.wait_time = 0.0

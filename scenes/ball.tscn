@@ -64,7 +64,6 @@ radius = 3.3333335
 [node name="Ball" type="CharacterBody2D" unique_id=1066305207]
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
-collision_mask = 3
 script = ExtResource("1_cxlvu")
 
 [node name="FireParticles" parent="." unique_id=1124014033 instance=ExtResource("2_4dx81")]

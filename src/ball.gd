@@ -78,13 +78,13 @@ func disable_ball():
 	is_active = false
 	set_collision_layer_value( 1 , false)
 	set_collision_mask_value( 1 , false)
-	set_collision_mask_value( 2 , false)
+	#set_collision_mask_value( 2 , false)
 	
 func enable_ball():
 	is_active = true
 	set_collision_layer_value( 1 , true)
 	set_collision_mask_value( 1 , true)
-	set_collision_mask_value( 2 , true)
+	#set_collision_mask_value( 2 , true)
 
 func time_over():
 	disable_ball()
