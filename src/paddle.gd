@@ -46,9 +46,7 @@ func hit(_value , _value2 , _value3):
 	
 func wider_paddle():
 	if size_up_flag == false:
-		#$AnimationPlayer.play("size_up")
-		var tween = create_tween()
-		tween.tween_property(self , "scale:x" , 1.5 , 0.5)
+		$AnimationPlayer.play("size_up")
 		size_powerup.emit()
 		size_up_flag = true
 		SoundManager.play_sound(SoundManager.size_up_list)
@@ -56,6 +54,8 @@ func wider_paddle():
 		$WiderTimer.start()
 	else:
 		$WiderTimer.start(clamp($WiderTimer.time_left + 2.0 , 0.0 , 10.0))
+	print("Wider paddle triggered : %d" %size_up_flag)
+	print("Wider paddle wait time: %d" %$WiderTimer.wait_time)
 	
 func speed_up():
 	if speed_up_flag == false:
@@ -67,6 +67,7 @@ func speed_up():
 	else:
 		$SpeedTimer.start(clamp($SpeedTimer.time_left + 2.0 , 0.0 , 10.0))
 	base_speed = clamp(base_speed + 100, 300, 500)
+	print("Speed up trigger: %d" %base_speed)
 
 func _add_ghost():
 	var ghost = ghost_sprite.instantiate()
@@ -78,12 +79,14 @@ func _on_speed_timer_timeout() -> void:
 	speed_up_flag = false
 	speed_ended.emit()
 	base_speed = 300
+	$SpeedTimer.wait_time = 5.0
 
 func _on_wider_timer_timeout() -> void:
 	$AnimationPlayer.play("size_down")
 	SoundManager.play_sound(SoundManager.size_down_list)
 	size_up_flag = false
 	size_ended.emit()
+	$WiderTimer.wait_time = 5.0
 
 func _on_ghost_spawn_timer_timeout() -> void:
 	if speed_up_flag:
