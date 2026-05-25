@@ -106,6 +106,7 @@ func _space_pressed() -> void:
 		GAME_STATES.LEVEL_CLEAR:
 			level_clear_pressed.emit()
 			level += 1
+			ScoreCalculator.level = level
 			ScoreCalculator._on_level_changed()
 			await get_tree().create_timer(1.0).timeout
 			_set_state(GAME_STATES.INGAME)
@@ -131,6 +132,7 @@ func delete_all_bricks():
 	
 func reset_game():
 	level = 1
+	ScoreCalculator.level = level
 	print("Game level reseted")
 	print("Game level: %d" %level)
 	ScoreCalculator.reset_score()
@@ -159,6 +161,8 @@ func toggle_pause_game():
 func _on_level_changed(value):
 	level = value
 	level_changed.emit(level)
+	ScoreCalculator.level = level
+	ScoreCalculator._on_level_changed()
 	
 func on_bricks_cleared():
 	_set_state(GAME_STATES.TIME_OVER)
