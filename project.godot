@@ -28,6 +28,7 @@ GameManager="*uid://bag5ndnhs6y24"
 ScoreCalculator="*uid://cbo3af8jqwdkr"
 SoundManager="*uid://bilbmlwmqfrdr"
 BrickData="*uid://c6ikmkgte335h"
+HighScoreManager="*res://src/global/HighScoreManager.gd"
 
 [display]
 

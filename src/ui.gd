@@ -16,9 +16,11 @@ var wider_time_left
 var shake_rate = 20
 var level = 5
 var fire_rate = 0.0
+var _high_scores_label: RichTextLabel
 
 func _ready() -> void:
 	_connect_game_manager_signals()
+	_setup_high_scores_panel()
 	transitions_animation_player.play_backwards("MenuFadeOut")
 	await transitions_animation_player.animation_finished
 	play_menu_animations()
@@ -71,6 +73,7 @@ func _on_level_clear_pressed():
 	print("On level clear pressed")
 	%PressAnimationPlayer.play("scale_down")
 	%ClearAnimationPlayer.play("scale_down")
+	_high_scores_label.hide()
 	can_play_animation_flag = false
 	print("fim da funçao")
 	
@@ -175,6 +178,9 @@ func _on_game_over():
 	%ClearLabel.text = "[wave amp=50.0 freq=5.0 connected=1]GAME OVER[/wave]"
 	%PressLabel.text = "[wave amp=50.0 freq=5.0 connected=1]PRESS SPACE
 TO RETRY[/wave]"
+	HighScoreManager.add_score(ScoreCalculator.score, GameManager.level)
+	_refresh_high_scores_label()
+	_high_scores_label.show()
 	await %ClearAnimationPlayer.animation_finished
 	%PressAnimationPlayer.play("scale_up")
 	can_play_animation_flag = true
@@ -188,3 +194,27 @@ func on_sec_over():
 		return
 	if GameManager.game_timer.time_left <= 10.0:
 		SoundManager.play_selected_sound("timer")
+
+func _setup_high_scores_panel() -> void:
+	_high_scores_label = RichTextLabel.new()
+	_high_scores_label.bbcode_enabled = true
+	_high_scores_label.fit_content = false
+	_high_scores_label.scroll_active = false
+	_high_scores_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	#_high_scores_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	#_high_scores_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_high_scores_label.add_theme_font_size_override("normal_font_size", 42)
+	_high_scores_label.hide()
+	$Control/Margin/HighScoresContainer.add_child(_high_scores_label)
+
+func _refresh_high_scores_label() -> void:
+	var top = HighScoreManager.get_top_scores(5)
+	var text = "[center][b]HIGH SCORES[/b][/center]\n"
+	var marker = ""
+	
+	for i in top.size():
+		var entry = top[i]
+		text += "[center]%d.  %d  (lv %d)%s[/center]\n" % [i + 1, entry["score"], entry["level"], marker]
+	if top.is_empty():
+		text += "[center]-[/center]"
+	_high_scores_label.text = text
