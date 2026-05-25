@@ -129,16 +129,21 @@ func _animate_progress_bar():
 		wider_time_left/10.0 , 0.1).set_ease(Tween.EASE_IN)
 
 func _on_paddle_size_powerup() -> void:
-	$IconsAnimationPlayer.play("size_scale_up")
+	var tween = create_tween()
+	tween.tween_property(%WiderIcon , "scale" , Vector2(1.0 , 1.0) , 0.2).set_ease(Tween.EASE_IN)
+	
 
 func _on_paddle_speed_powerup() -> void:
-	$IconsAnimationPlayer.play("speed_scale_up")
+	var tween = create_tween()
+	tween.tween_property(%SpeedIcon , "scale" , Vector2(1.0 , 1.0) , 0.2).set_ease(Tween.EASE_IN)
 
 func _on_paddle_size_powerup_ended() -> void:
-	$IconsAnimationPlayer.play("size_scale_down")
+	var tween = create_tween()
+	tween.tween_property(%WiderIcon , "scale" , Vector2(0 , 0) , 0.2).set_ease(Tween.EASE_OUT)
 	
 func _on_paddle_speed_powerup_ended() -> void:
-	$IconsAnimationPlayer.play("speed_scale_down")
+	var tween = create_tween()
+	tween.tween_property(%SpeedIcon , "scale" , Vector2(0 , 0) , 0.2).set_ease(Tween.EASE_OUT)
 
 func play_menu_animations():
 	%MenuAnimations.play("game_title_pop_in")
