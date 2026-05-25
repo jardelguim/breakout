@@ -1156,6 +1156,27 @@ vertical_alignment = 1
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_yamhi")
 
+[node name="Control" type="Control" parent="." unique_id=687139721]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Control" unique_id=2121201281]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 500.0
+offset_right = 994.0
+offset_bottom = 523.0
+
+[node name="Panel" type="Panel" parent="Control/Margin" unique_id=1770245791]
+layout_mode = 2
+
+[node name="HighScoresContainer" type="VBoxContainer" parent="Control/Margin" unique_id=1582333037]
+layout_mode = 2
+
 [node name="TimerControl" type="Control" parent="." unique_id=211051362]
 layout_mode = 1
 anchors_preset = 15

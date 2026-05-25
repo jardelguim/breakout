@@ -7,7 +7,7 @@ signal on_required_score_change(required_score)
 var multiplier: float = 1.0: set = _on_multiplier_set
 var multiplier_limit: float = 2.5
 var score: int = 0: set = _on_score_set
-var required_score : int = 80: set = _on_required_score_set
+var required_score : int = 500: set = _on_required_score_set
 var level: int = 1
 
 

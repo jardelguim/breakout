@@ -11,7 +11,7 @@ extends Node
 }
 var game_timer = Timer.new()
 var game_sec_counter = Timer.new()
-var game_wait_time = 60
+var game_wait_time = 10
 var screen_center : Vector2 = Vector2(320 , 320) / 2
 var level = 1 : set = _on_level_changed
 
@@ -144,7 +144,7 @@ func start_game():
 	await grid.grid_generated
 	ball.enable_ball()
 	game_timer.wait_time = game_wait_time
-	game_timer.start(60)
+	game_timer.start(5)
 	#game_started.emit()
 	
 func time_over():
