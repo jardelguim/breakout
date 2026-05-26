@@ -11,12 +11,12 @@ extends Control
 @onready var wider_progress: ColorRect = %WiderProgress
 @onready var timer_label: RichTextLabel = %Timer
 var can_play_animation_flag = true
+var is_game_over = false
 var speed_time_left
 var wider_time_left
 var shake_rate = 20
 var level = 5
 var fire_rate = 0.0
-var _high_scores_label: RichTextLabel
 
 func _ready() -> void:
 	_connect_game_manager_signals()
@@ -69,7 +69,12 @@ func _on_ingame_pressed():
 func _on_level_clear_pressed():
 	SoundManager.play_selected_sound("menuSlideout")
 	%PressAnimationPlayer.play("scale_down")
+	await %PressAnimationPlayer.animation_finished
 	%ClearAnimationPlayer.play("scale_down")
+	await %ClearAnimationPlayer.animation_finished
+	if is_game_over:
+		%HighScoreAnimationPlayer.play("scale_down")
+		is_game_over = false
 	can_play_animation_flag = false
 	
 	###### Score ######
@@ -130,7 +135,6 @@ func _on_paddle_size_powerup() -> void:
 	var tween = create_tween()
 	tween.tween_property(%WiderIcon , "scale" , Vector2(1.0 , 1.0) , 0.2).set_ease(Tween.EASE_IN)
 	
-
 func _on_paddle_speed_powerup() -> void:
 	var tween = create_tween()
 	tween.tween_property(%SpeedIcon , "scale" , Vector2(1.0 , 1.0) , 0.2).set_ease(Tween.EASE_IN)
@@ -168,15 +172,17 @@ TO CONTINUE[/wave]"
 	can_play_animation_flag = true
 	
 func _on_game_over():
+	is_game_over = true
 	SoundManager.play_selected_sound("menuSlidein")
 	%ClearAnimationPlayer.play("scale_up")
 	%ClearLabel.text = "[wave amp=50.0 freq=5.0 connected=1]GAME OVER[/wave]"
 	%PressLabel.text = "[wave amp=50.0 freq=5.0 connected=1]PRESS SPACE
 TO RETRY[/wave]"
-	HighScoreManager.add_score(ScoreCalculator.score, GameManager.level)
 	_refresh_high_scores_label()
 	await %ClearAnimationPlayer.animation_finished
 	%PressAnimationPlayer.play("scale_up")
+	await %PressAnimationPlayer.animation_finished
+	%HighScoreAnimationPlayer.play("scale_up")
 	can_play_animation_flag = true
 	
 func _on_game_closed():
@@ -193,7 +199,6 @@ func on_sec_over():
 func _refresh_high_scores_label() -> void:
 	var top = HighScoreManager.get_top_scores(5)
 	var text = "HIGH SCORES\n"
-	var marker = ""
 	for i in top.size():
 		var entry = top[i]
 		text += "%d.  %d  (lv %d) \n" %[i + 1, entry["score"], entry["level"]]

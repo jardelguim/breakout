@@ -83,6 +83,7 @@ func _set_state(new_state: GAME_STATES) ->void:
 			game_timer.stop()
 			ball.time_over()
 			await delete_all_bricks()
+			await get_tree().create_timer(0.5).timeout
 			if ScoreCalculator.score >= ScoreCalculator.required_score:
 				print("Score reached")
 				_set_state(GAME_STATES.LEVEL_CLEAR)
@@ -94,6 +95,7 @@ func level_cleared():
 	level_clear.emit()
 
 func game_over():
+	HighScoreManager.add_score(ScoreCalculator.score, GameManager.level)
 	game_over_signal.emit()
 	grid.reset_grid_size()
 
@@ -137,7 +139,7 @@ func start_game():
 	await grid.grid_generated
 	ball.enable_ball()
 	game_timer.wait_time = game_wait_time
-	game_timer.start(60)
+	game_timer.start(game_wait_time)
 	
 func time_over():
 	_set_state(GAME_STATES.TIME_OVER)

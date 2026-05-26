@@ -43,6 +43,6 @@ func add_score_and_multiply(base_score, multifactor):
 	
 func _on_level_changed():
 	var base_increment = 120
-	var level_multiplier = level * 0.3
+	var level_multiplier = level * 0.4
 	required_score = score + base_increment + int(level_multiplier * base_increment)
 	print("NEW REQUIRED SCORE: ", required_score)

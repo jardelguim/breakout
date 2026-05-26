@@ -30,13 +30,13 @@ func set_brick_type() -> void:
 			texture = load("res://assets/sprites/bricks/green_brick.png")
 
 		"BLUE": 
-			score_given = 1
+			score_given = 2
 			color = Color.BLUE
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/blue_brick.png")
 
 		"YELLOW": 
-			score_given = 1
+			score_given = 2
 			color = Color.YELLOW
 			multiplier_given = 0.1
 			texture = load("res://assets/sprites/bricks/yellow_brick.png")

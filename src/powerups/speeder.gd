@@ -8,5 +8,5 @@ func _init(paddle_obj: CharacterBody2D):
 	icon = load("res://assets/sprites/powerups/speed_icon.png")
 	paddle = paddle_obj
 
-func activate(kwargs: Dictionary = {}):
+func activate(_kwargs: Dictionary = {}):
 	paddle.speed_up()

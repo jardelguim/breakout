@@ -32,7 +32,7 @@ viewport_path = NodePath("SubViewport")
 shader = ExtResource("2_yqjtg")
 shader_parameter/color_offset_multiplier = 0.0010000000475
 shader_parameter/black_offset_multiplier = 0.0590000028025
-shader_parameter/color_offset = 0.0010000033073799958
+shader_parameter/color_offset = 0.00100000330737999
 shader_parameter/blur_amount = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lbhrr"]

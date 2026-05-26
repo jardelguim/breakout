@@ -609,6 +609,10 @@ tracks/2/keys = {
 "values": [Vector2(1e-05, 1e-05)]
 }
 
+[sub_resource type="Animation" id="Animation_tlqq8"]
+resource_name = "credits_pop_in"
+length = 0.4
+
 [sub_resource type="Animation" id="Animation_hgu3j"]
 resource_name = "exit_pop_in"
 length = 0.4
@@ -660,6 +664,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_grh26"]
 _data = {
 &"RESET": SubResource("Animation_grh26"),
+&"credits_pop_in": SubResource("Animation_tlqq8"),
 &"exit_pop_in": SubResource("Animation_hgu3j"),
 &"game_title_pop_in": SubResource("Animation_dmln7"),
 &"start_pop_in": SubResource("Animation_bqcyk")
@@ -1288,6 +1293,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HighScoreAnimationPlayer" type="AnimationPlayer" parent="ClearContainer/HighScoreControl" unique_id=156667684]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_tlqq8")
 
 [node name="TimerControl" type="Control" parent="." unique_id=211051362]
@@ -1391,39 +1397,22 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 857.0
-offset_top = 380.0
+offset_top = 310.0
 offset_right = 1023.0
-offset_bottom = 520.9999
+offset_bottom = 450.99988
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(83, 70)
 theme_override_constants/outline_size = 35
 theme_override_fonts/normal_font = ExtResource("3_ua6yw")
-theme_override_font_sizes/normal_font_size = 120
+theme_override_font_sizes/normal_font_size = 130
 bbcode_enabled = true
 text = "[tornado radius=10.0 freq=1.0 connected=1]BREAKOUT[/tornado]"
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ExitContainer" type="MarginContainer" parent="MainMenu" unique_id=265043859]
-layout_mode = 0
-offset_left = 750.5
-offset_top = 788.475
-offset_right = 1169.5
-offset_bottom = 863.475
-scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(209, 37)
-
-[node name="ExitButton" type="Button" parent="MainMenu/ExitContainer" unique_id=82693151]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_ua6yw")
-theme_override_font_sizes/font_size = 70
-theme_override_styles/normal = ExtResource("4_75u2n")
-theme_override_styles/hover = ExtResource("5_3wlde")
-text = "EXIT"
 
 [node name="StartContainer" type="MarginContainer" parent="MainMenu" unique_id=2075931196]
 layout_mode = 1
@@ -1433,9 +1422,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 730.5
-offset_top = 600.0
-offset_right = 1149.5001
-offset_bottom = 675.0
+offset_top = 560.0
+offset_right = 1149.5
+offset_bottom = 643.00024
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(1e-05, 1e-05)
@@ -1448,6 +1437,23 @@ theme_override_font_sizes/font_size = 70
 theme_override_styles/normal = ExtResource("4_75u2n")
 theme_override_styles/hover = ExtResource("5_3wlde")
 text = "START"
+
+[node name="ExitContainer" type="MarginContainer" parent="MainMenu" unique_id=265043859]
+layout_mode = 0
+offset_left = 750.5
+offset_top = 750.0
+offset_right = 1169.5
+offset_bottom = 833.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(209, 37)
+
+[node name="ExitButton" type="Button" parent="MainMenu/ExitContainer" unique_id=82693151]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ua6yw")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = ExtResource("4_75u2n")
+theme_override_styles/hover = ExtResource("5_3wlde")
+text = "EXIT"
 
 [node name="VoidParticles" parent="MainMenu" unique_id=1112738700 instance=ExtResource("5_75u2n")]
 position = Vector2(959, 1074)
@@ -1478,5 +1484,5 @@ libraries/ = SubResource("AnimationLibrary_mhjpf")
 [node name="IconsAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1455254187]
 libraries/ = SubResource("AnimationLibrary_o5ifv")
 
-[connection signal="pressed" from="MainMenu/ExitContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="MainMenu/StartContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainMenu/ExitContainer/ExitButton" to="." method="_on_exit_button_pressed"]

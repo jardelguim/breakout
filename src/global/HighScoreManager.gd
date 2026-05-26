@@ -1,6 +1,6 @@
 extends Node
 
-const SAVE_PATH = "res://high_scores.json"
+const SAVE_PATH = "user://high_scores.json"
 const MAX_SCORES = 10
 
 var scores: Array = []
