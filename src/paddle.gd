@@ -37,7 +37,7 @@ func _move_left(delta) -> void:
 	_clamp_position()
 
 func _clamp_position() -> void:
-	var half_width: float = $ClampCollision.shape.height / 2.0
+	var half_width: float = (75 * scale.x) / 2.0
 	var screen_width := get_viewport_rect().size.x
 	position.x = clamp(position.x, half_width, screen_width - half_width)
 
@@ -46,7 +46,6 @@ func hit(_value , _value2 , _value3):
 	
 func wider_paddle():
 	if size_up_flag == false:
-		#$AnimationPlayer.play("size_up")
 		var tween = create_tween()
 		tween.tween_property(self , "scale:x" , 1.5 , 0.5).set_ease(Tween.EASE_IN)
 		size_powerup.emit()
@@ -56,8 +55,6 @@ func wider_paddle():
 		$WiderTimer.start()
 	else:
 		$WiderTimer.start(clamp($WiderTimer.time_left + 2.0 , 0.0 , 10.0))
-	print("Wider paddle triggered : %s" %size_up_flag)
-	print("Wider paddle wait time: %d" %$WiderTimer.wait_time)
 	
 func speed_up():
 	if speed_up_flag == false:
@@ -69,7 +66,6 @@ func speed_up():
 	else:
 		$SpeedTimer.start(clamp($SpeedTimer.time_left + 2.0 , 0.0 , 10.0))
 	base_speed = clamp(base_speed + 100, 300, 500)
-	print("Speed up trigger: %d" %base_speed)
 
 func _add_ghost():
 	var ghost = ghost_sprite.instantiate()
@@ -84,12 +80,8 @@ func _on_speed_timer_timeout() -> void:
 	$SpeedTimer.wait_time = 5.0
 
 func _on_wider_timer_timeout() -> void:
-	print("Wider ended!")
-	print("wait timer: %d" %$WiderTimer.wait_time)
-	#$AnimationPlayer.play("size_down")
 	var tween = create_tween()
 	tween.tween_property(self , "scale:x" , 1.0 , 0.5).set_ease(Tween.EASE_OUT)
-	tween.tween_property($ClampCollision , "shape:height" , 80 , 0.5).set_ease(Tween.EASE_OUT)
 	SoundManager.play_sound(SoundManager.size_down_list)
 	size_up_flag = false
 	size_ended.emit()

@@ -321,7 +321,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%ClearMargin:scale")
+tracks/0/path = NodePath("ClearMargin:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -337,7 +337,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%ClearMargin:scale")
+tracks/0/path = NodePath("ClearMargin:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -353,7 +353,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%ClearMargin:scale")
+tracks/0/path = NodePath("ClearMargin:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1064,7 +1064,7 @@ offset_right = 378.515
 offset_bottom = 1052.0
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=691118758]
+[node name="ClearContainer" type="VBoxContainer" parent="." unique_id=691118758]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1073,11 +1073,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 164
 
-[node name="ClearControl" type="Control" parent="VBoxContainer" unique_id=1711239665]
+[node name="ClearControl" type="Control" parent="ClearContainer" unique_id=1711239665]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ClearMargin" type="MarginContainer" parent="VBoxContainer/ClearControl" unique_id=816221744]
+[node name="ClearMargin" type="MarginContainer" parent="ClearContainer/ClearControl" unique_id=816221744]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -1092,11 +1092,11 @@ scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(310, 55.191)
 metadata/_edit_group_ = true
 
-[node name="Panel" type="Panel" parent="VBoxContainer/ClearControl/ClearMargin" unique_id=1212661241]
+[node name="Panel" type="Panel" parent="ClearContainer/ClearControl/ClearMargin" unique_id=1212661241]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_24e4x")
 
-[node name="ClearLabel" type="RichTextLabel" parent="VBoxContainer/ClearControl/ClearMargin" unique_id=214107258]
+[node name="ClearLabel" type="RichTextLabel" parent="ClearContainer/ClearControl/ClearMargin" unique_id=214107258]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
@@ -1110,15 +1110,15 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ClearAnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/ClearControl" unique_id=498782876]
+[node name="ClearAnimationPlayer" type="AnimationPlayer" parent="ClearContainer/ClearControl" unique_id=498782876]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_fm1lg")
 
-[node name="PressControl" type="Control" parent="VBoxContainer" unique_id=351018510]
+[node name="PressControl" type="Control" parent="ClearContainer" unique_id=351018510]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PressMargin" type="MarginContainer" parent="VBoxContainer/PressControl" unique_id=937199463]
+[node name="PressMargin" type="MarginContainer" parent="ClearContainer/PressControl" unique_id=937199463]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1131,14 +1131,14 @@ grow_horizontal = 2
 pivot_offset = Vector2(208.5, 31.5)
 metadata/_edit_group_ = true
 
-[node name="Panel" type="Panel" parent="VBoxContainer/PressControl/PressMargin" unique_id=1218179155]
+[node name="Panel" type="Panel" parent="ClearContainer/PressControl/PressMargin" unique_id=1218179155]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_24e4x")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PressControl/PressMargin" unique_id=586007611]
+[node name="VBoxContainer" type="VBoxContainer" parent="ClearContainer/PressControl/PressMargin" unique_id=586007611]
 layout_mode = 2
 
-[node name="PressLabel" type="RichTextLabel" parent="VBoxContainer/PressControl/PressMargin/VBoxContainer" unique_id=1240396364]
+[node name="PressLabel" type="RichTextLabel" parent="ClearContainer/PressControl/PressMargin/VBoxContainer" unique_id=1240396364]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
@@ -1153,30 +1153,48 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PressAnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/PressControl" unique_id=2115784832]
+[node name="PressAnimationPlayer" type="AnimationPlayer" parent="ClearContainer/PressControl" unique_id=2115784832]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_yamhi")
 
-[node name="Control" type="Control" parent="." unique_id=687139721]
+[node name="HighScoreControl" type="Control" parent="ClearContainer" unique_id=687139721]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="HighScoreMargin" type="MarginContainer" parent="ClearContainer/HighScoreControl" unique_id=2121201281]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -186.0
+offset_top = 200.0
+offset_right = 185.0
+offset_bottom = 494.0
 grow_horizontal = 2
-grow_vertical = 2
+pivot_offset = Vector2(173, 147)
 
-[node name="Margin" type="MarginContainer" parent="Control" unique_id=2121201281]
-layout_mode = 0
-offset_left = 920.0
-offset_top = 500.0
-offset_right = 994.0
-offset_bottom = 523.0
-
-[node name="Panel" type="Panel" parent="Control/Margin" unique_id=1770245791]
+[node name="Panel" type="Panel" parent="ClearContainer/HighScoreControl/HighScoreMargin" unique_id=1461544585]
 layout_mode = 2
+theme_override_styles/panel = ExtResource("2_24e4x")
 
-[node name="HighScoresContainer" type="VBoxContainer" parent="Control/Margin" unique_id=1582333037]
+[node name="HighScoreText" type="RichTextLabel" parent="ClearContainer/HighScoreControl/HighScoreMargin" unique_id=1918419830]
+unique_name_in_owner = true
+clip_contents = false
 layout_mode = 2
+theme = ExtResource("2_ro3t7")
+theme_override_font_sizes/normal_font_size = 45
+bbcode_enabled = true
+text = "HIGH SCORES
+1.  307  (lv 1) 
+2.  180  (lv 1) 
+3.  16  (lv 1) 
+4.  15  (lv 1) 
+5.  15  (lv 1) "
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TimerControl" type="Control" parent="." unique_id=211051362]
 layout_mode = 1

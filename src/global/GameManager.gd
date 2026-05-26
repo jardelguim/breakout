@@ -11,7 +11,7 @@ extends Node
 }
 var game_timer = Timer.new()
 var game_sec_counter = Timer.new()
-var game_wait_time = 10
+var game_wait_time = 60
 var screen_center : Vector2 = Vector2(320 , 320) / 2
 var level = 1 : set = _on_level_changed
 
@@ -98,10 +98,6 @@ func game_over():
 	grid.reset_grid_size()
 
 func _space_pressed() -> void:
-	#print("Game_state: %d" %GAME_STATE)
-	#print("Ball.is_active: %s" %ball.is_active)
-	#print("BrickData.is_generating_grid: %s" %BrickData.is_generating_grid)
-	#print("BrickData.is_grid_empty: %s" %BrickData.is_grid_empty)
 	match GAME_STATE:
 		GAME_STATES.LEVEL_CLEAR:
 			level_clear_pressed.emit()
@@ -133,19 +129,15 @@ func delete_all_bricks():
 func reset_game():
 	level = 1
 	ScoreCalculator.level = level
-	print("Game level reseted")
-	print("Game level: %d" %level)
 	ScoreCalculator.reset_score()
 	start_game()
 	
 func start_game():
-	print("Game started")
 	grid.start_grid()
 	await grid.grid_generated
 	ball.enable_ball()
 	game_timer.wait_time = game_wait_time
-	game_timer.start(5)
-	#game_started.emit()
+	game_timer.start(60)
 	
 func time_over():
 	_set_state(GAME_STATES.TIME_OVER)

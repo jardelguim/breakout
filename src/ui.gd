@@ -180,7 +180,7 @@ func _on_game_over():
 TO RETRY[/wave]"
 	HighScoreManager.add_score(ScoreCalculator.score, GameManager.level)
 	_refresh_high_scores_label()
-	_high_scores_label.show()
+	#_high_scores_label.show()
 	await %ClearAnimationPlayer.animation_finished
 	%PressAnimationPlayer.play("scale_up")
 	can_play_animation_flag = true
@@ -205,16 +205,15 @@ func _setup_high_scores_panel() -> void:
 	#_high_scores_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_high_scores_label.add_theme_font_size_override("normal_font_size", 42)
 	_high_scores_label.hide()
-	$Control/Margin/HighScoresContainer.add_child(_high_scores_label)
+	#$Control/Margin/HighScoresContainer.add_child(_high_scores_label)
 
 func _refresh_high_scores_label() -> void:
 	var top = HighScoreManager.get_top_scores(5)
-	var text = "[center][b]HIGH SCORES[/b][/center]\n"
+	var text = "HIGH SCORES\n"
 	var marker = ""
-	
 	for i in top.size():
 		var entry = top[i]
-		text += "[center]%d.  %d  (lv %d)%s[/center]\n" % [i + 1, entry["score"], entry["level"], marker]
+		text += "%d.  %d  (lv %d) \n" %[i + 1, entry["score"], entry["level"]]
 	if top.is_empty():
-		text += "[center]-[/center]"
-	_high_scores_label.text = text
+		text += "-"
+	%HighScoreText.text = text
