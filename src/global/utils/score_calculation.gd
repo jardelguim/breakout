@@ -7,7 +7,7 @@ signal on_required_score_change(required_score)
 var multiplier: float = 1.0: set = _on_multiplier_set
 var multiplier_limit: float = 2.5
 var score: int = 0: set = _on_score_set
-var required_score : int = 500: set = _on_required_score_set
+var required_score : int = 80: set = _on_required_score_set
 var level: int = 1
 
 
@@ -43,6 +43,6 @@ func add_score_and_multiply(base_score, multifactor):
 	
 func _on_level_changed():
 	var base_increment = 120
-	var level_multiplier = level * 0.2
+	var level_multiplier = level * 0.3
 	required_score = score + base_increment + int(level_multiplier * base_increment)
 	print("NEW REQUIRED SCORE: ", required_score)

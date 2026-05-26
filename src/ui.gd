@@ -20,7 +20,6 @@ var _high_scores_label: RichTextLabel
 
 func _ready() -> void:
 	_connect_game_manager_signals()
-	_setup_high_scores_panel()
 	transitions_animation_player.play_backwards("MenuFadeOut")
 	await transitions_animation_player.animation_finished
 	play_menu_animations()
@@ -64,18 +63,14 @@ func _on_exit_button_pressed() -> void:
 	
 func _on_ingame_pressed():
 	SoundManager.play_selected_sound("menuSlideout")
-	print("Ingame pressed")
 	%PressAnimationPlayer.play("scale_down")
 	can_play_animation_flag = false
 
 func _on_level_clear_pressed():
 	SoundManager.play_selected_sound("menuSlideout")
-	print("On level clear pressed")
 	%PressAnimationPlayer.play("scale_down")
 	%ClearAnimationPlayer.play("scale_down")
-	_high_scores_label.hide()
 	can_play_animation_flag = false
-	print("fim da funçao")
 	
 	###### Score ######
 	
@@ -180,7 +175,6 @@ func _on_game_over():
 TO RETRY[/wave]"
 	HighScoreManager.add_score(ScoreCalculator.score, GameManager.level)
 	_refresh_high_scores_label()
-	#_high_scores_label.show()
 	await %ClearAnimationPlayer.animation_finished
 	%PressAnimationPlayer.play("scale_up")
 	can_play_animation_flag = true
@@ -193,19 +187,8 @@ func on_sec_over():
 	if GameManager.game_timer.is_stopped():
 		return
 	if GameManager.game_timer.time_left <= 10.0:
+		%TimerAnimationPlayer.play("tick")
 		SoundManager.play_selected_sound("timer")
-
-func _setup_high_scores_panel() -> void:
-	_high_scores_label = RichTextLabel.new()
-	_high_scores_label.bbcode_enabled = true
-	_high_scores_label.fit_content = false
-	_high_scores_label.scroll_active = false
-	_high_scores_label.autowrap_mode = TextServer.AUTOWRAP_OFF
-	#_high_scores_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	#_high_scores_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_high_scores_label.add_theme_font_size_override("normal_font_size", 42)
-	_high_scores_label.hide()
-	#$Control/Margin/HighScoresContainer.add_child(_high_scores_label)
 
 func _refresh_high_scores_label() -> void:
 	var top = HighScoreManager.get_top_scores(5)
